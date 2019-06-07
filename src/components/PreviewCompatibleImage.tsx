@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Img, { GatsbyImageProps } from 'gatsby-image'
 
 export type ImageResult = {

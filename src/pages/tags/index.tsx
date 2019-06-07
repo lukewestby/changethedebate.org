@@ -11,7 +11,7 @@ const TagsPage = ({
       siteMetadata: { title },
     },
   },
-}) => (
+}: any) => (
   <Layout>
     <section className="section">
       <Helmet title={`Tags | ${title}`} />
@@ -23,7 +23,7 @@ const TagsPage = ({
           >
             <h1 className="title is-size-2 is-bold-light">Tags</h1>
             <ul className="taglist">
-              {group.map(tag => (
+              {group.map((tag: any) => (
                 <li key={tag.fieldValue}>
                   <Link to={`/tags/${kebabCase(tag.fieldValue)}/`}>
                     {tag.fieldValue} ({tag.totalCount})

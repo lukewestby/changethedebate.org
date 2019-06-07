@@ -14,7 +14,7 @@ export const IndexPageTemplate = ({
   mainpitch,
   description,
   intro,
-}) => (
+}: any) => (
   <div>
     <div
       className="full-width-image margin-top-0"
@@ -114,19 +114,7 @@ export const IndexPageTemplate = ({
   </div>
 )
 
-IndexPageTemplate.propTypes = {
-  image: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  title: PropTypes.string,
-  heading: PropTypes.string,
-  subheading: PropTypes.string,
-  mainpitch: PropTypes.object,
-  description: PropTypes.string,
-  intro: PropTypes.shape({
-    blurbs: PropTypes.array,
-  }),
-}
-
-const IndexPage = ({ data }) => {
+const IndexPage = ({ data }: any) => {
   const { frontmatter } = data.markdownRemark
 
   return (
@@ -142,14 +130,6 @@ const IndexPage = ({ data }) => {
       />
     </Layout>
   )
-}
-
-IndexPage.propTypes = {
-  data: PropTypes.shape({
-    markdownRemark: PropTypes.shape({
-      frontmatter: PropTypes.object,
-    }),
-  }),
 }
 
 export default IndexPage

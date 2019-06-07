@@ -2,41 +2,39 @@ import React from 'react'
 import { navigate } from 'gatsby-link'
 import Layout from '../../components/Layout'
 
-function encode(data) {
+const encode = (data: { [key: string]: string }) => {
   const formData = new FormData()
-
   for (const key of Object.keys(data)) {
     formData.append(key, data[key])
   }
-
   return formData
 }
 
 export default class Contact extends React.Component {
-  constructor(props) {
+  constructor(props: any) {
     super(props)
     this.state = {}
   }
 
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value })
+  handleChange = (e: React.FormEvent) => {
+    this.setState({ [(e.target! as HTMLInputElement).name]: (e.target! as HTMLInputElement).value })
   }
 
-  handleAttachment = e => {
-    this.setState({ [e.target.name]: e.target.files[0] })
+  handleAttachment = (e: React.FormEvent) => {
+    this.setState({ [(e.target! as HTMLInputElement).name]: (e.target! as HTMLInputElement).files![0] })
   }
 
-  handleSubmit = e => {
+  handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const form = e.target
+    const form = e.target as HTMLFormElement
     fetch('/', {
       method: 'POST',
       body: encode({
-        'form-name': form.getAttribute('name'),
+        'form-name': form.getAttribute('name')!,
         ...this.state,
       }),
     })
-      .then(() => navigate(form.getAttribute('action')))
+      .then(() => navigate(form.getAttribute('action')!))
       .catch(error => alert(error))
   }
 

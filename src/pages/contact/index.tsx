@@ -2,34 +2,34 @@ import React from 'react'
 import { navigate } from 'gatsby-link'
 import Layout from '../../components/Layout'
 
-function encode(data) {
+function encode(data: { [key: string]: string }) {
   return Object.keys(data)
     .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
     .join('&')
 }
 
 export default class Index extends React.Component {
-  constructor(props) {
+  constructor(props: any) {
     super(props)
     this.state = { isValidated: false }
   }
 
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value })
+  handleChange = (e: React.FormEvent) => {
+    this.setState({ [(e.target as HTMLInputElement).name]: (e.target as HTMLInputElement).value })
   }
 
-  handleSubmit = e => {
+  handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const form = e.target
+    const form = e.target as HTMLFormElement
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: encode({
-        'form-name': form.getAttribute('name'),
+        'form-name': form.getAttribute('name')!,
         ...this.state,
       }),
     })
-      .then(() => navigate(form.getAttribute('action')))
+      .then(() => navigate(form.getAttribute('action')!))
       .catch(error => alert(error))
   }
 

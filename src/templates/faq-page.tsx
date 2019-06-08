@@ -9,20 +9,33 @@ type Entry = {
 }
 
 export type TemplateProps = {
-  entries: Array<Entry>
+  entries: Array<Entry>,
+  intro: string,
 }
 
 export const FaqPageTemplate = ({
   entries,
+  intro,
 }: TemplateProps) => (
-  <dl className={Styles.faqList}>
-    {entries.map(entry => (
-      <React.Fragment key={entry.question}>
-        <dt className={Styles.faqQuestion}>{entry.question}</dt>
-        <dd className={Styles.faqAnswer}>{entry.answer}</dd>
-      </React.Fragment>
-    ))}
-  </dl>
+  <>
+    <section className={Styles.intro} id="intro">
+      <div className={Styles.inner}>
+        {intro.split('\n').map((p, i) => <p key={i}>{p}</p>)}
+      </div>
+    </section>
+    <section id="faq">
+      <div className={Styles.inner}>
+        <dl className={Styles.faqList}>
+          {entries.map(entry => (
+            <React.Fragment key={entry.question}>
+              <dt className={Styles.faqQuestion}>{entry.question}</dt>
+              <dd className={Styles.faqAnswer}>{entry.answer}</dd>
+            </React.Fragment>
+          ))}
+        </dl>
+      </div>
+    </section>
+  </>
 )
 
 export type PageProps = {
@@ -39,6 +52,7 @@ const FaqPage = ({ data }: PageProps) => {
     <Layout>
       <FaqPageTemplate
         entries={frontmatter.entries}
+        intro={frontmatter.intro}
       />
     </Layout>
   )
@@ -50,6 +64,7 @@ export const pageQuery = graphql`
   query FaqPageTemplate {
     markdownRemark(frontmatter: { templateKey: { eq: "faq-page" } }) {
       frontmatter {
+        intro
         entries {
           question
           answer

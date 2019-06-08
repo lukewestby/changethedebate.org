@@ -1,6 +1,17 @@
-.faqList {
-  margin: 0 auto;
+.intro {
+  position: relative;
+  padding: 72px 16px;
+  font-size: 20px;
+  border-bottom: 1px solid #000;
+}
+
+.inner {
   max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.faqList {
   padding: 16px 0;
 }
 

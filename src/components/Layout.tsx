@@ -3,6 +3,7 @@ import Helmet from 'react-helmet'
 import './Layout.css'
 import useSiteMetadata from '../queries/SiteMetadata'
 import Header from './Header'
+import Footer from './Footer'
 import Styles from './Layout.module.css'
 
 const TemplateWrapper = ({ children }: React.PropsWithChildren<{}>) => {
@@ -47,6 +48,7 @@ const TemplateWrapper = ({ children }: React.PropsWithChildren<{}>) => {
       <main className={Styles.main}>
         {children}
       </main>
+      <Footer />
     </>
   )
 }

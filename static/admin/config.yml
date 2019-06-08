@@ -25,9 +25,6 @@ collections:
           - label: Action Network ID
             name: "actionNetworkId"
             widget: string
-          - label: Twitter Embed Search
-            name: "twitterEmbedSearch"
-            widget: string
       - file: "src/pages/faq/index.md"
         label: "FAQ"
         name: "faq"

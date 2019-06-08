@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
 import YouTube from 'react-youtube'
-import TwitterTimeline from '../components/TwitterTimeline'
 import ActionNetwork from '../components/ActionNetwork'
 import Layout from '../components/Layout'
 import Styles from './index-page.module.css'
+import { Timeline } from 'react-twitter-widgets'
+import InstagramEmbed from 'react-instagram-embed'
 
 export type TemplateProps = {
   intro: string,
@@ -39,8 +40,18 @@ export const IndexPageTemplate = ({
     </section>
     <section id="social">
       <div className={Styles.socialInner}>
-        Twitter Embed: {twitterEmbedSearch}
-        <TwitterTimeline search={twitterEmbedSearch} /> 
+        <div className={Styles.twitterEmbed}>
+          <Timeline
+            dataSource={{
+              sourceType: 'profile',
+              screenName: 'sunrisemvmt'      
+            }}
+            options={{
+              username: 'sunrisemvmt',
+              height: '400',
+              width: '400'
+            }} /> 
+        </div>
       </div>
     </section>
   </>

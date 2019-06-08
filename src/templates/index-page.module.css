@@ -35,3 +35,8 @@
   composes: inner;
   padding: 72px 0;
 }
+
+.twitterEmbed {
+  border: 1px solid #000;
+  width: 400px;
+}

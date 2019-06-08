@@ -1,11 +1,9 @@
-const _ = require('lodash')
 const path = require('path')
 const { createFilePath } = require('gatsby-source-filesystem')
 const { fmImagesToRelative } = require('gatsby-remark-relative-images')
 
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions
-
   const result = await graphql(`
     {
       allMarkdownRemark(limit: 1000) {
@@ -23,19 +21,17 @@ exports.createPages = async ({ actions, graphql }) => {
       }
     }
   `)
-  
+
   if (result.errors) {
     result.errors.forEach(e => console.error(e.toString()))
-    throw result.errors
+    return Promise.reject(result.errors)
   }
 
-  const posts = result.data.allMarkdownRemark.edges
-
-  posts.forEach(edge => {
+  const pages = result.data.allMarkdownRemark.edges
+  pages.forEach(edge => {
     const id = edge.node.id
     createPage({
       path: edge.node.fields.slug,
-      tags: edge.node.frontmatter.tags,
       component: path.resolve(
         `src/templates/${String(edge.node.frontmatter.templateKey)}.tsx`
       ),

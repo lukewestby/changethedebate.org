@@ -1,0 +1,17 @@
+.faqList {
+  margin: 0 auto;
+  max-width: 960px;
+  padding: 16px 0;
+}
+
+.faqQuestion {
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.faqAnswer {
+  margin: 0;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}

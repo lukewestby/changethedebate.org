@@ -1,0 +1,38 @@
+.header {
+  border-bottom: 2px solid #000;
+}
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 960px;
+  width: 100%;
+  padding: 16px;
+  margin: 0 auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logoImage {
+  margin-right: 16px;
+}
+
+.logoText {
+
+}
+
+.nav {
+  display: flex;
+}
+
+.navLink {
+  margin-right: 16px;
+  color: #000;
+}
+  .navLink:last-child {
+    margin-right: 0;
+  }

@@ -1,6 +1,9 @@
 import React from 'react'
 import Helmet from 'react-helmet'
+import './Layout.css'
 import useSiteMetadata from '../queries/SiteMetadata'
+import Header from './Header'
+import Styles from './Layout.module.css'
 
 const TemplateWrapper = ({ children }: React.PropsWithChildren<{}>) => {
   const { title, description } = useSiteMetadata()
@@ -10,7 +13,6 @@ const TemplateWrapper = ({ children }: React.PropsWithChildren<{}>) => {
         <html lang="en" />
         <title>{title}</title>
         <meta name="description" content={description} />
-
         <link
           rel="apple-touch-icon"
           sizes="180x180"
@@ -41,7 +43,10 @@ const TemplateWrapper = ({ children }: React.PropsWithChildren<{}>) => {
         <meta property="og:url" content="/" />
         <meta property="og:image" content="/img/og-image.jpg" />
       </Helmet>
-      {children}
+      <Header />
+      <main className={Styles.main}>
+        {children}
+      </main>
     </>
   )
 }

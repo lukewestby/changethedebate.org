@@ -11,14 +11,12 @@ export type TemplateProps = {
   intro: string,
   youtubeVideoId: string,
   actionNetworkId: string,
-  twitterEmbedSearch: string,
 }
 
 export const IndexPageTemplate = ({
   intro,
   youtubeVideoId,
   actionNetworkId,
-  twitterEmbedSearch,
 }: TemplateProps) => (
   <>
     <section id="intro" className={Styles.intro}>
@@ -85,7 +83,6 @@ export const pageQuery = graphql`
         intro
         youtubeVideoId
         actionNetworkId
-        twitterEmbedSearch
       }
     }
   }

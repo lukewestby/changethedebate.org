@@ -25,6 +25,23 @@ collections:
           - label: Action Network ID
             name: "actionNetworkId"
             widget: string
+          - label: Partners
+            name: partners
+            widget: list
+            fields:
+              - label: Name
+                name: name
+                widget: string
+              - label: Logo
+                name: logo
+                widget: image
+              - label: Level
+                name: level
+                widget: select
+                options:
+                  - { label: "Host by", value: "host" }
+                  - { label: "With support from", value: "national_partner" }
+                  - { label: "Additional supporters", value: "additional_supporter" }
       - file: "src/pages/faq/index.md"
         label: "FAQ"
         name: "faq"

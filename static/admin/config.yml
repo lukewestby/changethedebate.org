@@ -16,11 +16,17 @@ collections:
             name: "templateKey"
             widget: "hidden"
             default: "index-page"
-          - label: Title
-            name: title
+          - label: Intro
+            name: intro
             widget: string
-          - label: Test
-            name: test
+          - label: YouTube Video ID
+            name: "youtubeVideoId"
+            widget: string
+          - label: Action Network ID
+            name: "actionNetworkId"
+            widget: string
+          - label: Twitter Embed Search
+            name: "twitterEmbedSearch"
             widget: string
       - file: "src/pages/faq/index.md"
         label: "FAQ"

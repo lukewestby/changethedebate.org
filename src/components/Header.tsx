@@ -6,10 +6,10 @@ const Header = () => {
   return (
     <header className={Styles.header}>
       <div className={Styles.inner}>
-        <div className={Styles.logo}>
+        <Link to="/" className={Styles.logo}>
           <img className={Styles.logoImage} src="https://via.placeholder.com/50?text=Logo" />
           <div className={Styles.logoText}>Logo</div>
-        </div>
+        </Link>
         <nav>
           <Link className={Styles.navLink} to="/faq">FAQ</Link>
           <Link className={Styles.navLink} to="/schedule">Schedule</Link>

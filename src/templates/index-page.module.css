@@ -1,0 +1,37 @@
+.inner {
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.intro {
+  border-bottom: 1px solid #000;
+}
+
+.introInner {
+  composes: inner;
+  padding: 72px 0;
+}
+
+.video {
+  border-bottom: 1px solid #000;
+}
+
+.videoInner {
+  composes: inner;
+  padding: 72px 0;
+}
+
+.signup {
+  border-bottom: 1px solid #000;
+}
+
+.signupInner {
+  composes: inner;
+  padding: 72px 0;
+}
+
+.socialInner {
+  composes: inner;
+  padding: 72px 0;
+}

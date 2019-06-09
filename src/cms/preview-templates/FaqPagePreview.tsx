@@ -8,7 +8,8 @@ const FaqPagePreview = ({ entry, getAsset }: any) => {
   if (data) {
     return (
       <FaqPageTemplate
-        title={data.title}
+        intro={data.intro || ''}
+        entries={data.entries || []}
       />
     )
   } else {

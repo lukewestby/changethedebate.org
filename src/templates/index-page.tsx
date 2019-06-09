@@ -16,7 +16,6 @@ type PartnerLevel =
 type Partner = {
   name: string,
   homepage: string,
-  level: PartnerLevel,
   logo: ImageResult | string
 }
 
@@ -24,7 +23,9 @@ export type TemplateProps = {
   intro: string,
   youtubeVideoId: string,
   actionNetworkId: string,
-  partners: Array<Partner>
+  hosts: Array<Partner>,
+  nationalPartners: Array<Partner>
+  additionalSupporters: Array<Partner>
 }
 
 type PartnerListProps = {
@@ -35,14 +36,14 @@ type PartnerListProps = {
 const PartnerList = ({ partners, level }: PartnerListProps) => (
   <div>
     <h3>
-      <Switch value={level}>
+      <Switch value= {level}>
         <Case value="host">Hosted by</Case>
         <Case value="national_partner">With support from</Case>
         <Case value="additional_supporter">Additional supporters</Case>
       </Switch>
     </h3>
     <div className={Styles.partnerEntries}>
-      {partners.filter(p => p.level === level).map(p => (
+      {partners.map(p => (
         <a
           className={Styles.partner}
           href={p.homepage}
@@ -59,7 +60,9 @@ export const IndexPageTemplate = ({
   intro,
   youtubeVideoId,
   actionNetworkId,
-  partners,
+  hosts = [],
+  nationalPartners = [],
+  additionalSupporters = [],
 }: TemplateProps) => (
   <>
     <section id="intro" className={Styles.intro}>
@@ -97,9 +100,9 @@ export const IndexPageTemplate = ({
     </section>
     <section id="partners">
       <div className={Styles.partnersInner}>
-        <PartnerList level="host" partners={partners} />
-        <PartnerList level="national_partner" partners={partners} />
-        <PartnerList level="additional_supporter" partners={partners} />
+        <PartnerList level="host" partners={hosts} />
+        <PartnerList level="national_partner" partners={nationalPartners} />
+        <PartnerList level="additional_supporter" partners={additionalSupporters} />
       </div>
     </section>
   </>
@@ -127,23 +130,34 @@ const IndexPage = ({ data }: PageProps) => {
 export default IndexPage
 
 export const pageQuery = graphql`
+  fragment IndexPartnerLogoData on File {
+    childImageSharp {
+      fixed(height: 120) {
+        ...GatsbyImageSharpFixed
+      }
+    }
+  }
+
   query IndexPageTemplate {
     markdownRemark(frontmatter: { templateKey: { eq: "index-page" } }) {
       frontmatter {
         intro
         youtubeVideoId
         actionNetworkId
-        partners {
+        hosts {
           name
-          level
           homepage
-          logo {
-            childImageSharp {
-              fixed(height: 100) {
-                ...GatsbyImageSharpFixed
-              }
-            }
-          }
+          logo { ...IndexPartnerLogoData }
+        }
+        nationalPartners {
+          name
+          homepage
+          logo { ...IndexPartnerLogoData }
+        }
+        additionalSupporters {
+          name
+          homepage
+          logo { ...IndexPartnerLogoData }
         }
       }
     }

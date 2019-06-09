@@ -1,8 +1,27 @@
 backend:
-  name: test-repo
+  name: git-gateway
+  branch: master
+
+development_overrides:
+  backend:
+    name: file-system
+    api_root: 'http://localhost:8000/api'
+
 
 media_folder: static/images
 public_folder: /images
+
+prefabs:
+  partner: &partner_prefab
+    - label: Name
+      name: name
+      widget: string
+    - label: Logo
+      name: logo
+      widget: image
+    - label: Homepage
+      name: homepage
+      widget: string
 
 collections:
   - name: "pages"
@@ -25,26 +44,18 @@ collections:
           - label: Action Network ID
             name: "actionNetworkId"
             widget: string
-          - label: Partners
-            name: partners
+          - label: Hosts
+            name: hosts
             widget: list
-            fields:
-              - label: Name
-                name: name
-                widget: string
-              - label: Logo
-                name: logo
-                widget: image
-              - label: Homepage
-                name: homepage
-                widget: string
-              - label: Level
-                name: level
-                widget: select
-                options:
-                  - { label: "Host by", value: "host" }
-                  - { label: "With support from", value: "national_partner" }
-                  - { label: "Additional supporters", value: "additional_supporter" }
+            fields: *partner_prefab
+          - label: National Partners
+            name: nationalPartners
+            widget: list
+            fields: *partner_prefab
+          - label: Additional Supporters
+            name: additionalSupporters
+            widget: list
+            fields: *partner_prefab
       - file: "src/pages/faq/index.md"
         label: "FAQ"
         name: "faq"

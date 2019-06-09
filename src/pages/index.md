@@ -6,6 +6,39 @@ youtubeVideoId: "cON2L0sUqW0"
 actionNetworkId: "join-us-in-detroit-to-changethedebate"
 partners:
   - name: "Sunrise Movement"
-    logo: /images/sunrise-logo.svg
+    logo: /images/partners/sunrise_movement.png
     level: host
+    homepage: https://www.sunrisemovement.org
+  - name: "Sunrise Movement 2"
+    logo: /images/partners/sunrise_movement.png
+    level: host
+    homepage: https://www.sunrisemovement.org
+  - name: "Sunrise Movement 3"
+    logo: /images/partners/sunrise_movement.png
+    level: host
+    homepage: https://www.sunrisemovement.org
+  - name: "Sunrise Movement 4"
+    logo: /images/partners/sunrise_movement.png
+    level: host
+    homepage: https://www.sunrisemovement.org
+  - name: "Sunrise Movement 5"
+    logo: /images/partners/sunrise_movement.png
+    level: host
+    homepage: https://www.sunrisemovement.org
+  - name: "Sunrise Movement 6"
+    logo: /images/partners/sunrise_movement.png
+    level: host
+    homepage: https://www.sunrisemovement.org
+  - name: "Sunrise Movement 7"
+    logo: /images/partners/sunrise_movement.png
+    level: host
+    homepage: https://www.sunrisemovement.org
+  - name: "Sunrise Movement 8"
+    logo: /images/partners/sunrise_movement.png
+    level: host
+    homepage: https://www.sunrisemovement.org
+  - name: "Sunrise Movement 9"
+    logo: /images/partners/sunrise_movement.png
+    level: host
+    homepage: https://www.sunrisemovement.org
 ---

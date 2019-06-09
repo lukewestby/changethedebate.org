@@ -31,6 +31,10 @@
   padding: 72px 0;
 }
 
+.social {
+  border-bottom: 1px solid #000;
+}
+
 .socialInner {
   composes: inner;
   padding: 72px 0;
@@ -39,4 +43,29 @@
 .twitterEmbed {
   border: 1px solid #000;
   width: 400px;
+}
+
+.partnersInner {
+  composes: inner;
+  padding: 48px 0;
+}
+
+.partner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 16px;
+  margin-top: 16px;
+}
+  .partner:last-child {
+    margin-right: 0;
+  }
+
+.partnerEntries {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  margin-top: -16px;
+  margin-right: -16px;
 }

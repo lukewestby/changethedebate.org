@@ -35,6 +35,9 @@ collections:
               - label: Logo
                 name: logo
                 widget: image
+              - label: Homepage
+                name: homepage
+                widget: string
               - label: Level
                 name: level
                 widget: select

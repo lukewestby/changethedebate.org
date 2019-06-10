@@ -12,16 +12,39 @@ media_folder: static/images
 public_folder: /images
 
 prefabs:
-  partner: &partner_prefab
-    - label: Name
-      name: name
-      widget: string
-    - label: Logo
-      name: logo
-      widget: image
-    - label: Homepage
-      name: homepage
-      widget: string
+  schedule_page: &schedule_page_prefab
+    - label: "Template Key"
+      name: "templateKey"
+      widget: "hidden"
+      default: "schedule-page"
+    - label: "Primary Events"
+      name: "primaryEvents"
+      widget: "list"
+      fields:
+        - label: "Start Date"
+          name: "startDate"
+          widget: "date"
+          required: true
+          hint: "What day does the event start on?"
+        - label: "End Date"
+          name: "endDate"
+          widget: "date"
+          required: true
+          hint: "What day does the even end on?"
+        - label: "Name"
+          name: "name"
+          widget: "string"
+          hint: "What is the name of the event? E.g. \"Summit\" or \"Debate Action\"."
+        - label: "Info"
+          name: "info"
+          widget: "markdown"
+          required: true
+          hint: "Write a paragraph or two about this event."
+        - label: "Image"
+          name: "image"
+          required: true
+          widget: image
+          hint: "Choose an image to represent this event."
 
 collections:
   - name: "pages"
@@ -84,6 +107,7 @@ collections:
                   - label: Homepage
                     name: homepage
                     widget: string
+
       - file: "src/pages/faq/index.md"
         label: "FAQ"
         name: "faq"
@@ -105,3 +129,11 @@ collections:
               - label: Answer
                 name: answer
                 widget: string
+      - file: "src/pages/schedule/en.md"
+        label: "Schedule (English)"
+        name: "schedule-en"
+        fields: *schedule_page_prefab
+      - file: "src/pages/schedule/es.md"
+        label: "Schedule (Spanish)"
+        name: "schedule-es"
+        fields: *schedule_page_prefab

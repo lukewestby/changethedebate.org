@@ -30,8 +30,14 @@ exports.createPages = async ({ actions, graphql }) => {
   const pages = result.data.allMarkdownRemark.edges
   pages.forEach(edge => {
     const id = edge.node.id
+    const slug = edge.node.fields.slug
+    console.log(slug)
     createPage({
-      path: edge.node.fields.slug,
+      path: slug.endsWith('en/') ?
+        slug.replace('en/', '') :
+        slug.endsWith('es/') ?
+          '/es' + slug.replace('es/', '') :
+          slug,
       component: path.resolve(
         `src/templates/${String(edge.node.frontmatter.templateKey)}.tsx`
       ),
@@ -52,7 +58,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     createNodeField({
       name: `slug`,
       node,
-      value,
+      value
     })
   }
 }

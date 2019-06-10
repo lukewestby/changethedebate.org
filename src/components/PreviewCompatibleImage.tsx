@@ -6,18 +6,19 @@ export type ImageResult = {
 }
 
 export type Props = {
-  image: ImageResult | string
+  image: ImageResult | string,
+  className?: string
 }
 
-const PreviewCompatibleImage = ({ image }: Props) => {
+const PreviewCompatibleImage = ({ image, className }: Props) => {
   if (typeof image !== 'string' && typeof image === 'object') {
     return image.childImageSharp.fluid ?
-      <Img fluid={image.childImageSharp.fluid} /> :
-      <Img fixed={image.childImageSharp.fixed} />
+      <Img className={className} fluid={image.childImageSharp.fluid} /> :
+      <Img className={className} fixed={image.childImageSharp.fixed} />
   }
 
   if (typeof image === 'string') {
-    return <img src={image} />
+    return <img className={className} src={image} />
   }
 
   return null

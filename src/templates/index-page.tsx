@@ -7,11 +7,7 @@ import Layout from '../components/Layout'
 import Styles from './index-page.module.css'
 import { Timeline } from 'react-twitter-widgets'
 import PreviewCompatibleImage, { ImageResult } from '../components/PreviewCompatibleImage'
-
-type PartnerLevel =
-  | 'host'
-  | 'national_partner'
-  | 'additional_supporter'
+import styles from './index-page.module.css';
 
 type Partner = {
   name: string,
@@ -19,29 +15,36 @@ type Partner = {
   logo: ImageResult | string
 }
 
+type PartnerGroup = {
+  title: string,
+  partners: Array<Partner>
+}
+
+type DetailCard = {
+  image: ImageResult | string,
+  text: string,
+  link: {
+    url: string,
+    label: string
+  }
+}
+
 export type TemplateProps = {
   intro: string,
   youtubeVideoId: string,
   actionNetworkId: string,
-  hosts: Array<Partner>,
-  nationalPartners: Array<Partner>
-  additionalSupporters: Array<Partner>
+  partnerGroups: Array<PartnerGroup>,
+  detailCards: Array<DetailCard>
 }
 
 type PartnerListProps = {
   partners: Array<Partner>,
-  level: PartnerLevel,
+  title: string
 }
 
-const PartnerList = ({ partners, level }: PartnerListProps) => (
+const PartnerList = ({ partners, title }: PartnerListProps) => (
   <div>
-    <h3>
-      <Switch value= {level}>
-        <Case value="host">Hosted by</Case>
-        <Case value="national_partner">With support from</Case>
-        <Case value="additional_supporter">Additional supporters</Case>
-      </Switch>
-    </h3>
+    <h3>{title}</h3>
     <div className={Styles.partnerEntries}>
       {partners.map(p => (
         <a
@@ -56,32 +59,62 @@ const PartnerList = ({ partners, level }: PartnerListProps) => (
   </div>
 )
 
+const DetailCard = ({ card }: { card: DetailCard }) => (
+  <div className={Styles.detailsCard}>
+    <PreviewCompatibleImage
+      className={Styles.detailsCardImage}
+      image={card.image} />
+    <p className={Styles.detailsCardText}>{card.text}</p>
+    <div className={Styles.detailsCardActions}>
+      <Link
+        className={Styles.detailsCardLink}
+        to={card.link.url}>
+        {card.link.label}
+      </Link>
+    </div>
+  </div>
+)
+
 export const IndexPageTemplate = ({
   intro,
   youtubeVideoId,
   actionNetworkId,
-  hosts = [],
-  nationalPartners = [],
-  additionalSupporters = [],
+  detailCards = [],
+  partnerGroups = [],
 }: TemplateProps) => (
   <>
-    <section id="intro" className={Styles.intro}>
-      <div className={Styles.introInner}>
-        {intro}
-      </div>
-    </section>
     <section id="video" className={Styles.video}>
       <div className={Styles.videoInner}>
-        YouTube Video ID: {youtubeVideoId}
         <YouTube videoId={youtubeVideoId} />
       </div>
     </section>
-    <section id="signup" className={Styles.signup}>
-      <div className={Styles.signupInner}>
-        Action Network ID: {actionNetworkId}
-        <ActionNetwork actionId={actionNetworkId} />
-      </div>
-    </section>
+    <div className={Styles.gridContainer}>
+      <section id="intro" className={Styles.intro}>
+        <div className={Styles.introInner}>
+          <div className={Styles.gridInner}>{intro}</div>
+        </div>
+      </section>
+      <section id="signup" className={Styles.signup}>
+        <div className={Styles.signupInner}>
+          Action Network ID: {actionNetworkId}
+          <ActionNetwork actionId={actionNetworkId} />
+        </div>
+      </section>
+      <section className={Styles.details} id="more-info">
+        <div className={Styles.detailsInner}>
+          <div className={Styles.detailsLayout}>
+            {detailCards.filter(c => c.link).map((c, i) => <DetailCard card={c} key={i} />)}
+          </div>
+        </div>
+      </section>
+      <section className={Styles.partners} id="partners">
+        <div className={Styles.partnersInner}>
+          <div className={Styles.gridInner}>
+            {partnerGroups.map(p => <PartnerList key={p.title} {...p} />)}
+          </div>
+        </div>
+      </section>
+    </div>
     <section className={Styles.social} id="social">
       <div className={Styles.socialInner}>
         <div className={Styles.twitterEmbed}>
@@ -96,13 +129,6 @@ export const IndexPageTemplate = ({
               width: '400'
             }} /> 
         </div>
-      </div>
-    </section>
-    <section id="partners">
-      <div className={Styles.partnersInner}>
-        <PartnerList level="host" partners={hosts} />
-        <PartnerList level="national_partner" partners={nationalPartners} />
-        <PartnerList level="additional_supporter" partners={additionalSupporters} />
       </div>
     </section>
   </>
@@ -144,20 +170,27 @@ export const pageQuery = graphql`
         intro
         youtubeVideoId
         actionNetworkId
-        hosts {
-          name
-          homepage
-          logo { ...IndexPartnerLogoData }
+        detailCards {
+          link {
+            url
+            label
+          }
+          text
+          image {
+            childImageSharp {
+              fluid(maxWidth: 400) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
         }
-        nationalPartners {
-          name
-          homepage
-          logo { ...IndexPartnerLogoData }
-        }
-        additionalSupporters {
-          name
-          homepage
-          logo { ...IndexPartnerLogoData }
+        partnerGroups {
+          title
+          partners {
+            name
+            homepage
+            logo { ...IndexPartnerLogoData }
+          }
         }
       }
     }

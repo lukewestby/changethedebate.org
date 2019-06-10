@@ -38,24 +38,52 @@ collections:
           - label: Intro
             name: intro
             widget: string
-          - label: YouTube Video ID
-            name: "youtubeVideoId"
-            widget: string
           - label: Action Network ID
             name: "actionNetworkId"
             widget: string
-          - label: Hosts
-            name: hosts
+          - label: YouTube Video ID
+            name: "youtubeVideoId"
+            widget: string
+          - label: Detail Cards
+            name: detailCards
             widget: list
-            fields: *partner_prefab
-          - label: National Partners
-            name: nationalPartners
+            fields:
+              - label: Image
+                name: image
+                widget: image
+              - label: Text
+                name: text
+                widget: text
+              - label: Link
+                name: link
+                widget: object
+                fields:
+                  - label: Label
+                    name: label
+                    widget: string
+                  - label: URL
+                    name: url
+                    widget: string
+          - label: Partner Groups
+            name: partnerGroups
             widget: list
-            fields: *partner_prefab
-          - label: Additional Supporters
-            name: additionalSupporters
-            widget: list
-            fields: *partner_prefab
+            fields:
+              - label: Group Title
+                name: title
+                widget: string
+              - label: Partners
+                name: partners
+                widget: list
+                fields:
+                  - label: Name
+                    name: name
+                    widget: string
+                  - label: Logo
+                    name: logo
+                    widget: image
+                  - label: Homepage
+                    name: homepage
+                    widget: string
       - file: "src/pages/faq/index.md"
         label: "FAQ"
         name: "faq"

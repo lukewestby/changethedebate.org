@@ -6,12 +6,7 @@ const IndexPagePreview = ({ entry, getAsset }: any) => {
   if (data) {
     return (
       <IndexPageTemplate
-        actionNetworkId={data.actionNetworkId || ''}
-        intro={data.intro || ''}
-        hosts={data.hosts || []}
-        nationalPartners={data.nationalPartners || []}
-        additionalSupporters={data.additionalSupporters || []}
-        youtubeVideoId={data.youtubeVideoId || ''}
+        {...data}
       />
     )
   } else {

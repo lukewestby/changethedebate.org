@@ -121,20 +121,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-right: 16px;
-  margin-top: 16px;
 }
-  .partner:last-child {
-    margin-right: 0;
-  }
 
 .partnerEntries {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-content: flex-start;
-  margin-top: -16px;
-  margin-right: -16px;
 }
 
 .social {
@@ -144,11 +137,22 @@
 .socialInner {
   composes: inner;
   padding: 72px 0;
+  display: grid;
+  grid-template-columns: auto auto;
+  place-items: center;
 }
 
 .twitterEmbed {
   border: 1px solid #000;
   width: 400px;
+  height: 600px;
+}
+
+.instagramEmbed {
+  border: 1px solid #000;
+  width: 400px;
+  height: 600px;
+  position: relative;
 }
 
 @media (max-width: 1000px) {

@@ -8,6 +8,7 @@ import Styles from './index-page.module.css'
 import { Timeline } from 'react-twitter-widgets'
 import PreviewCompatibleImage, { ImageResult } from '../components/PreviewCompatibleImage'
 import styles from './index-page.module.css';
+import Instagram from '../components/Instagram'
 
 type Partner = {
   name: string,
@@ -125,9 +126,11 @@ export const IndexPageTemplate = ({
             }}
             options={{
               username: 'sunrisemvmt',
-              height: '400',
-              width: '400'
+              height: '598'
             }} /> 
+        </div>
+        <div className={Styles.instagramEmbed}>
+          <Instagram hashtag="ChangeTheDebate" />
         </div>
       </div>
     </section>

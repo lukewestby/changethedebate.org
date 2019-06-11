@@ -31,13 +31,21 @@ exports.createPages = async ({ actions, graphql }) => {
   pages.forEach(edge => {
     const id = edge.node.id
     const slug = edge.node.fields.slug
-    console.log(slug)
+    const pagePath = (() => {
+      if (slug.endsWith('en/')) {
+        if (slug.includes('home')) return '/'
+        else return slug.replace('en/', '')
+      } else if (slug.endsWith('es/')) {
+        if (slug.includes('home')) return '/es/'
+        else return '/es' + slug.replace('es/', '')
+      } else {
+        return slug
+      }
+    })()
+
+    console.log(slug + ' -> ' + pagePath)
     createPage({
-      path: slug.endsWith('en/') ?
-        slug.replace('en/', '') :
-        slug.endsWith('es/') ?
-          '/es' + slug.replace('es/', '') :
-          slug,
+      path: pagePath,
       component: path.resolve(
         `src/templates/${String(edge.node.frontmatter.templateKey)}.tsx`
       ),

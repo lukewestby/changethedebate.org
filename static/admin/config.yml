@@ -12,6 +12,60 @@ media_folder: static/images
 public_folder: /images
 
 prefabs:
+  home_page: &home_page_prefab
+    - label: "Template Key"
+      name: "templateKey"
+      widget: "hidden"
+      default: "index-page"
+    - label: Intro
+      name: intro
+      widget: string
+    - label: Action Network ID
+      name: "actionNetworkId"
+      widget: string
+    - label: YouTube Video ID
+      name: "youtubeVideoId"
+      widget: string
+    - label: Detail Cards
+      name: detailCards
+      widget: list
+      fields:
+        - label: Image
+          name: image
+          widget: image
+        - label: Text
+          name: text
+          widget: text
+        - label: Link
+          name: link
+          widget: object
+          fields:
+            - label: Label
+              name: label
+              widget: string
+            - label: URL
+              name: url
+              widget: string
+    - label: Partner Groups
+      name: partnerGroups
+      widget: list
+      fields:
+        - label: Group Title
+          name: title
+          widget: string
+        - label: Partners
+          name: partners
+          widget: list
+          fields:
+            - label: Name
+              name: name
+              widget: string
+            - label: Logo
+              name: logo
+              widget: image
+            - label: Homepage
+              name: homepage
+              widget: string
   faq_page: &faq_page_prefab
     - label: "Template Key"
       name: "templateKey"
@@ -74,64 +128,14 @@ collections:
   - name: "pages"
     label: "Pages"
     files:
-      - file: "src/pages/index.md"
-        label: "Home Page"
-        name: "index"
-        fields:
-          - label: "Template Key"
-            name: "templateKey"
-            widget: "hidden"
-            default: "index-page"
-          - label: Intro
-            name: intro
-            widget: string
-          - label: Action Network ID
-            name: "actionNetworkId"
-            widget: string
-          - label: YouTube Video ID
-            name: "youtubeVideoId"
-            widget: string
-          - label: Detail Cards
-            name: detailCards
-            widget: list
-            fields:
-              - label: Image
-                name: image
-                widget: image
-              - label: Text
-                name: text
-                widget: text
-              - label: Link
-                name: link
-                widget: object
-                fields:
-                  - label: Label
-                    name: label
-                    widget: string
-                  - label: URL
-                    name: url
-                    widget: string
-          - label: Partner Groups
-            name: partnerGroups
-            widget: list
-            fields:
-              - label: Group Title
-                name: title
-                widget: string
-              - label: Partners
-                name: partners
-                widget: list
-                fields:
-                  - label: Name
-                    name: name
-                    widget: string
-                  - label: Logo
-                    name: logo
-                    widget: image
-                  - label: Homepage
-                    name: homepage
-                    widget: string
-
+      - file: "src/pages/home/en.md"
+        label: "Home Page (English)"
+        name: "home-en"
+        fields: *home_page_prefab
+      - file: "src/pages/home/es.md"
+        label: "Home Page (Spanish)"
+        name: "home-es"
+        fields: *home_page_prefab
       - file: "src/pages/faq/en.md"
         label: "FAQ (English)"
         name: "faq-en"

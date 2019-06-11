@@ -12,6 +12,30 @@ media_folder: static/images
 public_folder: /images
 
 prefabs:
+  faq_page: &faq_page_prefab
+    - label: "Template Key"
+      name: "templateKey"
+      widget: "hidden"
+      default: "faq-page"
+    - label: Intro
+      name: intro
+      widget: string
+    - label: Entries
+      name: entries
+      widget: list
+      fields:
+        - label: "Slug"
+          name: "slug"
+          widget: "string"
+          required: true
+          hint: >-
+            A unique identifier for the question that is composed of letters, numbers, and hyphens that will allow visitors and hyperlinks to point to a specific question on the page. For example, if you fill this in as my-question-and-answer then you'll be able construct the URL https://changethedebate.org/faq#my-question-and-answer, and visitors to that URL will be immediately scrolled to this question.
+        - label: Question
+          name: question
+          widget: string
+        - label: Answer
+          name: answer
+          widget: string
   schedule_page: &schedule_page_prefab
     - label: "Template Key"
       name: "templateKey"
@@ -108,27 +132,14 @@ collections:
                     name: homepage
                     widget: string
 
-      - file: "src/pages/faq/index.md"
-        label: "FAQ"
-        name: "faq"
-        fields:
-          - label: "Template Key"
-            name: "templateKey"
-            widget: "hidden"
-            default: "faq-page"
-          - label: Intro
-            name: intro
-            widget: string
-          - label: Entries
-            name: entries
-            widget: list
-            fields:
-              - label: Question
-                name: question
-                widget: string
-              - label: Answer
-                name: answer
-                widget: string
+      - file: "src/pages/faq/en.md"
+        label: "FAQ (English)"
+        name: "faq-en"
+        fields: *faq_page_prefab
+      - file: "src/pages/faq/es.md"
+        label: "FAQ (Spanish)"
+        name: "faq-es"
+        fields: *faq_page_prefab
       - file: "src/pages/schedule/en.md"
         label: "Schedule (English)"
         name: "schedule-en"

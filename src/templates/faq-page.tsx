@@ -6,6 +6,7 @@ import Styles from './faq-page.module.css'
 type Entry = {
   question: string,
   answer: string,
+  slug: string,
 }
 
 export type TemplateProps = {
@@ -28,7 +29,7 @@ export const FaqPageTemplate = ({
         <dl className={Styles.faqList}>
           {entries.map(entry => (
             <React.Fragment key={entry.question}>
-              <dt className={Styles.faqQuestion}>{entry.question}</dt>
+              <dt className={Styles.faqQuestion} id={entry.slug}>{entry.question}</dt>
               <dd className={Styles.faqAnswer}>{entry.answer}</dd>
             </React.Fragment>
           ))}
@@ -68,6 +69,7 @@ export const pageQuery = graphql`
         entries {
           question
           answer
+          slug
         }
       }
     }

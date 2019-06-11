@@ -43,7 +43,7 @@ prefabs:
         - label: "Image"
           name: "image"
           required: true
-          widget: image
+          widget: "image"
           hint: "Choose an image to represent this event."
 
 collections:

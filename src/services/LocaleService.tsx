@@ -16,10 +16,13 @@ class LocaleService extends BaseEventTarget {
   constructor() {
     super()
     this.all = ['en', 'es']
-    if (window) window.addEventListener('storage', this.onStorageChange)
+    if (typeof window !== 'undefined') {
+      window.addEventListener('storage', this.onStorageChange)
+    }
   }
 
   private onStorageChange = (event: StorageEvent) => {
+    if (typeof window === 'undefined') return
     if (event.key === STORAGE_KEY && event.storageArea === window.localStorage) {
       this.dispatchEvent(new Event('change'))
     }
@@ -37,7 +40,7 @@ class LocaleService extends BaseEventTarget {
   }
 
   public get(): Locale {
-    if (!window || !window.localStorage) return this.getInitialDefault()
+    if (typeof window === 'undefined' || !window.localStorage) return this.getInitialDefault()
     const stored = window.localStorage.getItem(STORAGE_KEY)
     if (stored === null || !allLocales.has(stored)) {
       const initial = this.getInitialDefault()
@@ -49,7 +52,7 @@ class LocaleService extends BaseEventTarget {
   }
 
   public set(locale: Locale) {
-    if (!window) return
+    if (typeof window === 'undefined') return
     if (this.get() === locale) return
     window.localStorage.setItem(STORAGE_KEY, locale)
     this.dispatchEvent(new Event('change'))
@@ -72,7 +75,7 @@ class LocaleService extends BaseEventTarget {
   }
 
   public redirect() {
-    if (!window) return
+    if (typeof window === 'undefined') return
     const locale = this.get()
     const location = window.location.pathname
     if (locale === 'en' && location.startsWith('/es')) {

@@ -16,6 +16,10 @@ const ActionNetwork = (props: Props) => {
     const script = document.createElement('script')
     script.src = `https://actionnetwork.org/widgets/v3/form/${props.actionId}?format=js&source=widget`
     container.current.appendChild(script)
+    return () => {
+      if (!container.current) return
+      container.current.innerHTML = ''
+    }
   }, [props.actionId])
 
   return (

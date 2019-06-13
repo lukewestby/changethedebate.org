@@ -1,16 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FaqPageTemplate } from '../../templates/faq-page'
+import { TemplateLayout } from '../../components/Layout'
 
 const FaqPagePreview = ({ entry, getAsset }: any) => {
   const data = entry.getIn(['data']).toJS()
 
   if (data) {
     return (
-      <FaqPageTemplate
-        intro={data.intro || ''}
-        entries={data.entries || []}
-      />
+      <TemplateLayout>
+        <FaqPageTemplate
+          intro={data.intro || ''}
+          entries={data.entries || []}
+        />
+      </TemplateLayout>
     )
   } else {
     return <div>Loading...</div>

@@ -45,10 +45,17 @@ type Props = {
 const Instagram = (props: Props) => {
   const [data, setData] = React.useState([] as Array<Photo>)
   React.useEffect(() => {
-    const exec = () => scrapePhotos(props.hashtag).then(setData)
+    let mounted = true
+    const exec = () => {
+      scrapePhotos(props.hashtag)
+        .then(data => mounted ? setData(data) : null)
+    }
     exec()
     let id = setInterval(exec, 1000 * 60 * 2)
-    return () => clearInterval(id)
+    return () => {
+      mounted = false
+      clearInterval(id)
+    }
   }, [props.hashtag])
 
   return (

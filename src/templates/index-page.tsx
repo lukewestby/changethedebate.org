@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
+import Link from '../components/Link'
 import YouTube from 'react-youtube'
 import { Switch, Case, Default } from '../components/Switch'
 import ActionNetwork from '../components/ActionNetwork'

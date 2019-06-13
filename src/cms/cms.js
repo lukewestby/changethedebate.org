@@ -9,7 +9,8 @@ import SchedulePagePreview from './preview-templates/SchedulePagePreview'
 CMS.registerMediaLibrary(uploadcare);
 CMS.registerMediaLibrary(cloudinary);
 
-CMS.registerPreviewTemplate('index', IndexPagePreview)
+CMS.registerPreviewTemplate('home-en', IndexPagePreview)
+CMS.registerPreviewTemplate('home-es', IndexPagePreview)
 CMS.registerPreviewTemplate('faq-en', FaqPagePreview)
 CMS.registerPreviewTemplate('faq-es', FaqPagePreview)
 CMS.registerPreviewTemplate('schedule-en', SchedulePagePreview)

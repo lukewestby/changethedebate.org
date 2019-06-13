@@ -24,7 +24,7 @@ const Header = () => {
           onClick={() => setLocaleOpen(!localeOpen)}
           className={Styles.langSwitcherCurrent}>
           <Locale.Consumer>
-            {locale => Locale.Service.emojiFor(locale)}
+            {locale => Locale.Service.shortName(locale)}
           </Locale.Consumer>
         </div>
         <div
@@ -38,7 +38,7 @@ const Header = () => {
                 setLocaleOpen(false)
                 Locale.Service.set(l)
               }}>
-                {Locale.Service.emojiFor(l)}
+                {Locale.Service.fullName(l)}
               </div>
           ))}
         </div>

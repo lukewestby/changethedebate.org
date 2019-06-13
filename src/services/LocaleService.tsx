@@ -53,10 +53,18 @@ class LocaleService extends BaseEventTarget {
     this.dispatchEvent(new Event('change'))
   }
 
-  public emojiFor(locale: Locale): string {
+  public shortName(locale: Locale): string {
     switch (locale) {
-      case 'en': return '🇺🇸'
-      case 'es': return '🇲🇽'
+      case 'en': return 'EN'
+      case 'es': return 'ES'
+      default: return ''
+    }
+  }
+
+  public fullName(locale: Locale): string {
+    switch (locale) {
+      case 'en': return 'English'
+      case 'es': return 'Español'
       default: return ''
     }
   }

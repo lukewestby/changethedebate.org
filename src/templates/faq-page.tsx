@@ -63,8 +63,8 @@ const FaqPage = ({ data }: PageProps) => {
 export default FaqPage
 
 export const pageQuery = graphql`
-  query FaqPageTemplate {
-    markdownRemark(frontmatter: { templateKey: { eq: "faq-page" } }) {
+  query FaqPageTemplate($page: String!) {
+    markdownRemark(fields: { path: { eq: $page } }) {
       frontmatter {
         intro
         entries {

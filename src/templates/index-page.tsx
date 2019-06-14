@@ -168,8 +168,8 @@ export const pageQuery = graphql`
     }
   }
 
-  query IndexPageTemplate {
-    markdownRemark(frontmatter: { templateKey: { eq: "index-page" } }) {
+  query IndexPageTemplate($page: String!) {
+    markdownRemark(fields: { path: { eq: $page } }) {
       frontmatter {
         intro
         youtubeVideoId

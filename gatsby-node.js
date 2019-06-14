@@ -11,7 +11,7 @@ exports.createPages = async ({ actions, graphql }) => {
           node {
             id
             fields {
-              slug
+              path
             }
             frontmatter {
               templateKey
@@ -30,7 +30,28 @@ exports.createPages = async ({ actions, graphql }) => {
   const pages = result.data.allMarkdownRemark.edges
   pages.forEach(edge => {
     const id = edge.node.id
-    const slug = edge.node.fields.slug
+    const pagePath = edge.node.fields.path
+    createPage({
+      path: pagePath,
+      component: path.resolve(
+        `src/templates/${String(edge.node.frontmatter.templateKey)}.tsx`
+      ),
+      // additional data can be passed via context
+      context: {
+        id,
+        page: pagePath,
+      },
+    })
+  })
+}
+
+exports.onCreateNode = ({ node, actions, getNode }) => {
+  const { createNodeField } = actions
+  fmImagesToRelative(node) // convert image paths for gatsby images
+
+  if (node.internal.type === `MarkdownRemark`) {
+    const slug = createFilePath({ node, getNode })
+
     const pagePath = (() => {
       if (slug.endsWith('en/')) {
         if (slug.includes('home')) return '/'
@@ -43,30 +64,16 @@ exports.createPages = async ({ actions, graphql }) => {
       }
     })()
 
-    console.log(slug + ' -> ' + pagePath)
-    createPage({
-      path: pagePath,
-      component: path.resolve(
-        `src/templates/${String(edge.node.frontmatter.templateKey)}.tsx`
-      ),
-      // additional data can be passed via context
-      context: {
-        id,
-      },
-    })
-  })
-}
-
-exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions
-  fmImagesToRelative(node) // convert image paths for gatsby images
-
-  if (node.internal.type === `MarkdownRemark`) {
-    const value = createFilePath({ node, getNode })
     createNodeField({
       name: `slug`,
       node,
-      value
+      value: slug
+    })
+
+    createNodeField({
+      name: 'path',
+      node,
+      value: pagePath
     })
   }
 }

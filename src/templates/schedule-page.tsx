@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import Link from '../components/Link'
-import Layout from '../components/Layout'
+import Layout, { TemplateLayout } from '../components/Layout'
 import Styles from './schedule-page.module.css'
 import * as Time from '../core/Time'
 import * as Day from '../core/Day'
@@ -167,6 +167,15 @@ const transformQuery = (data: PageQuery): TemplateProps => {
       })
       .filter(a => a !== null) as Array<Action>
   }
+}
+
+export const Preview = (query: PageQuery) => {
+  const props = transformQuery(query)
+  return (
+    <TemplateLayout>
+      <SchedulePageTemplate {...props} />
+    </TemplateLayout>
+  )
 }
 
 const SchedulePage = (query: PageQuery) => {

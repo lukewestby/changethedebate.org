@@ -61,21 +61,44 @@ const PartnerList = ({ partners, title }: PartnerListProps) => (
   </div>
 )
 
-const DetailCard = ({ card }: { card: DetailCard }) => (
-  <div className={Styles.detailsCard}>
-    <PreviewCompatibleImage
-      className={Styles.detailsCardImage}
-      image={card.image} />
-    <p className={Styles.detailsCardText}>{card.text}</p>
-    <div className={Styles.detailsCardActions}>
-      <Link
-        className={Styles.detailsCardLink}
-        to={card.link.url}>
-        {card.link.label}
-      </Link>
+const DetailCard = ({ card }: { card: DetailCard }) => {
+  const container = React.useRef<HTMLDivElement | null>(null)
+  React.useEffect(() => {
+    if (container.current === null) return
+    const keyframes = [
+      { backgroundPositionY: '0%' },
+      { backgroundPositionY: '100%' },
+    ]
+    const timing = {
+      duration: 3000,
+      iterations: Infinity,
+    }
+    const timeline = new ScrollTimeline({
+      timeRange: 3000,
+    })
+    const effect = new KeyframeEffect(container.current, keyframes, timing)
+    const animation = new WorkletAnimation('scrollfollow', effect, timeline)
+    animation.play()
+    return () => animation.cancel()
+  }, [container.current])
+  return (
+    <div
+      className={Styles.detailsCard}
+      ref={container}>
+      <PreviewCompatibleImage
+        className={Styles.detailsCardImage}
+        image={card.image} />
+      <p className={Styles.detailsCardText}>{card.text}</p>
+      <div className={Styles.detailsCardActions}>
+        <Link
+          className={Styles.detailsCardLink}
+          to={card.link.url}>
+          {card.link.label}
+        </Link>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 export const IndexPageTemplate = ({
   intro,
@@ -83,60 +106,62 @@ export const IndexPageTemplate = ({
   actionNetworkId,
   detailCards = [],
   partnerGroups = [],
-}: TemplateProps) => (
-  <>
-    <section id="video" className={Styles.video}>
-      <div className={Styles.videoInner}>
-        <YouTube videoId={youtubeVideoId} />
+}: TemplateProps) => {
+  return (
+    <>
+      <section id="video" className={Styles.video}>
+        <div className={Styles.videoInner}>
+          <YouTube videoId={youtubeVideoId} />
+        </div>
+      </section>
+      <div className={Styles.gridContainer}>
+        <section id="intro" className={Styles.intro}>
+          <div className={Styles.introInner}>
+            <div className={Styles.gridInner}>{intro}</div>
+          </div>
+        </section>
+        <section id="signup" className={Styles.signup}>
+          <div className={Styles.signupInner}>
+            Action Network ID: {actionNetworkId}
+            <ActionNetwork actionId={actionNetworkId} />
+          </div>
+        </section>
+        <section className={Styles.details} id="more-info">
+          <div className={Styles.detailsInner}>
+            <div className={Styles.detailsLayout}>
+              {detailCards.filter(c => c.link).map((c, i) => <DetailCard card={c} key={i} />)}
+            </div>
+          </div>
+        </section>
+        <section className={Styles.partners} id="partners">
+          <div className={Styles.partnersInner}>
+            <div className={Styles.gridInner}>
+              {partnerGroups.map(p => <PartnerList key={p.title} {...p} />)}
+            </div>
+          </div>
+        </section>
       </div>
-    </section>
-    <div className={Styles.gridContainer}>
-      <section id="intro" className={Styles.intro}>
-        <div className={Styles.introInner}>
-          <div className={Styles.gridInner}>{intro}</div>
-        </div>
-      </section>
-      <section id="signup" className={Styles.signup}>
-        <div className={Styles.signupInner}>
-          Action Network ID: {actionNetworkId}
-          <ActionNetwork actionId={actionNetworkId} />
-        </div>
-      </section>
-      <section className={Styles.details} id="more-info">
-        <div className={Styles.detailsInner}>
-          <div className={Styles.detailsLayout}>
-            {detailCards.filter(c => c.link).map((c, i) => <DetailCard card={c} key={i} />)}
+      <section className={Styles.social} id="social">
+        <div className={Styles.socialInner}>
+          <div className={Styles.twitterEmbed}>
+            <Timeline
+              dataSource={{
+                sourceType: 'profile',
+                screenName: 'sunrisemvmt'      
+              }}
+              options={{
+                username: 'sunrisemvmt',
+                height: '598'
+              }} /> 
+          </div>
+          <div className={Styles.instagramEmbed}>
+            <Instagram hashtag="ChangeTheDebate" />
           </div>
         </div>
       </section>
-      <section className={Styles.partners} id="partners">
-        <div className={Styles.partnersInner}>
-          <div className={Styles.gridInner}>
-            {partnerGroups.map(p => <PartnerList key={p.title} {...p} />)}
-          </div>
-        </div>
-      </section>
-    </div>
-    <section className={Styles.social} id="social">
-      <div className={Styles.socialInner}>
-        <div className={Styles.twitterEmbed}>
-          <Timeline
-            dataSource={{
-              sourceType: 'profile',
-              screenName: 'sunrisemvmt'      
-            }}
-            options={{
-              username: 'sunrisemvmt',
-              height: '598'
-            }} /> 
-        </div>
-        <div className={Styles.instagramEmbed}>
-          <Instagram hashtag="ChangeTheDebate" />
-        </div>
-      </div>
-    </section>
-  </>
-)
+    </>
+  )
+}
 
 export type PageProps = {
   data: {

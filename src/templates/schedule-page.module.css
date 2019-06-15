@@ -6,3 +6,16 @@
 .actionEvents {
   padding-left: 40px;
 }
+
+.event {
+
+}
+
+.eventLocation {
+  
+}
+
+.eventMap {
+  width: 400px;
+  height: 400px;
+}

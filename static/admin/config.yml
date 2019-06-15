@@ -165,11 +165,6 @@ prefabs:
                   required: true
                   hint: "Write out the address or description of the place."
                   widget: "string"
-                - label: "Map"
-                  name: "map"
-                  required: true
-                  hint: "Plot the location on a map"
-                  widget: "map"
             - label: "Contact"
               name: "contact"
               required: true

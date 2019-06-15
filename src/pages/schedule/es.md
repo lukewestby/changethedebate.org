@@ -16,7 +16,6 @@ actions:
         endTime: 2019-07-27T18:00:00.000Z
         location:
           address: '2211 Woodward Ave, Detroit, MI 48201'
-          map: '{"type":"Point","coordinates":[-83.0522475,42.3385756]}'
           name: Fox Theater
         name: Morning Event
         startTime: 2019-07-27T16:00:48.337Z
@@ -33,7 +32,6 @@ actions:
         endTime: 2019-07-28T00:00:00.000Z
         location:
           address: '2211 Woodward Ave, Detroit, MI 48201'
-          map: '{"type":"Point","coordinates":[-83.0522458,42.3385818]}'
           name: Fox Theater
         name: Afternoon Event
         startTime: 2019-07-27T21:00:00.000Z

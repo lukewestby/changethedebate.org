@@ -1,5 +1,6 @@
 import React from 'react'
-import { Preview } from '../../templates/schedule-page'
+import * as Preview from '../../services/PreviewService'
+import * as Schedule from '../../templates/schedule-page'
 
 const SchedulePagePreview = ({ entry, getAsset }: any) => {
   const data = entry.getIn(['data']).toJS()
@@ -9,7 +10,11 @@ const SchedulePagePreview = ({ entry, getAsset }: any) => {
     }
   }
   if (data) {
-    return <Preview data={pageData} />
+    return (
+      <Preview.Provider>
+        <Schedule.Preview data={pageData} />
+      </Preview.Provider>
+    )
   } else {
     return <div>Loading...</div>
   }

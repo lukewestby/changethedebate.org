@@ -1,4 +1,8 @@
 const path = require('path')
+const fs = require('fs')
+const yaml = require('js-yaml')
+const remark = require('remark')
+const remarkHTML = require('remark-html')
 const { createFilePath } = require('gatsby-source-filesystem')
 const { fmImagesToRelative } = require('gatsby-remark-relative-images')
 
@@ -75,5 +79,20 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       node,
       value: pagePath
     })
+
+    if (node.frontmatter && node.frontmatter && node.frontmatter.templateKey === 'schedule-page') {
+      node.frontmatter.actions.forEach(a => {
+        a.info = remark()
+          .use(remarkHTML)
+          .processSync(a.info)
+          .toString()
+        a.events.forEach(e => {
+          e.details = remark()
+            .use(remarkHTML)
+            .processSync(e.details)
+            .toString()
+        })
+      })
+    }
   }
 }

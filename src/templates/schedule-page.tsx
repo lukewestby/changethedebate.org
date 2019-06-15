@@ -2,10 +2,10 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import Link from '../components/Link'
 import Layout, { TemplateLayout } from '../components/Layout'
+import Map from '../components/Map'
 import Styles from './schedule-page.module.css'
 import * as Time from '../core/Time'
 import * as Day from '../core/Day'
-import * as Coordinate from '../core/Coordinate'
 
 type Contact = {
   name: string,
@@ -16,7 +16,6 @@ type Contact = {
 type Location = {
   name: string,
   address: string,
-  coordinate: Coordinate.Coordinate,
 }
 
 type Event = {
@@ -40,6 +39,36 @@ export type TemplateProps = {
   actions: Array<Action>
 }
 
+type EventSectionProps = {
+  event: Event
+}
+
+const EventSection = ({ event }: EventSectionProps) => {
+  return (
+    <article
+      className={Styles.event}>
+      <h3>{event.name}</h3>
+      <div dangerouslySetInnerHTML={{ __html: event.details }} />
+      <div className={Styles.eventLocation}>
+        <h4>Location</h4>
+        <p>{event.location.name}</p>
+        <p>{event.location.address}</p>
+        <div className={Styles.eventMap}>
+          <Map location={event.location.address} />
+        </div>
+      </div>
+      <div>
+        <div>
+          <h4>For help or questions, contact</h4>
+          <p>{event.contact.name}</p>
+          <p>{event.contact.phone}</p>
+          <p>{event.contact.email}</p>
+        </div>
+      </div>
+    </article>
+  )
+}
+
 export const SchedulePageTemplate = ({
   actions
 }: TemplateProps) => {
@@ -55,27 +84,10 @@ export const SchedulePageTemplate = ({
             Day.formatRangeLong(a.start, a.end)}
           </p>
           <div>
-            <div>
-              {a.info}
-            </div>
+            <div dangerouslySetInnerHTML={{ __html: a.info }} />
           </div>
           <div className={Styles.actionEvents}>
-            {a.events.map(e => (
-              <article
-                key={e.name}>
-                <h3>{e.name}</h3>
-                <p>{e.details}</p>
-                <p>{e.location.name}</p>
-                <div>
-                  <div>
-                    <h4>For help or questions, contact</h4>
-                    <p>{e.contact.name}</p>
-                    <p>{e.contact.phone}</p>
-                    <p>{e.contact.email}</p>
-                  </div>
-                </div>
-              </article>
-            ))}
+            {a.events.map(e => <EventSection event={e} key={e.name} />)}
           </div>
         </section>
       ))}
@@ -143,15 +155,13 @@ const transformQuery = (data: PageQuery): TemplateProps => {
             .map((e): Event | null => {
               const start = Time.parse(e.startTime)
               const end = Time.parse(e.endTime)
-              const coordinate = Coordinate.parseGeoJsonPoint(e.location.map)
-              if (!start || !end || !coordinate) return null
+              if (!start || !end) return null
               return {
                 start,
                 end,
                 name: e.name,
                 details: e.details,
                 location: {
-                  coordinate,
                   name: e.location.name,
                   address: e.location.address,
                 },
@@ -205,7 +215,6 @@ export const pageQuery = graphql`
             details
             location {
               address
-              map
               name
             }
             contact {

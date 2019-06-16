@@ -3,9 +3,11 @@ import Link from './Link'
 import { Switch, Case, Default } from './Switch'
 import Styles from './Header.module.css'
 import * as Locale from '../services/LocaleService'
+import * as Config from '../services/ConfigService'
 
 const Header = () => {
   const [localeOpen, setLocaleOpen] = React.useState(false)
+  const config = Config.useConfig()
   return (
     <header className={Styles.header}>
       <nav className={Styles.nav}>
@@ -16,7 +18,7 @@ const Header = () => {
         <Link className={Styles.navLink} to="/art">Art</Link>
         <Link className={Styles.navLink} to="/resources">Resources</Link>
         <Link className={Styles.navLink} to="/summer-summit">Summer Summit</Link>
-        <Link className={Styles.navLink} to="/donate">Donate</Link>
+        <Link className={Styles.navLink} to={config.donationLink} target="_blank">Donate</Link>
         <Link className={Styles.navLink} to="/volunteer">Volunteer</Link>
       </nav>
       <div className={Styles.langSwitcher}>

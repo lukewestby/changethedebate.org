@@ -4,20 +4,30 @@ import * as Locale from '../services/LocaleService'
 
 export type Props = {
   to: string,
-  className: string,
+  className?: string,
   children: React.ReactNode,
+  target?: string,
 }
 
-const Link = (props: Props) => (
-  <Locale.Consumer>
-    {locale => (
-      <GatsbyLink
+const Link = (props: Props) => {
+  const locale = Locale.useLocale()
+  if (props.to.startsWith('http')) {
+    return (
+      <a
         {...props}
-        to={locale === 'en' ? props.to : '/' + locale + props.to}>
+        href={props.to}>
         {props.children}
-      </GatsbyLink>
-    )}
-  </Locale.Consumer>
-)
+      </a>
+    )
+  }
+
+  return (
+    <GatsbyLink
+      {...props}
+      to={locale === 'en' ? props.to : '/' + locale + props.to}>
+      {props.children}
+    </GatsbyLink>
+  )
+}
 
 export default Link

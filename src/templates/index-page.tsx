@@ -62,29 +62,8 @@ const PartnerList = ({ partners, title }: PartnerListProps) => (
 )
 
 const DetailCard = ({ card }: { card: DetailCard }) => {
-  const container = React.useRef<HTMLDivElement | null>(null)
-  React.useEffect(() => {
-    if (container.current === null) return
-    const keyframes = [
-      { backgroundPositionY: '0%' },
-      { backgroundPositionY: '100%' },
-    ]
-    const timing = {
-      duration: 3000,
-      iterations: Infinity,
-    }
-    const timeline = new ScrollTimeline({
-      timeRange: 3000,
-    })
-    const effect = new KeyframeEffect(container.current, keyframes, timing)
-    const animation = new WorkletAnimation('scrollfollow', effect, timeline)
-    animation.play()
-    return () => animation.cancel()
-  }, [container.current])
   return (
-    <div
-      className={Styles.detailsCard}
-      ref={container}>
+    <div className={Styles.detailsCard}>
       <PreviewCompatibleImage
         className={Styles.detailsCardImage}
         image={card.image} />

@@ -188,6 +188,23 @@ prefabs:
                   widget: "string"
 
 collections:
+  - name: "config"
+    label: "Config"
+    files:
+      - file: "static/site/config.md"
+        label: "Site Config"
+        name: "site-config"
+        fields:
+          - label: "Is Config"
+            name: "isConfig"
+            required: true
+            default: true
+            widget: "hidden"
+          - label: "Donation Link"
+            name: "donationLink"
+            required: true
+            hint: "Where does the donate link lead?"
+            widget: "string"
   - name: "pages"
     label: "Pages"
     files:

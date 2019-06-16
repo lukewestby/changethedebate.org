@@ -1,30 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { FaqPageTemplate } from '../../templates/faq-page'
-import { TemplateLayout } from '../../components/Layout'
+import FaqPage from '../../templates/faq-page'
 
 const FaqPagePreview = ({ entry, getAsset }: any) => {
   const data = entry.getIn(['data']).toJS()
-
-  if (data) {
-    return (
-      <TemplateLayout>
-        <FaqPageTemplate
-          intro={data.intro || ''}
-          entries={data.entries || []}
-        />
-      </TemplateLayout>
-    )
-  } else {
-    return <div>Loading...</div>
-  }
-}
-
-FaqPagePreview.propTypes = {
-  entry: PropTypes.shape({
-    getIn: PropTypes.func,
-  }),
-  getAsset: PropTypes.func,
+  return data ?
+    <FaqPage data={{ markdownRemark: { frontmatter: data } }} /> :
+    <div>Loading...</div>
 }
 
 export default FaqPagePreview

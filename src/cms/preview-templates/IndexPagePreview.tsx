@@ -1,20 +1,11 @@
 import React from 'react'
-import { IndexPageTemplate } from '../../templates/index-page'
-import { TemplateLayout } from '../../components/Layout'
+import IndexPage from '../../templates/index-page'
 
 const IndexPagePreview = ({ entry, getAsset }: any) => {
   const data = entry.getIn(['data']).toJS()
-  if (data) {
-    return (
-      <TemplateLayout>
-        <IndexPageTemplate
-          {...data}
-        />
-      </TemplateLayout>
-    )
-  } else {
-    return <div>Loading...</div>
-  }
+  return data ?
+    <IndexPage data={{ markdownRemark: { frontmatter: data } }} /> :
+    <div>Loading...</div>
 }
 
 export default IndexPagePreview

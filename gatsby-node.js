@@ -32,21 +32,23 @@ exports.createPages = async ({ actions, graphql }) => {
   }
 
   const pages = result.data.allMarkdownRemark.edges
-  pages.forEach(edge => {
-    const id = edge.node.id
-    const pagePath = edge.node.fields.path
-    createPage({
-      path: pagePath,
-      component: path.resolve(
-        `src/templates/${String(edge.node.frontmatter.templateKey)}.tsx`
-      ),
-      // additional data can be passed via context
-      context: {
-        id,
-        page: pagePath,
-      },
+  pages
+    .filter(edge => edge.node.frontmatter.templateKey)
+    .forEach(edge => {
+      const id = edge.node.id
+      const pagePath = edge.node.fields.path
+      createPage({
+        path: pagePath,
+        component: path.resolve(
+          `src/templates/${String(edge.node.frontmatter.templateKey)}.tsx`
+        ),
+        // additional data can be passed via context
+        context: {
+          id,
+          page: pagePath,
+        },
+      })
     })
-  })
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {

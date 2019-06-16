@@ -15,7 +15,7 @@ export type TemplateProps = {
   intro: string,
 }
 
-export const FaqPageTemplate = ({
+const FaqPageTemplate = ({
   entries,
   intro,
 }: TemplateProps) => (

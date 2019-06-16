@@ -65,7 +65,6 @@ const DetailCard = ({ card }: { card: DetailCard }) => {
   return (
     <div className={Styles.detailsCard}>
       <PreviewCompatibleImage
-        className={Styles.detailsCardImage}
         image={card.image} />
       <p className={Styles.detailsCardText}>{card.text}</p>
       <div className={Styles.detailsCardActions}>
@@ -79,7 +78,7 @@ const DetailCard = ({ card }: { card: DetailCard }) => {
   )
 }
 
-export const IndexPageTemplate = ({
+const IndexPageTemplate = ({
   intro,
   youtubeVideoId,
   actionNetworkId,

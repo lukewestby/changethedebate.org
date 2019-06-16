@@ -11,11 +11,12 @@ export type Props = {
 
 const Link = (props: Props) => {
   const locale = Locale.useLocale()
-  if (props.to.startsWith('http')) {
+  const to = props.to.startsWith('..') ? props.to.replace('..', '') : props.to
+  if (to.startsWith('http')) {
     return (
       <a
         {...props}
-        href={props.to}>
+        href={to}>
         {props.children}
       </a>
     )
@@ -24,7 +25,7 @@ const Link = (props: Props) => {
   return (
     <GatsbyLink
       {...props}
-      to={locale === 'en' ? props.to : '/' + locale + props.to}>
+      to={locale === 'en' ? to : '/' + locale + to}>
       {props.children}
     </GatsbyLink>
   )

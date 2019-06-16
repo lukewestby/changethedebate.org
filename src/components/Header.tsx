@@ -24,21 +24,21 @@ const Header = () => {
           onClick={() => setLocaleOpen(!localeOpen)}
           className={Styles.langSwitcherCurrent}>
           <Locale.Consumer>
-            {locale => Locale.Service.shortName(locale)}
+            {locale => Locale.Service.instance.shortName(locale)}
           </Locale.Consumer>
         </div>
         <div
           style={{ display: localeOpen ? 'block' : 'none' }}
           className={Styles.langSwitcherDropdown}>
-          {Locale.Service.all.map(l => (
+          {Locale.Service.instance.all.map(l => (
             <div
               key={l}
               className={Styles.langSwitchOption}
               onClick={() => {
                 setLocaleOpen(false)
-                Locale.Service.set(l)
+                Locale.Service.instance.set(l)
               }}>
-                {Locale.Service.fullName(l)}
+                {Locale.Service.instance.fullName(l)}
               </div>
           ))}
         </div>

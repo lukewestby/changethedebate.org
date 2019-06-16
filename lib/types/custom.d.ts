@@ -1,3 +1,32 @@
+declare module 'remark' {
+  export class Plugin {}
+
+  class Parsed {
+    toString(): string
+  }
+
+  class Remark {
+    use(plugin: Plugin): Remark
+    processSync(input: string): Parsed
+    process(input: string, cb: (error: Error | null, parsed: Parsed | null) => void): void
+  }
+
+  const main: () => Remark
+  export default main
+}
+
+declare module 'remark-html' {
+  import { Plugin } from 'remark'
+  const main: Plugin
+  export default main
+}
+
+declare module 'remark-preset-gfm' {
+  import { Plugin } from 'remark'
+  const main: Plugin
+  export default main
+}
+
 declare module '*.svg' {
   const path: string
   export default path

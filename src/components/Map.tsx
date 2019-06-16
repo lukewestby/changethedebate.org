@@ -77,15 +77,23 @@ const Map = (props: Props) => {
 const Dummy = (props: Props) => (
   <div
     className={props.className}
-    style={{width: '100%', height: '100%', backgroundColor: 'gray' }}
-    />
+    style={{
+      width: '100%',
+      height: '100%',
+      backgroundColor: 'gray',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 32,
+      textAlign: 'center'
+    }}>
+    Maps are turned off in preview to conserve Mapbox API quota
+  </div>
 )
 
-export default (props: Props) => (
-  <Preview.Consumer>
-    {isPreview => isPreview || process.env.NODE_ENV === 'development' ?
-      <Dummy {...props} /> :
-      <Map {...props} />
-    }
-  </Preview.Consumer>
-)
+export default (props: Props) => {
+  const isPreview = Preview.usePreview()
+  return isPreview || process.env.NODE_ENV === 'development' ?
+    <Dummy {...props} /> :
+    <Map {...props} />
+}

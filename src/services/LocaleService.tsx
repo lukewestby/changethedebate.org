@@ -10,8 +10,10 @@ const allLocales: Set<String> = new Set(['en', 'es'])
 
 const STORAGE_KEY = 'org.changethedebate.LocaleService.userSelection'
 
-class LocaleService extends BaseEventTarget {
+export class Service extends BaseEventTarget {
   public readonly all: Array<Locale>
+
+  private static _instance: Service | null = null
 
   constructor() {
     super()
@@ -84,28 +86,30 @@ class LocaleService extends BaseEventTarget {
       window.location.pathname = '/es' + window.location.pathname
     }
   }
+
+  public static get instance() {
+    if (this._instance === null) this._instance = new Service()
+    return this._instance
+  }
 }
 
-export const Service = new LocaleService()
-
-const LocaleContext = React.createContext(Service.get())
+const LocaleContext = React.createContext(Service.instance.get())
 
 export const Provider = (props: React.PropsWithChildren<{}>) => {
-  const [locale, setLocale] = React.useState(Service.get())
+  const [locale, setLocale] = React.useState(Service.instance.get())
   React.useEffect(() => {
-    const onChange =  () => setLocale(Service.get())
-    Service.addEventListener('change', onChange)
-    return () => Service.removeEventListener('change', onChange)
+    const onChange =  () => {
+      setLocale(Service.instance.get())
+      Service.instance.redirect()
+    }
+    Service.instance.addEventListener('change', onChange)
+    return () => Service.instance.removeEventListener('change', onChange)
   })
   return (
     <LocaleContext.Provider value={locale}>{props.children}</LocaleContext.Provider>
   )
 }
 
-type ConsumerProps = {
-  children: (locale: Locale) => React.ReactNode
-}
+export const Consumer = LocaleContext.Consumer
 
-export const Consumer = (props: ConsumerProps) => (
-  <LocaleContext.Consumer>{props.children}</LocaleContext.Consumer>
-)
+export const useLocale = (): Locale => React.useContext(LocaleContext)

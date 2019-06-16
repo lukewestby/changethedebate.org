@@ -205,6 +205,14 @@ collections:
             required: true
             hint: "Where does the donate link lead?"
             widget: "string"
+          - label: "Time Zone"
+            name: "timezone"
+            required: true
+            hint: "What timezone should dates and times display in?"
+            widget: "select"
+            options:
+              - "America/Detroit"
+              - "UTC"
   - name: "pages"
     label: "Pages"
     files:

@@ -2,7 +2,7 @@ import * as React from 'react'
 import BaseEventTarget from '../core/BaseEventTarget'
 
 export class Service extends BaseEventTarget {
-  private isPreview: boolean = false
+  private isPreview: boolean = true
   private static _instance: Service | null = null
 
   private constructor() {
@@ -25,13 +25,14 @@ export class Service extends BaseEventTarget {
   }
 }
 
-const PreviewContext = React.createContext(false)
+const PreviewContext = React.createContext(true)
 
 export const Provider = (props: React.PropsWithChildren<{}>) => {
   const [state, setState] = React.useState(Service.instance.get())
   React.useEffect(() => {
     const onChange = () => setState(Service.instance.get())
     Service.instance.addEventListener('change', onChange)
+    Service.instance.set(false)
     return () => Service.instance.removeEventListener('change', onChange)
   })
   return (
@@ -46,3 +47,5 @@ type ConsumerProps = {
 }
 
 export const Consumer = PreviewContext.Consumer
+
+export const usePreview = () => React.useContext(PreviewContext)

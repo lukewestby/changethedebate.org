@@ -1,6 +1,7 @@
 import * as React from 'react'
-import { graphql, StaticQuery } from 'gatsby'
+import { graphql, useStaticQuery } from 'gatsby'
 import * as Preview from './PreviewService'
+import * as Timezone from './TimezoneService'
 
 export type Config = {
   title: string,
@@ -15,7 +16,7 @@ const defaultConfig = {
 }
 
 const query = graphql`
-  query CONFIG_QUERY {
+  query ConfigQuery {
     site {
       siteMetadata {
         title
@@ -25,36 +26,48 @@ const query = graphql`
     markdownRemark(frontmatter: { isConfig: { eq: true } }) {
       frontmatter {
         donationLink
+        timezone
       }
     }
   }`
 
 const ConfigContext = React.createContext(defaultConfig)
 
-export const Provider = ({ children }: React.PropsWithChildren<{}>) => {
+const LiveConfigProvider = ({ children }: React.PropsWithChildren<{}>) => {
+  const data = useStaticQuery(query)
+  React.useEffect(() => Timezone.Service.instance.set(data.markdownRemark.frontmatter.timezone), [])
   return (
-    <Preview.Consumer>
-      {isPreview => isPreview ?
-        (
-          <StaticQuery
-            query={query}
-            render={data =>
-              <ConfigContext.Provider value={{
-                title: data.site.siteMetadata.title,
-                description: data.site.siteMetadata.description,
-                donationLink: data.markdownRemark.frontmatter.donationLink
-              }} />
-            }
-          />
-        ) :
-        (
-          <ConfigContext.Provider value={defaultConfig}>
-            {children}
-          </ConfigContext.Provider>
-        )
-      }
-    </Preview.Consumer>
+    <ConfigContext.Provider value={{
+      title: data.site.siteMetadata.title,
+      description: data.site.siteMetadata.description,
+      donationLink: data.markdownRemark.frontmatter.donationLink,
+    }}>
+      {children}
+    </ConfigContext.Provider>
   )
 }
 
+const PreviewConfigProvider = ({ children }: React.PropsWithChildren<{}>) => {
+  React.useEffect(() => {
+    Timezone
+      .Service
+      .instance
+      .set('America/Detroit')
+  }, [])
+  return (
+    <ConfigContext.Provider value={defaultConfig}>
+      {children}
+    </ConfigContext.Provider>
+  )
+}
+
+export const Provider = ({ children }: React.PropsWithChildren<{}>) => {
+  const isPreview = Preview.usePreview()
+  return isPreview ?
+    <PreviewConfigProvider>{children}</PreviewConfigProvider> :
+    <LiveConfigProvider>{children}</LiveConfigProvider>
+}
+
 export const Consumer = ConfigContext.Consumer
+
+export const useConfig = () => React.useContext(ConfigContext)

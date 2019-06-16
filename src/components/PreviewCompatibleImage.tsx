@@ -18,7 +18,18 @@ const PreviewCompatibleImage = ({ image, style }: Props) => {
   }
 
   if (typeof image === 'string') {
-    return <img style={style} src={image} />
+    return (
+      <img
+        src={image}
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'block',
+          ...style,
+          objectFit: 'cover',
+        }}
+      />
+    )
   }
 
   return null

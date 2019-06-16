@@ -1,12 +1,13 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import { DateTime } from 'luxon'
 import Link from '../components/Link'
 import Layout from '../components/Layout'
 import Map from '../components/Map'
 import PreviewCompatibileImage, { ImageResult } from '../components/PreviewCompatibleImage'
 import Styles from './schedule-page.module.css'
-import * as Time from '../core/Time'
-import * as Day from '../core/Day'
+import * as Timezone from '../services/TimezoneService'
+import Markdown from '../components/Markdown'
 
 type Contact = {
   name: string,
@@ -21,8 +22,8 @@ type Location = {
 
 type Event = {
   name: string,
-  start: Time.Posix,
-  end: Time.Posix,
+  start: DateTime,
+  end: DateTime,
   details: string,
   location: Location,
   contact: Contact,
@@ -32,8 +33,8 @@ type Action = {
   name: string,
   info: string,
   image: ImageResult
-  start: Day.Day,
-  end: Day.Day,
+  start: DateTime,
+  end: DateTime,
   events: Array<Event>
 }
 
@@ -42,19 +43,25 @@ export type TemplateProps = {
 }
 
 type EventSectionProps = {
-  event: Event
+  event: Event,
+}
+
+const timeFormat = (zone: Timezone.Zone, date: DateTime) => {
+  return date.toFormat('t')
 }
 
 const EventSection = ({ event }: EventSectionProps) => {
+  const zone = Timezone.useTimezone()
   return (
     <article
       className={Styles.event}>
       <h3>{event.name}</h3>
-      <div dangerouslySetInnerHTML={{ __html: event.details }} />
+      <Markdown input={event.details} />
       <div className={Styles.eventLocation}>
         <h4>Location</h4>
         <p>{event.location.name}</p>
         <p>{event.location.address}</p>
+        <p>{timeFormat(zone, event.start)} - {timeFormat(zone, event.end)}</p>
         <div className={Styles.eventMap}>
           <Map location={event.location.address} />
         </div>
@@ -81,12 +88,14 @@ export const SchedulePageTemplate = ({
           key={a.name}
           className={Styles.action}>
           <h2>{a.name}</h2>
-          <p>{Day.equal(a.start, a.end) ?
-            Day.formatDayLong(a.start) :
-            Day.formatRangeLong(a.start, a.end)}
+          <p>
+            {a.start.hasSame(a.end, 'day') ?
+              a.start.toFormat('DDD') :
+              a.start.toFormat('LLLL d') + ' - ' + a.end.toFormat('DDD')
+            }
           </p>
           <div className={Styles.actionDetails}>
-            <div dangerouslySetInnerHTML={{ __html: a.info }} />
+            <Markdown input={a.info} />
             <PreviewCompatibileImage
               image={a.image}
               style={{
@@ -142,51 +151,37 @@ type PageQuery = {
   }
 }
 
-const transformQuery = (data: PageQuery): TemplateProps => {
-  return  {
-    actions: data
-      .data
-      .markdownRemark
-      .frontmatter
-      .actions
-      .map((a): Action | null => {
-        const start = Day.parse(a.startDate)
-        const end = Day.parse(a.endDate)
-        if (!start || !end) return null
-        return {
-          start,
-          end,
-          info: a.info,
-          name: a.name,
-          image: a.image,
-          events: a
-            .events
-            .map((e): Event | null => {
-              const start = Time.parse(e.startTime)
-              const end = Time.parse(e.endTime)
-              if (!start || !end) return null
-              return {
-                start,
-                end,
-                name: e.name,
-                details: e.details,
-                location: {
-                  name: e.location.name,
-                  address: e.location.address,
-                },
-                contact: {
-                  name: e.contact.name,
-                  phone: e.contact.phone,
-                  email: e.contact.email,
-                }
-              }
-            })
-            .filter(e => e !== null) as Array<Event>
-        }
-      })
-      .filter(a => a !== null) as Array<Action>
-  }
-}
+const transformQuery = (data: PageQuery): TemplateProps => ({
+  actions: data
+    .data
+    .markdownRemark
+    .frontmatter
+    .actions
+    .map(a => ({
+      start: DateTime.fromISO(a.startDate, { zone: 'UTC' }),
+      end: DateTime.fromISO(a.endDate, { zone: 'UTC' }),
+      info: a.info,
+      name: a.name,
+      image: a.image,
+      events: a
+        .events
+        .map(e => ({
+          start: DateTime.fromISO(e.startTime, { zone: 'UTC' }),
+          end: DateTime.fromISO(e.endTime, { zone: 'UTC' }),
+          name: e.name,
+          details: e.details,
+          location: {
+            name: e.location.name,
+            address: e.location.address,
+          },
+          contact: {
+            name: e.contact.name,
+            phone: e.contact.phone,
+            email: e.contact.email,
+          }
+        }))
+    }))
+})
 
 const SchedulePage = (query: PageQuery) => {
   const props = transformQuery(query)
@@ -204,10 +199,10 @@ export const pageQuery = graphql`
     markdownRemark(fields: { path: { eq: $page } }) {
       frontmatter {
         actions {
-          endDate(locale: "America/Detroit")
+          endDate(locale: "UTC")
           info
           name
-          startDate(locale: "America/Detroit")
+          startDate(locale: "UTC")
           image {
             childImageSharp {
               fluid(maxWidth: 500) {
@@ -216,9 +211,9 @@ export const pageQuery = graphql`
             }
           }
           events {
-            startTime(locale: "America/Detroit")
+            startTime(locale: "UTC")
             name
-            endTime(locale: "America/Detroit")
+            endTime(locale: "UTC")
             details
             location {
               address

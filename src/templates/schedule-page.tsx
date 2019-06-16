@@ -3,6 +3,7 @@ import { graphql } from 'gatsby'
 import Link from '../components/Link'
 import Layout, { TemplateLayout } from '../components/Layout'
 import Map from '../components/Map'
+import PreviewCompatibileImage, { ImageResult } from '../components/PreviewCompatibleImage'
 import Styles from './schedule-page.module.css'
 import * as Time from '../core/Time'
 import * as Day from '../core/Day'
@@ -30,6 +31,7 @@ type Event = {
 type Action = {
   name: string,
   info: string,
+  image: ImageResult
   start: Day.Day,
   end: Day.Day,
   events: Array<Event>
@@ -83,8 +85,13 @@ export const SchedulePageTemplate = ({
             Day.formatDayLong(a.start) :
             Day.formatRangeLong(a.start, a.end)}
           </p>
-          <div>
+          <div className={Styles.actionDetails}>
             <div dangerouslySetInnerHTML={{ __html: a.info }} />
+            <PreviewCompatibileImage
+              image={a.image}
+              style={{
+                maxHeight: 400
+              }} />
           </div>
           <div className={Styles.actionEvents}>
             {a.events.map(e => <EventSection event={e} key={e.name} />)}
@@ -112,6 +119,7 @@ type PageQuery = {
           info: string,
           startDate: string,
           endDate: string,
+          image: ImageResult
           events: Array<{
             name: string,
             startTime: string,
@@ -150,6 +158,7 @@ const transformQuery = (data: PageQuery): TemplateProps => {
           end,
           info: a.info,
           name: a.name,
+          image: a.image,
           events: a
             .events
             .map((e): Event | null => {
@@ -208,6 +217,13 @@ export const pageQuery = graphql`
           info
           name
           startDate(locale: "America/Detroit")
+          image {
+            childImageSharp {
+              fluid(maxWidth: 500) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
           events {
             startTime(locale: "America/Detroit")
             name

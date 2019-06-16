@@ -83,7 +83,7 @@ const Dummy = (props: Props) => (
 
 export default (props: Props) => (
   <Preview.Consumer>
-    {isPreview => isPreview ?
+    {isPreview => isPreview || process.env.NODE_ENV === 'development' ?
       <Dummy {...props} /> :
       <Map {...props} />
     }

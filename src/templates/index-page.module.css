@@ -89,7 +89,7 @@
   background-size: cover;
   background-position: bottom;
   background-image: linear-gradient(
-    225deg,
+    to bottom left,
     red 0%,
     red 40%,
     blue 100%

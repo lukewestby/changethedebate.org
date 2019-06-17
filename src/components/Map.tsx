@@ -1,99 +1,86 @@
 import * as React from 'react'
-import {StaticMap, Marker} from 'react-map-gl'
-import Icon from './Icon'
-import 'mapbox-gl/dist/mapbox-gl.css'
-import Styles from './Map.module.css'
-import * as Preview from '../services/PreviewService'
+import 'ol/ol.css'
+import { Map, Overlay, View } from 'ol'
+import { Attribution } from 'ol/control'
+import OverlayPositioning from 'ol/OverlayPositioning'
+import { Point } from 'ol/geom'
+import { Tile } from 'ol/layer'
+import { OSM } from 'ol/source'
+import { fromLonLat } from 'ol/proj'
 
 type Props = {
   className?: string,
-  location?: string
-}
-
-type Point = {
   latitude: number,
-  longitude: number
+  longitude: number,
 }
 
-const lookupLocation = async (location: string): Promise<Point | null> => {
-  try {
-    const url = new URL(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(location)}.json`)
-    url.searchParams.append('access_token', process.env.MAPBOX_TOKEN!)
-    url.searchParams.append('autocomplete', 'false')
-    url.searchParams.append('fuzzyMatch', 'true')
-    const response = await fetch(url.href)
-    const json = await response.json()
-    const feature = json.features[0]
-    if (!feature) throw Error('Not Found')
-    return {
-      latitude: feature.center[1],
-      longitude: feature.center[0],
-    }
-  } catch (e) {
-    return null
-  }
+const buildMapWithIcon = (element: HTMLElement): Map => {
+  const iconElement = document.createElement('span')
+  iconElement.className = 'material-icons'
+  iconElement.innerText = 'place'
+  iconElement.style.color = '#000'
+
+  return new Map({
+    controls: [
+      new Attribution()
+    ],
+    interactions: [],
+    layers: [
+      new Tile({
+        source: new OSM({
+          url: 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png'
+        }),
+      }),
+    ],
+    overlays: [
+      new Overlay({
+        element: iconElement,
+        id: 'pin',
+        positioning: OverlayPositioning.TOP_CENTER
+      })
+    ],
+    view: new View({
+      center: [0,0],
+      zoom: 3,
+    }),
+    target: element,
+  })
 }
 
-const Map = (props: Props) => {
-  if (!props.location) return <></>
+const MapComponent = (props: Props) => {
+  const container = React.useRef<HTMLDivElement | null>(null)
+  const map = React.useRef<Map | null>(null)
 
-  const [point, setPoint] = React.useState<Point | null>(null)
+  React.useLayoutEffect(() => {
+    map.current && map.current.getView().setZoom(map.current.getView().getZoom())
+  }, [map.current])
 
   React.useEffect(() => {
-    if (!props.location) return
-    lookupLocation(props.location).then(setPoint)
-  }, [props.location])
+    if (map.current && container.current && container.current !== map.current.getTargetElement()) {
+      map.current.dispose()
+      map.current = buildMapWithIcon(container.current)
+    } else if (map.current) {
+      const p = new Point(fromLonLat([props.longitude, props.latitude]))
+      map.current.getView().fit(p, { maxZoom: 17, padding: [80, 80, 80, 80] })
+      map.current.getOverlayById('pin')!.setPosition(p.getCoordinates())
+    } else if (container.current) {
+      const p = new Point(fromLonLat([props.longitude, props.latitude]))
+      map.current = buildMapWithIcon(container.current)
+      map.current.getView().fit(p, { maxZoom: 17, padding: [80, 80, 80, 80] })
+      map.current.getOverlayById('pin')!.setPosition(p.getCoordinates())
+    }
+  }, [container.current, props.latitude, props.longitude])
 
-  if (point !== null) {
-    return (
-      <StaticMap
-        mapboxApiAccessToken={process.env.MAPBOX_TOKEN!}
-        className={props.className}
-        width="100%"
-        height="100%"
-        latitude={point.latitude}
-        longitude={point.longitude}
-        mapStyle="mapbox://styles/mapbox/streets-v10"
-        zoom={15}>
-        <Marker
-          latitude={point.latitude}
-          longitude={point.longitude}
-          offsetTop={-40}
-          offsetLeft={-20}>
-            <div className={Styles.marker}>
-              <Icon
-                icon="place"
-                size={40}
-                color="var(--color-yellow)"/>
-            </div>
-        </Marker>
-      </StaticMap>
-    )
-  } else {
-    return <></>
-  }
+  React.useEffect(() => {
+    return () => { map.current && map.current.dispose() }
+  }, [])
+
+  return (
+    <div
+      style={{ width: '100%', height: '100%', pointerEvents: 'none' }}
+      ref={container}
+      />
+  )
 }
 
-const Dummy = (props: Props) => (
-  <div
-    className={props.className}
-    style={{
-      width: '100%',
-      height: '100%',
-      backgroundColor: 'gray',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: 32,
-      textAlign: 'center'
-    }}>
-    Maps are turned off in preview to conserve Mapbox API quota
-  </div>
-)
-
-export default (props: Props) => {
-  const isPreview = Preview.usePreview()
-  return isPreview || process.env.NODE_ENV === 'development' ?
-    <Dummy {...props} /> :
-    <Map {...props} />
-}
+export default MapComponent

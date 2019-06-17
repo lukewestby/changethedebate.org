@@ -165,6 +165,16 @@ prefabs:
                   required: true
                   hint: "Write out the address or description of the place."
                   widget: "string"
+                - label: "Latitude"
+                  name: "latitude"
+                  required: true
+                  widget: "number"
+                  valueType: "float"
+                - label: "Longitude"
+                  name: "longitude"
+                  required: true
+                  widget: "number"
+                  valueType: "float"
             - label: "Contact"
               name: "contact"
               required: true

@@ -17,6 +17,8 @@ actions:
         location:
           address: '2211 Woodward Ave, Detroit, MI 48201'
           name: Fox Theater
+          latitude: 42.338459
+          longitude: -83.052761
         name: Morning Event
         startTime: 2019-07-27T16:00:48.337Z
       - contact:
@@ -33,6 +35,8 @@ actions:
         location:
           address: '2211 Woodward Ave, Detroit, MI 48201'
           name: Fox Theater
+          latitude: 42.338459
+          longitude: -83.052761
         name: Afternoon Event
         startTime: 2019-07-27T21:00:00.000Z
     image: /images/sunrise_movement.png

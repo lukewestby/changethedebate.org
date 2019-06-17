@@ -18,6 +18,8 @@ type Contact = {
 type Location = {
   name: string,
   address: string,
+  latitude: number,
+  longitude: number,
 }
 
 type Event = {
@@ -69,8 +71,15 @@ const EventSection = ({ translations, event }: EventSectionProps) => {
         <p>{event.location.name}</p>
         <p>{event.location.address}</p>
         <p>{timeFormat(zone, event.start)} - {timeFormat(zone, event.end)}</p>
-        <div className={Styles.eventMap}>
-          <Map location={event.location.address} />
+        <div>
+          <Link
+            to={`https://www.google.com/maps/place/${encodeURIComponent(event.location.address)}`}
+            target="_blank"
+            className={Styles.eventMapLink}>
+            <Map
+              latitude={event.location.latitude}
+              longitude={event.location.longitude} />
+          </Link>
         </div>
       </div>
       <div>
@@ -155,7 +164,8 @@ type PageQuery = {
             location: {
               name: string,
               address: string,
-              map: string,
+              latitude: number,
+              longitude: number,
             },
             contact: {
               name: string,
@@ -196,6 +206,8 @@ const transformQuery = (data: PageQuery): TemplateProps => ({
           location: {
             name: e.location.name,
             address: e.location.address,
+            latitude: e.location.latitude,
+            longitude: e.location.longitude
           },
           contact: {
             name: e.contact.name,
@@ -245,6 +257,8 @@ export const pageQuery = graphql`
             location {
               address
               name
+              latitude
+              longitude
             }
             contact {
               email

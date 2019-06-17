@@ -1,11 +1,13 @@
 import * as React from 'react'
 import 'ol/ol.css'
-import { Map, Overlay, View } from 'ol'
-import { Attribution } from 'ol/control'
+import Map from 'ol/Map'
+import Overlay from 'ol/Overlay'
+import View from 'ol/View'
+import Attribution from 'ol/control/Attribution'
 import OverlayPositioning from 'ol/OverlayPositioning'
-import { Point } from 'ol/geom'
-import { Tile } from 'ol/layer'
-import { OSM } from 'ol/source'
+import Point from 'ol/geom/Point'
+import Tile from 'ol/layer/Tile'
+import Osm from 'ol/source/OSM'
 import { fromLonLat } from 'ol/proj'
 
 type Props = {
@@ -27,7 +29,7 @@ const buildMapWithIcon = (element: HTMLElement): Map => {
     interactions: [],
     layers: [
       new Tile({
-        source: new OSM({
+        source: new Osm({
           url: 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png'
         }),
       }),

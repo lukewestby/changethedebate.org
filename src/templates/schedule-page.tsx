@@ -38,19 +38,26 @@ type Action = {
   events: Array<Event>
 }
 
+type Translations = {
+  locationHeader: string,
+  contactHeader: string
+}
+
 export type TemplateProps = {
-  actions: Array<Action>
+  actions: Array<Action>,
+  translations: Translations,
 }
 
 type EventSectionProps = {
   event: Event,
+  translations: Translations,
 }
 
 const timeFormat = (zone: Timezone.Zone, date: DateTime) => {
   return date.toFormat('t')
 }
 
-const EventSection = ({ event }: EventSectionProps) => {
+const EventSection = ({ translations, event }: EventSectionProps) => {
   const zone = Timezone.useTimezone()
   return (
     <article
@@ -58,7 +65,7 @@ const EventSection = ({ event }: EventSectionProps) => {
       <h3>{event.name}</h3>
       <Markdown input={event.details} />
       <div className={Styles.eventLocation}>
-        <h4>Location</h4>
+        <h4>{translations.locationHeader}</h4>
         <p>{event.location.name}</p>
         <p>{event.location.address}</p>
         <p>{timeFormat(zone, event.start)} - {timeFormat(zone, event.end)}</p>
@@ -68,7 +75,7 @@ const EventSection = ({ event }: EventSectionProps) => {
       </div>
       <div>
         <div>
-          <h4>For help or questions, contact</h4>
+          <h4>{translations.contactHeader}</h4>
           <p>{event.contact.name}</p>
           <p>{event.contact.phone}</p>
           <p>{event.contact.email}</p>
@@ -79,6 +86,7 @@ const EventSection = ({ event }: EventSectionProps) => {
 }
 
 export const SchedulePageTemplate = ({
+  translations,
   actions
 }: TemplateProps) => {
   return(
@@ -103,7 +111,13 @@ export const SchedulePageTemplate = ({
               }} />
           </div>
           <div className={Styles.actionEvents}>
-            {a.events.map(e => <EventSection event={e} key={e.name} />)}
+            {a.events.map(e =>
+              <EventSection
+                key={e.name}
+                event={e}
+                translations={translations}
+                />
+            )}
           </div>
         </section>
       ))}
@@ -123,6 +137,10 @@ type PageQuery = {
   data: {
     markdownRemark: {
       frontmatter: {
+        translations: {
+          locationHeader: string,
+          contactHeader: string,
+        },
         actions: Array<{
           name: string,
           info: string,
@@ -152,6 +170,11 @@ type PageQuery = {
 }
 
 const transformQuery = (data: PageQuery): TemplateProps => ({
+  translations: data
+    .data
+    .markdownRemark
+    .frontmatter
+    .translations,
   actions: data
     .data
     .markdownRemark
@@ -198,6 +221,10 @@ export const pageQuery = graphql`
   query SchedulePageTemplate($page: String!) {
     markdownRemark(fields: { path: { eq: $page } }) {
       frontmatter {
+        translations {
+          locationHeader
+          contactHeader
+        }
         actions {
           endDate(locale: "UTC")
           info

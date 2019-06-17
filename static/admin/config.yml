@@ -186,7 +186,21 @@ prefabs:
                   required: true
                   hint: "What email address should people contact?"
                   widget: "string"
-
+    - label: "Translations"
+      name: "translations"
+      required: true
+      widget: "object"
+      fields:
+        - label: "Location Header"
+          name: "locationHeader"
+          widget: "string"
+          required: true
+          default: "Location"
+        - label: "Contact Header"
+          name: "contactHeader"
+          widget: "string"
+          required: true
+          default: "For help or questions, contact"
 collections:
   - name: "config"
     label: "Config"

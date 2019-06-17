@@ -44,4 +44,8 @@ actions:
       mollit anim id est laborum.
     name: The Big Action
     startDate: '2019-07-28'
+translations:
+  contactHeader: 'Para ayuda o preguntas, contacte a'
+  locationHeader: Locación
 ---
+

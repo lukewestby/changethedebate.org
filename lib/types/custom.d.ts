@@ -1,3 +1,13 @@
+declare module '@mapbox/mapbox-gl-language' {
+  import { Control } from 'mapbox-gl'
+  export type Options = {
+    defaultLanguage?: string,
+  }
+  export default class MapboxLanguage extends Control {
+    constructor(options?: Options)
+  }
+}
+
 declare module 'remark' {
   export class Plugin {}
 

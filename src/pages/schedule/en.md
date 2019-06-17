@@ -51,5 +51,8 @@ actions:
       qui officia deserunt mollit anim id est laborum_.
     name: The Big Action
     startDate: '2019-07-28'
+translations:
+  contactHeader: 'For help or questions, contact'
+  locationHeader: Location
 ---
 

@@ -1,52 +1,12 @@
 import * as React from 'react'
 import 'ol/ol.css'
-import Map from 'ol/Map'
-import Overlay from 'ol/Overlay'
-import View from 'ol/View'
-import Attribution from 'ol/control/Attribution'
-import OverlayPositioning from 'ol/OverlayPositioning'
-import Point from 'ol/geom/Point'
-import Tile from 'ol/layer/Tile'
-import Osm from 'ol/source/OSM'
-import { fromLonLat } from 'ol/proj'
+
+type Map = import('ol/Map').default
 
 type Props = {
   className?: string,
   latitude: number,
   longitude: number,
-}
-
-const buildMapWithIcon = (element: HTMLElement): Map => {
-  const iconElement = document.createElement('span')
-  iconElement.className = 'material-icons'
-  iconElement.innerText = 'place'
-  iconElement.style.color = '#000'
-
-  return new Map({
-    controls: [
-      new Attribution()
-    ],
-    interactions: [],
-    layers: [
-      new Tile({
-        source: new Osm({
-          url: 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png'
-        }),
-      }),
-    ],
-    overlays: [
-      new Overlay({
-        element: iconElement,
-        id: 'pin',
-        positioning: OverlayPositioning.TOP_CENTER
-      })
-    ],
-    view: new View({
-      center: [0,0],
-      zoom: 3,
-    }),
-    target: element,
-  })
 }
 
 const MapComponent = (props: Props) => {
@@ -58,19 +18,65 @@ const MapComponent = (props: Props) => {
   }, [map.current])
 
   React.useEffect(() => {
-    if (map.current && container.current && container.current !== map.current.getTargetElement()) {
-      map.current.dispose()
-      map.current = buildMapWithIcon(container.current)
-    } else if (map.current) {
-      const p = new Point(fromLonLat([props.longitude, props.latitude]))
-      map.current.getView().fit(p, { maxZoom: 17, padding: [80, 80, 80, 80] })
-      map.current.getOverlayById('pin')!.setPosition(p.getCoordinates())
-    } else if (container.current) {
-      const p = new Point(fromLonLat([props.longitude, props.latitude]))
-      map.current = buildMapWithIcon(container.current)
-      map.current.getView().fit(p, { maxZoom: 17, padding: [80, 80, 80, 80] })
-      map.current.getOverlayById('pin')!.setPosition(p.getCoordinates())
-    }
+    let mounted = true;
+    (async () => {
+      const { default: Map } = await import('ol/Map')
+      const { default: Overlay } = await import('ol/Overlay')
+      const { default: View } = await import('ol/View')
+      const { default: Attribution } = await import('ol/control/Attribution')
+      const { default: OverlayPositioning } = await import('ol/OverlayPositioning')
+      const { default: Point } = await import('ol/geom/Point')
+      const { default: Tile } = await import('ol/layer/Tile')
+      const { default: Osm } = await import('ol/source/OSM')
+      const { fromLonLat } = await import('ol/proj')
+      const buildMapWithIcon = (element: HTMLElement): Map => {  
+        const iconElement = document.createElement('span')
+        iconElement.className = 'material-icons'
+        iconElement.innerText = 'place'
+        iconElement.style.color = '#000'
+      
+        return new Map({
+          controls: [
+            new Attribution()
+          ],
+          interactions: [],
+          layers: [
+            new Tile({
+              source: new Osm({
+                url: 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png'
+              }),
+            }),
+          ],
+          overlays: [
+            new Overlay({
+              element: iconElement,
+              id: 'pin',
+              positioning: OverlayPositioning.TOP_CENTER
+            })
+          ],
+          view: new View({
+            center: [0,0],
+            zoom: 3,
+          }),
+          target: element,
+        })
+      }
+      if (!mounted) return
+      if (map.current && container.current && container.current !== map.current.getTargetElement()) {
+        map.current.dispose()
+        map.current = buildMapWithIcon(container.current)
+      } else if (map.current) {
+        const p = new Point(fromLonLat([props.longitude, props.latitude]))
+        map.current.getView().fit(p, { maxZoom: 17, padding: [80, 80, 80, 80] })
+        map.current.getOverlayById('pin')!.setPosition(p.getCoordinates())
+      } else if (container.current) {
+        const p = new Point(fromLonLat([props.longitude, props.latitude]))
+        map.current = buildMapWithIcon(container.current)
+        map.current.getView().fit(p, { maxZoom: 17, padding: [80, 80, 80, 80] })
+        map.current.getOverlayById('pin')!.setPosition(p.getCoordinates())
+      }
+    })()
+    return () => { mounted = false }
   }, [container.current, props.latitude, props.longitude])
 
   React.useEffect(() => {

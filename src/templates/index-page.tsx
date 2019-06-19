@@ -10,6 +10,7 @@ import { Timeline } from 'react-twitter-widgets'
 import PreviewCompatibleImage, { ImageResult } from '../components/PreviewCompatibleImage'
 import styles from './index-page.module.css';
 import Instagram from '../components/Instagram'
+import Text from '../components/Text'
 
 type Partner = {
   name: string,
@@ -46,7 +47,9 @@ type PartnerListProps = {
 
 const PartnerList = ({ partners, title }: PartnerListProps) => (
   <div>
-    <h3>{title}</h3>
+    <h3>
+      <Text style="h3">{title}</Text>
+    </h3>
     <div className={Styles.partnerEntries}>
       {partners.map(p => (
         <a
@@ -54,7 +57,9 @@ const PartnerList = ({ partners, title }: PartnerListProps) => (
           href={p.homepage}
           key={p.name}>
           <PreviewCompatibleImage image={p.logo} />
-          <div>{p.name}</div>
+          <div>
+            <Text style="body">{p.name}</Text>
+          </div>
         </a>
       ))}
     </div>
@@ -66,12 +71,16 @@ const DetailCard = ({ card }: { card: DetailCard }) => {
     <div className={Styles.detailsCard}>
       <PreviewCompatibleImage
         image={card.image} />
-      <p className={Styles.detailsCardText}>{card.text}</p>
+      <p className={Styles.detailsCardText}>
+        <Text style="body" on="dark">{card.text}</Text>
+      </p>
       <div className={Styles.detailsCardActions}>
         <Link
           className={Styles.detailsCardLink}
           to={card.link.url}>
-          {card.link.label}
+          <Text style="button" on="dark">
+            {card.link.label}
+          </Text>
         </Link>
       </div>
     </div>
@@ -87,20 +96,28 @@ const IndexPageTemplate = ({
 }: TemplateProps) => {
   return (
     <>
+      <section className={Styles.leadIn}>
+        <div className={Styles.leadInInner}>
+          <Text style="h1" on="dark">It's time to #ChangeTheDebate</Text>
+        </div>
+      </section>
       <section id="video" className={Styles.video}>
         <div className={Styles.videoInner}>
-          <YouTube videoId={youtubeVideoId} />
+          <YouTube className={Styles.youtube} videoId={youtubeVideoId} />
         </div>
       </section>
       <div className={Styles.gridContainer}>
         <section id="intro" className={Styles.intro}>
           <div className={Styles.introInner}>
-            <div className={Styles.gridInner}>{intro}</div>
+            <div className={Styles.gridInner}>
+              <Text style="body">
+                {intro}
+              </Text>
+            </div>
           </div>
         </section>
         <section id="signup" className={Styles.signup}>
           <div className={Styles.signupInner}>
-            Action Network ID: {actionNetworkId}
             <ActionNetwork actionId={actionNetworkId} />
           </div>
         </section>
@@ -121,7 +138,7 @@ const IndexPageTemplate = ({
       </div>
       <section className={Styles.social} id="social">
         <div className={Styles.socialInner}>
-          <div className={Styles.twitterEmbed}>
+          {/* <div className={Styles.twitterEmbed}>
             <Timeline
               dataSource={{
                 sourceType: 'profile',
@@ -134,7 +151,7 @@ const IndexPageTemplate = ({
           </div>
           <div className={Styles.instagramEmbed}>
             <Instagram hashtag="ChangeTheDebate" />
-          </div>
+          </div> */}
         </div>
       </section>
     </>

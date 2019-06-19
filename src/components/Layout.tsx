@@ -1,11 +1,10 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import './Layout.css'
-import useSiteMetadata from '../queries/SiteMetadata'
 import Header from './Header'
 import Footer from './Footer'
 import Styles from './Layout.module.css'
-import * as Config from '../services/ConfigService'
+import * as Config from '../contexts/ConfigService'
 
 const Layout = (props: React.PropsWithChildren<{}>) => {
   return (
@@ -20,6 +19,7 @@ const Layout = (props: React.PropsWithChildren<{}>) => {
             <meta property="og:type" content="website" />
             <meta property="og:title" content={config.title} />
             <meta property="og:url" content="/" />
+            <meta name="viewport" content="initial-scale=1,maximum-scale=1,width=device-width" />
           </Helmet>
           <Header />
           <main className={Styles.main}>

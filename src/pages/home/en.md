@@ -9,7 +9,7 @@ intro: >-
 actionNetworkId: join-us-in-detroit-to-changethedebate
 youtubeVideoId: cON2L0sUqW0
 detailCards:
-  - image: /images/sunrise_movement.png
+  - image: /images/placeholder_300_300.png
     link:
       label: Learn More
       url: /faq
@@ -17,7 +17,7 @@ detailCards:
       Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
       aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
       voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-  - image: /images/sunrise_movement.png
+  - image: /images/placeholder_300_300.png
     link:
       label: Learn More
       url: /faq
@@ -25,7 +25,7 @@ detailCards:
       Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
       aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
       voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-  - image: /images/sunrise_movement.png
+  - image: /images/placeholder_300_300.png
     link:
       label: Learn More
       url: /faq

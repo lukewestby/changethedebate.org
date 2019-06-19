@@ -6,8 +6,9 @@ import Layout from '../components/Layout'
 import Map from '../components/Map'
 import PreviewCompatibileImage, { ImageResult } from '../components/PreviewCompatibleImage'
 import Styles from './schedule-page.module.css'
-import * as Timezone from '../services/TimezoneService'
+import * as Timezone from '../contexts/TimezoneService'
 import Markdown from '../components/Markdown'
+import Text from '../components/Text'
 
 type Contact = {
   name: string,
@@ -67,10 +68,10 @@ const EventSection = ({ translations, event }: EventSectionProps) => {
       <h3>{event.name}</h3>
       <Markdown input={event.details} />
       <div className={Styles.eventLocation}>
-        <h4>{translations.locationHeader}</h4>
-        <p>{event.location.name}</p>
-        <p>{event.location.address}</p>
-        <p>{timeFormat(zone, event.start)} - {timeFormat(zone, event.end)}</p>
+        <h4><Text style="subtitle">{translations.locationHeader}</Text></h4>
+        <p><Text style="body">{event.location.name}</Text></p>
+        <p><Text>{event.location.address}</Text></p>
+        <p><Text>{timeFormat(zone, event.start)} - {timeFormat(zone, event.end)}</Text></p>
         <div>
           <Link
             to={`https://www.google.com/maps/place/${encodeURIComponent(event.location.address)}`}
@@ -99,17 +100,22 @@ export const SchedulePageTemplate = ({
   actions
 }: TemplateProps) => {
   return(
-    <>
+    <div className={Styles.page}>
+      <div className={Styles.pageHeader}>
+        <Text style="h1" on="dark">Schedule</Text>
+      </div>
       {actions.map(a => (
         <section
           key={a.name}
           className={Styles.action}>
-          <h2>{a.name}</h2>
+          <h2><Text style="h2">{a.name}</Text></h2>
           <p>
-            {a.start.hasSame(a.end, 'day') ?
-              a.start.toFormat('DDD') :
-              a.start.toFormat('LLLL d') + ' - ' + a.end.toFormat('DDD')
-            }
+            <Text style="caption">
+              {a.start.hasSame(a.end, 'day') ?
+                a.start.toFormat('DDD') :
+                a.start.toFormat('LLLL d') + ' - ' + a.end.toFormat('DDD')
+              }
+            </Text>
           </p>
           <div className={Styles.actionDetails}>
             <Markdown input={a.info} />
@@ -130,7 +136,7 @@ export const SchedulePageTemplate = ({
           </div>
         </section>
       ))}
-    </>
+    </div>
   )
 }
 
@@ -244,7 +250,7 @@ export const pageQuery = graphql`
           startDate(locale: "UTC")
           image {
             childImageSharp {
-              fluid(maxWidth: 500) {
+              fluid(maxWidth: 400) {
                 ...GatsbyImageSharpFluid
               }
             }

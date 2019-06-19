@@ -1,0 +1,73 @@
+.onlight {
+  color: var(--font-color-on-light);
+}
+
+.ondark {
+  color: var(--font-color-on-dark);
+}
+
+.body {
+  font-weight: 400;
+  font-family: var(--font-family-copy);
+  font-size: var(--font-size-body);
+  line-height: var(--font-leading-body);
+}
+
+.caption {
+  font-size: var(--font-size-caption);
+  font-family: var(--font-family-copy);
+  letter-spacing: var(--font-tracking-caption);
+}
+
+.button {
+  font-family: var(--font-family-copy);
+  text-transform: uppercase;
+  font-weight: var(--font-weight-button);
+  letter-spacing: var(--font-tracking-button);
+  font-size: var(--font-size-button);
+}
+
+.subtitle {
+  font-family: var(--font-family-copy);
+  font-size: var(--font-size-body);
+  line-height: var(--font-leading-body);
+  font-weight: 700;
+}
+
+.h3 {
+  font-family: var(--font-family-copy);
+  font-size: var(--font-size-h3);
+  letter-spacing: var(--font-tracking-h3);
+  font-weight: var(--font-weight-h3);
+}
+
+.h2 {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-h2);
+  font-size: var(--font-size-h2);
+  letter-spacing: var(--font-tracking-h2);
+  text-transform: uppercase;
+}
+
+.h1 {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-h1);
+  font-size: var(--font-size-h1);
+  letter-spacing: var(--font-tracking-h1);
+  text-transform: uppercase;
+}
+  .h1.ondark {
+    background-image: var(--color-gradient-3-right);
+    background-position: center;
+    background-size: cover;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+  }
+
+@media (max-width: 768px) {
+  .h1 {
+    font-size: calc(0.55 * var(--font-size-h1));
+    line-height: 1.05;
+  }
+}

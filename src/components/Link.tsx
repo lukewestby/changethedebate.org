@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Link as GatsbyLink } from 'gatsby'
-import * as Locale from '../services/LocaleService'
-import * as Preview from '../services/PreviewService'
+import * as Locale from '../contexts/LocaleService'
+import * as Preview from '../contexts/PreviewService'
 
 export type Props = {
   to: string,

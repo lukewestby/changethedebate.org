@@ -1,13 +1,56 @@
 :root {
-  --max-width: 1200px;
+  --layout-max-width: 1200px;
+  --layout-mobile-break: 1000px;
+  --color-light-blue: #336699;
+  --color-green: #009999;
+  --color-orange: #ff9933;
+  --color-red: rgb(223, 65, 65);
+  --color-red-20pct: rgb(223, 65, 65, 0.2);
+  --color-dark-blue: #000033;
+  --color-white: #ffffff;
+  --color-gray-medium: #777785;
+  --color-gray-light: #dedee9;
+  --color-gradient-3-right: linear-gradient(to right, var(--color-light-blue) 0%, var(--color-green) 50%, var(--color-orange) 100%); 
+  --color-gradient-3-bottom: linear-gradient(to bottom, var(--color-light-blue) 0%, var(--color-green) 50%, var(--color-orange) 100%);
+  --color-gradient-2-dark-bottom: linear-gradient(
+    to bottom,
+    var(--color-dark-blue) 0%,
+    var(--color-light-blue) 100%
+  );
+  --font-family-copy: Roboto;
+  --font-family-display: Roboto Condensed;
+  --font-color-on-dark: var(--color-white);
+  --font-color-on-light: var(--color-dark-blue);
+  --font-size-caption: 14px;
+  --font-tracking-caption: 0.0285em;
+  --font-size-button: 14px;
+  --font-tracking-button: 0.075em;
+  --font-weight-button: 700;
+  --font-size-body: 17px;
+  --font-leading-body: 31px;
+  --font-size-h3: 24px;
+  --font-weight-h3: 900;
+  --font-tracking-h3: 0.05em;
+  --font-size-h2: 36px;
+  --font-weight-h2: 700;
+  --font-tracking-h2: 0.075em;
+  --font-size-h1: 94px;
+  --font-weight-h1: 700;
+  --font-tracking-h1: 0.075em;
+  --easing-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 body {
   margin: 0;
   font-family: sans-serif;
   box-sizing: border-box;
+  width: 100%;
 }
 
 * {
   box-sizing: inherit;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
 }

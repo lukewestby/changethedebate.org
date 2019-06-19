@@ -1,8 +1,5 @@
 .action {
   border-bottom: 1px solid #000;
-  padding: 40px 16px;
-  max-width: var(--max-width);
-  margin: 0 auto;
 }
 
 .actionEvents {
@@ -28,4 +25,14 @@
   height: 400px;
   display: block;
   position: relative;
+}
+
+.pageHeader {
+  text-align: center;
+}
+
+.page {
+  max-width: calc(var(--layout-max-width) + 64px);
+  padding: 32px;
+  margin: 0 auto;
 }

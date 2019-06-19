@@ -1,8 +1,8 @@
 const React = require('react')
-const Locale = require('./src/services/LocaleService')
-const Preview = require('./src/services/PreviewService')
-const Config = require('./src/services/ConfigService')
-const Timezone = require('./src/services/TimezoneService')
+const Locale = require('./src/contexts/LocaleService')
+const Preview = require('./src/contexts/PreviewService')
+const Config = require('./src/contexts/ConfigService')
+const Timezone = require('./src/contexts/TimezoneService')
 
 exports.wrapPageElement = ({ element }) => {
   return (

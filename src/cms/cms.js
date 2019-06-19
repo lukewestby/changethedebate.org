@@ -5,7 +5,7 @@ import FileSystemBackend from 'netlify-cms-backend-fs'
 import IndexPagePreview from './preview-templates/IndexPagePreview'
 import FaqPagePreview from './preview-templates/FaqPagePreview'
 import SchedulePagePreview from './preview-templates/SchedulePagePreview'
-import * as Preview from '../services/PreviewService'
+import * as Preview from '../contexts/PreviewService'
 
 CMS.registerMediaLibrary(uploadcare);
 CMS.registerMediaLibrary(cloudinary);

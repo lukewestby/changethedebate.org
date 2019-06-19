@@ -73,6 +73,8 @@ module.exports = {
       options: {
         fonts: [
           'Material Icons',
+          'Roboto\:400,400i,700,900',
+          'Roboto Condensed\:700'
         ],
         display: 'swap'
       }

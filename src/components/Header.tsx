@@ -2,8 +2,8 @@ import * as React from 'react'
 import Link from './Link'
 import { Switch, Case, Default } from './Switch'
 import Styles from './Header.module.css'
-import * as Locale from '../services/LocaleService'
-import * as Config from '../services/ConfigService'
+import * as Locale from '../contexts/LocaleService'
+import * as Config from '../contexts/ConfigService'
 
 const Header = () => {
   const [localeOpen, setLocaleOpen] = React.useState(false)

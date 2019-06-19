@@ -1,29 +1,63 @@
 import * as React from 'react'
+import Styles from './ActionNetwork.module.css'
 
 export type Props = {
   actionId: string,
 }
+
+const cache: { [key: string]: HTMLDivElement } = Object.create(null)
 
 const ActionNetwork = (props: Props) => {
   const container: React.MutableRefObject<null | HTMLDivElement> = React.useRef(null)
   
   React.useEffect(() => {
     if (!container.current) return
-    container.current.innerHTML = `
-      <link href="https://actionnetwork.org/css/style-embed-v3.css" rel="stylesheet" type="text/css" />
-      <div id="can-form-area-${props.actionId}" style="width: 100%;"></div>
-    `
-    const script = document.createElement('script')
-    script.src = `https://actionnetwork.org/widgets/v3/form/${props.actionId}?format=js&source=widget`
-    container.current.appendChild(script)
+    let inner: HTMLDivElement
+    if (cache[props.actionId]) {
+      inner = cache[props.actionId]
+      container.current.appendChild(inner)
+    } else {
+      inner = document.createElement('div')
+      inner.innerHTML = `
+        <div id="can-form-area-${props.actionId}" style="width: 100%;"></div>
+      `
+      const script = document.createElement('script')
+      script.src = `https://actionnetwork.org/widgets/v3/form/${props.actionId}?format=js&source=widget`
+      inner.appendChild(script)
+      container.current.appendChild(inner)
+    }
+
+    const onInput = (event: Event) => {
+      const target = event.target as HTMLInputElement
+      target.value === '' ?
+        target.parentElement!.classList.remove('has-value') :
+        target.parentElement!.classList.add('has-value')
+      target.classList.contains('error_input') ?
+        target.parentElement!.classList.add('has-error') :
+        target.parentElement!.classList.remove('has-error')
+    }
+
+    const onBlur = (event: Event) => {
+      const target = event.target as HTMLInputElement
+      target.classList.contains('error_input') ?
+        target.parentElement!.classList.add('has-error') :
+        target.parentElement!.classList.remove('has-error')
+    }
+
+    inner.addEventListener('input', onInput)
+    inner.addEventListener('focusout', onBlur)
+
     return () => {
-      if (!container.current) return
-      container.current.innerHTML = ''
+      inner.removeEventListener('input', onInput)
+      inner.removeEventListener('focusout', onBlur)
+      cache[props.actionId] = inner
+      container.current && container.current.removeChild(inner)
     }
   }, [props.actionId])
 
   return (
-    <div ref={container}></div>
+    <div className={Styles.container} ref={container}>
+    </div>
   )
 }
 

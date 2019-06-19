@@ -1,5 +1,6 @@
 import * as React from 'react'
-import * as Preview from '../services/PreviewService'
+import * as Preview from '../contexts/PreviewService'
+import Styles from './Markdown.module.css'
 
 const process = async (input: string): Promise<string> => {
   const { default: remark } = await import('remark')
@@ -29,11 +30,11 @@ const PreviewMarkdown = (props: Props) => {
   }, [props.input])
   return !result ?
     <div /> :
-    <div dangerouslySetInnerHTML={{ __html: result }} />
+    <div className={Styles.markdown} dangerouslySetInnerHTML={{ __html: result }} />
 }
 
 const LiveMarkdown = (props: Props) => {
-  return <div dangerouslySetInnerHTML={{ __html: props.input }} />
+  return <div className={Styles.markdown} dangerouslySetInnerHTML={{ __html: props.input }} />
 }
 
 const Markdown = (props: Props) => {

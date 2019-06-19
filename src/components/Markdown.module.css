@@ -1,0 +1,74 @@
+.markdown {
+
+}
+
+.onlight {
+  color: var(--font-color-on-light);
+}
+
+.ondark {
+  color: var(--font-color-on-dark);
+}
+
+.markdown p {
+  font-weight: 400;
+  font-family: var(--font-family-copy);
+  font-size: var(--font-size-body);
+  line-height: var(--font-leading-body);
+  margin: 1em 0;
+}
+  .markdown p:first-child {
+    margin-top: 0;
+  }
+  .markdown p:last-child {
+    margin-bottom: 0;
+  }
+
+.markdown caption {
+  font-size: var(--font-size-caption);
+  font-family: var(--font-family-copy);
+  letter-spacing: var(--font-tracking-caption);
+}
+
+.markdown button {
+  font-family: var(--font-family-copy);
+  text-transform: uppercase;
+  font-weight: var(--font-weight-button);
+  letter-spacing: var(--font-tracking-button);
+  font-size: var(--font-size-button);
+}
+
+.markdown h3 {
+  font-family: var(--font-family-copy);
+  font-size: var(--font-size-h3);
+  letter-spacing: var(--font-tracking-h3);
+  font-weight: var(--font-weight-h3);
+}
+
+.markdown h2 {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-h2);
+  font-size: var(--font-size-h2);
+  letter-spacing: var(--font-tracking-h2);
+  text-transform: uppercase;
+}
+
+.markdown h1 {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-h1);
+  font-size: var(--font-size-h1);
+  letter-spacing: var(--font-tracking-h1);
+  text-transform: uppercase;
+}
+  .markdown.ondark h1 {
+    background: var(--color-gradient-3-right);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+.markdown h4, .markdown h5, .markdown h6 {
+  font-family: var(--font-family-copy);
+  font-size: var(--font-size-body);
+  line-height: var(--font-leading-body);
+  font-weight: 700;
+}

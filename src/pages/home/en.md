@@ -50,7 +50,7 @@ partnerGroups:
         name: Sunrise Movement
       - homepage: 'https://example.com'
         logo: /images/eco-chat.svg
-        name: Placeholder organization
+        name: Placeholder organization!
     title: Additional supporters
 ---
 

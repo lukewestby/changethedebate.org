@@ -49,7 +49,7 @@ partnerGroups:
         logo: /images/sunrise_movement.png
         name: Sunrise Movement
       - homepage: 'https://example.com'
-        logo: /images/eco-chat.svg
+        logo: /images/nelson-baseball-002.jpg
         name: Placeholder organization!
     title: Additional supporters
 ---

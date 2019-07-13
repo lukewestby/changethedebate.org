@@ -1,165 +1,148 @@
-.inner {
-  max-width: var(--layout-max-width);
-  width: 100%;
-  margin: 0 auto;
-}
-
-.gridInner {
-  max-width: calc(100% - calc(0.4 * var(--layout-max-width)));
-  width: 60%;
-  padding-right: 16px;
-}
-
-.gridContainer {
-  display: grid;
-  grid-template-columns:
-    minmax(0, auto)
-    minmax(auto, calc(0.6 * var(--layout-max-width)))
-    calc(0.4 * var(--layout-max-width))
-    minmax(0, auto);
-}
-
-.topBackground {
-  background-image: linear-gradient(
-    to bottom,
-    var(--color-dark-blue) 0%,
-    var(--color-dark-blue) 60%,
-    var(--color-light-blue) 100%
-  );
-  background-attachment: fixed;
-  background-size: contain;
-  background-position: top center;
-}
-
 .leadIn {
-  composes: topBackground;
+  background-color: var(--color-dark-blue);
+  position: relative;
 }
 
 .leadInInner {
-  composes: inner;
-  text-align: center;
-  padding: 40px 32px 64px;
-}
-
-.video {
-  composes: topBackground;
-}
-
-.videoInner {
-  composes: inner;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.youtube {
-  display: block;
-  width: 100vw;
-  height: 56.25vw;
   max-width: var(--layout-max-width);
-  max-height: calc(0.5625 * var(--layout-max-width));
-  box-shadow: 0px -2px 12px 8px rgba(0,0,0,0.25);
-  margin-bottom: -16px;
-  border-radius: 12px;
+  margin: 0 auto;
+  padding: 80px 64px;
 }
 
-.intro {
-  border-bottom: 1px solid #000;
-  grid-row: 1;
-  grid-column: 1 / -1;
+.leadInTitle {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-h1);
+  letter-spacing: var(--font-tracking-h1);
+  line-height: var(--font-leading-h1);
+  font-family: var(--font-family-h1);
+  text-transform: uppercase;
+  display: inline-block;
+  text-align: center;
+  background-image: var(--color-gradient-3-right);
+  background-position: center;
+  background-size: cover;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-bottom: 48px;
 }
 
-.introInner {
-  composes: inner;
-  padding-top: 88px;
-  padding-bottom: 72px;
+.leadInSubtitle {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-h2);
+  letter-spacing: var(--font-tracking-h2);
+  line-height: 1.4;
+  color: var(--color-light-blue);
+  text-transform: uppercase;
 }
 
-.signup {
-  border-bottom: 1px solid #000;
-  grid-row: 1 / span 4;
-  grid-column: 3;
-  height: 100%;
-  max-width: calc(0.4 * var(--layout-max-width));
-  position: relative;
-  padding-bottom: 16px;
-}
-
-.signupInner {
-  position: sticky;
-  top: 16px;
-  margin-top: 48px;
-  padding: 32px;
-  background-color: #fff;
-  box-shadow: 0px 2px 12px 8px rgba(0,0,0,0.25);
-  border-radius: 10px;
-}
-
-.details {
-  border-bottom: 1px solid #000;
-  grid-row: 2;
-  grid-column: 1 / -1;
-}
-
-.detailsInner {
-  composes: inner;
-  padding: 24px 0;
-}
+.details {}
 
 .detailsLayout {
-  composes: gridInner;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(auto-fill, auto);
-  grid-auto-flow: dense;
-  grid-row-gap: 16px;
-  grid-column-gap: 16px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-auto-flow: column;
 }
 
 .detailsCard {
-  border: 1px solid #000;
   display: grid;
   grid-template-rows: 300px 1fr auto;
   background-size: cover;
   background-position: left bottom;
-  background-image: var(--color-gradient-3-bottom);
-  background-attachment: fixed;
+  position: relative;
+  padding-top: 100%;
+  min-height: 0;
+  height: 0;
 }
 
-.detailsCardActions {
-  padding: 16px;
-  padding-top: 0;
+.detailsCardImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
-.detailsCardLink {
-  color: #fff;
-  background-color: #000;
-  display: inline-block;
-  text-decoration: none;
-  padding: 12px;
+.detailsCardOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  opacity: 0.6;
+}
+
+.detailsCard:nth-child(1) .detailsCardOverlay {
+  background-color: var(--color-light-blue);
+}
+.detailsCard:nth-child(2) .detailsCardOverlay {
+  background-color: var(--color-green);
+}
+.detailsCard:nth-child(3) .detailsCardOverlay {
+  background-color: var(--color-orange);
 }
 
 .detailsCardText {
   padding: 16px;
   margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  font-size: 24px;
+  line-height: var(--font-leading-body);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  text-align: center;
+}
+
+.signup {
+  margin: 64px auto;
+  max-width: 600px;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px -1px rgba(0,0,0,0.4);
 }
 
 .partners {
-  border-bottom: 1px solid #000;
-  grid-row: 3;
-  grid-column: 1 / -1;
-}
-
-.partnersInner {
-  composes: inner;
-  padding: 48px 0;
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  padding: 32px 0;
 }
 
 .partner {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-right: 32px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.partnerName {
+  font-size: var(--font-size-body);
+  padding-top: 16px;
+}
+
+.partnerList {
+  padding: 32px 0;
+}
+
+.partnerListTitle {
+  text-align: center;
+  padding-bottom: 24px;
+  font-size: var(--font-size-h3);
+  font-family: var(--font-family-h3);
+  letter-spacing: var(--font-tracking-h3);
+  font-weight: var(--font-weight-h3);
+  text-transform: uppercase;
 }
 
 .partnerEntries {
@@ -167,70 +150,4 @@
   flex-wrap: wrap;
   justify-content: center;
   align-content: flex-start;
-}
-
-.social {
-  border-bottom: 1px solid #000;
-}
-
-.socialInner {
-  composes: inner;
-  padding: 72px 0;
-  display: grid;
-  grid-template-columns: auto auto;
-  place-items: center;
-}
-
-.twitterEmbed {
-  border: 1px solid #000;
-  width: 400px;
-  height: 600px;
-}
-
-.instagramEmbed {
-  border: 1px solid #000;
-  width: 400px;
-  height: 600px;
-  position: relative;
-}
-
-@media (max-width: 1000px) {
-  .leadInInner {
-    padding: 32px;
-  }
-  .youtube {
-    margin: 0;
-    box-shadow: none;
-    border-radius: 0;
-  }
-
-  .signup {
-    grid-row: 2;
-    grid-column: 1 / -1;
-    max-width: unset;
-    height: unset;
-    padding: 24px 0;
-  }
-
-  .signupInner {
-    position: relative;
-    top: unset;
-  }
-
-  .gridInner {
-    max-width: unset;
-    width: unset;
-    padding-right: unset;
-    }
-  .details {
-    grid-row: 3;
-  }
-  .partners {
-    grid-row: 4;
-  }
-  .socialInner {
-    grid-template-columns: auto;
-    grid-template-rows: auto auto;
-    grid-auto-flow: row;
-  }
 }

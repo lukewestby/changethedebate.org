@@ -10,13 +10,20 @@ type Entry = {
   slug: string,
 }
 
-export type TemplateProps = {
+type Category = {
+  name: string,
   entries: Array<Entry>,
+}
+
+export type TemplateProps = {
+  mainEntries: Array<Entry>,
+  categorizedEntries: Array<Category>,
   intro: string,
 }
 
 const FaqPageTemplate = ({
-  entries,
+  mainEntries,
+  categorizedEntries,
   intro,
 }: TemplateProps) => (
   <>
@@ -28,13 +35,26 @@ const FaqPageTemplate = ({
     <section id="faq">
       <div className={Styles.inner}>
         <dl className={Styles.faqList}>
-          {entries.map(entry => (
+          {mainEntries.map(entry => (
             <React.Fragment key={entry.question}>
               <dt className={Styles.faqQuestion} id={entry.slug}>{entry.question}</dt>
               <dd className={Styles.faqAnswer}>{entry.answer}</dd>
             </React.Fragment>
           ))}
         </dl>
+        {categorizedEntries.map((c: Category) => (
+          <div key={c.name}>
+            <h3>{c.name}</h3>
+            <dl className={Styles.faqList}>
+              {c.entries.map((e: Entry) => (
+                <React.Fragment key={e.question}>
+                  <dt className={Styles.faqQuestion} id={e.slug}>{e.question}</dt>
+                  <dd className={Styles.faqAnswer}>{e.answer}</dd>
+                </React.Fragment>
+              ))}
+            </dl>
+          </div>
+        ))}
       </div>
     </section>
   </>
@@ -53,7 +73,8 @@ const FaqPage = ({ data }: PageProps) => {
   return (
     <Layout>
       <FaqPageTemplate
-        entries={frontmatter.entries}
+        mainEntries={frontmatter.mainEntries}
+        categorizedEntries={frontmatter.categorizedEntries}
         intro={frontmatter.intro}
       />
     </Layout>
@@ -63,14 +84,22 @@ const FaqPage = ({ data }: PageProps) => {
 export default FaqPage
 
 export const pageQuery = graphql`
-  query FaqPageTemplate($page: String!) {
-    markdownRemark(fields: { path: { eq: $page } }) {
+  query FaqPageTemplate($slug: String!) {
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       frontmatter {
         intro
-        entries {
+        mainEntries {
           question
           answer
           slug
+        }
+        categorizedEntries {
+          name
+          entries {
+            question
+            answer
+            slug
+          }
         }
       }
     }

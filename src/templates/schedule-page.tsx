@@ -236,8 +236,8 @@ const SchedulePage = (query: PageQuery) => {
 export default SchedulePage
 
 export const pageQuery = graphql`
-  query SchedulePageTemplate($page: String!) {
-    markdownRemark(fields: { path: { eq: $page } }) {
+  query SchedulePageTemplate($slug: String!) {
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       frontmatter {
         translations {
           locationHeader

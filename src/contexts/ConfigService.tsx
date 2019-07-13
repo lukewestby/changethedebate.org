@@ -6,13 +6,11 @@ import * as Timezone from './TimezoneService'
 export type Config = {
   title: string,
   description: string,
-  donationLink: string,
 }
 
 const defaultConfig = {
   title: '',
   description: '',
-  donationLink: '',
 }
 
 const query = graphql`
@@ -25,7 +23,6 @@ const query = graphql`
     }
     markdownRemark(frontmatter: { isConfig: { eq: true } }) {
       frontmatter {
-        donationLink
         timezone
       }
     }
@@ -40,7 +37,6 @@ const LiveConfigProvider = ({ children }: React.PropsWithChildren<{}>) => {
     <ConfigContext.Provider value={{
       title: data.site.siteMetadata.title,
       description: data.site.siteMetadata.description,
-      donationLink: data.markdownRemark.frontmatter.donationLink,
     }}>
       {children}
     </ConfigContext.Provider>

@@ -6,7 +6,12 @@ import Footer from './Footer'
 import Styles from './Layout.module.css'
 import * as Config from '../contexts/ConfigService'
 
-const Layout = (props: React.PropsWithChildren<{}>) => {
+export type Props = {
+  headerBackgroundColor?: string,
+  headerTextColor?: string,
+}
+
+const Layout = (props: React.PropsWithChildren<Props>) => {
   return (
     <Config.Consumer>
       {config =>
@@ -21,7 +26,9 @@ const Layout = (props: React.PropsWithChildren<{}>) => {
             <meta property="og:url" content="/" />
             <meta name="viewport" content="initial-scale=1,maximum-scale=1,width=device-width" />
           </Helmet>
-          <Header />
+          <Header
+            backgroundColor={props.headerBackgroundColor}
+            textColor={props.headerTextColor} />
           <main className={Styles.main}>
             {props.children}
           </main>

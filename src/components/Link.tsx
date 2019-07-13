@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Link as GatsbyLink } from 'gatsby'
-import * as Locale from '../contexts/LocaleService'
 import * as Preview from '../contexts/PreviewService'
 
 export type Props = {
@@ -11,7 +10,6 @@ export type Props = {
 }
 
 const Link = (props: Props) => {
-  const locale = Locale.useLocale()
   const isPreview = Preview.usePreview()
   const to = props.to.startsWith('..') ? props.to.replace('..', '') : props.to
   if (to.startsWith('http')) {
@@ -33,7 +31,7 @@ const Link = (props: Props) => {
   return (
     <GatsbyLink
       {...props}
-      to={locale === 'en' ? to : '/' + locale + to}>
+      to={to}>
       {props.children}
     </GatsbyLink>
   )

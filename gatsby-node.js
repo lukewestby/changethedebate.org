@@ -1,6 +1,5 @@
 const path = require('path')
 const fs = require('fs')
-const yaml = require('js-yaml')
 const remark = require('remark')
 const remarkHTML = require('remark-html')
 const { createFilePath } = require('gatsby-source-filesystem')
@@ -15,7 +14,7 @@ exports.createPages = async ({ actions, graphql }) => {
           node {
             id
             fields {
-              path
+              slug
             }
             frontmatter {
               templateKey
@@ -36,16 +35,17 @@ exports.createPages = async ({ actions, graphql }) => {
     .filter(edge => edge.node.frontmatter.templateKey)
     .forEach(edge => {
       const id = edge.node.id
-      const pagePath = edge.node.fields.path
+      const slug = edge.node.fields.slug
+      console.log(slug)
       createPage({
-        path: pagePath,
+        path: edge.node.fields.slug,
         component: path.resolve(
           `src/templates/${String(edge.node.frontmatter.templateKey)}.tsx`
         ),
         // additional data can be passed via context
         context: {
           id,
-          page: pagePath,
+          slug,
         },
       })
     })
@@ -58,28 +58,10 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   if (node.internal.type === `MarkdownRemark`) {
     const slug = createFilePath({ node, getNode })
 
-    const pagePath = (() => {
-      if (slug.endsWith('en/')) {
-        if (slug.includes('home')) return '/'
-        else return slug.replace('en/', '')
-      } else if (slug.endsWith('es/')) {
-        if (slug.includes('home')) return '/es/'
-        else return '/es' + slug.replace('es/', '')
-      } else {
-        return slug
-      }
-    })()
-
     createNodeField({
       name: `slug`,
       node,
       value: slug
-    })
-
-    createNodeField({
-      name: 'path',
-      node,
-      value: pagePath
     })
 
     if (node.frontmatter && node.frontmatter && node.frontmatter.templateKey === 'schedule-page') {

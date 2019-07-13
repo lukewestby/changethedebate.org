@@ -1,0 +1,37 @@
+.container {
+  display: block;
+  height: 100%;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.canvas {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  pointer-events: none !important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%) translateY(-16px);
+  filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+.attribution {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 12px;
+  padding: 2px 4px;
+  background-color: rgba(255,255,255,0.6);
+  color: #000;
+}

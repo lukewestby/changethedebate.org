@@ -11,7 +11,7 @@ export type Props = {
 }
 
 const PreviewCompatibleImage = ({ image, style }: Props) => {
-  if (typeof image !== 'string' && typeof image === 'object') {
+  if (typeof image !== 'string' && typeof image === 'object' && image !== null) {
     return image.childImageSharp.fluid ?
       <Img style={style} fluid={image.childImageSharp.fluid} /> :
       <Img style={style} fixed={image.childImageSharp.fixed} />

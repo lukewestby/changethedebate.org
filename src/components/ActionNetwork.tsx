@@ -24,6 +24,12 @@ const ActionNetwork = (props: Props) => {
       const script = document.createElement('script')
       script.src = `https://actionnetwork.org/widgets/v3/form/${props.actionId}?format=js&source=widget`
       inner.appendChild(script)
+
+      const styles = document.createElement('link')
+      styles.href = 'https://actionnetwork.org/css/style-embed-whitelabel-v3.css'
+      styles.rel = 'stylesheet'
+      inner.appendChild(styles)
+
       container.current.appendChild(inner)
     }
 

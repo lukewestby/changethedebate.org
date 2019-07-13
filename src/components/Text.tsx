@@ -15,18 +15,24 @@ export type Color =
   | 'dark'
   | 'light'
 
+export type Alignment =
+  | 'left'
+  | 'center'
+
 export type Props = React.PropsWithChildren<{
   style: Style,
-  on: Color
+  on: Color,
+  align: Alignment,
 }>
 
 const Text = ({
   children,
   style,
-  on
+  on,
+  align
 }: Props) => {
   return (
-    <span className={`${Classes[style]} ${Classes['on' + on]}`}>
+    <span className={`${Classes[style]} ${Classes['on' + on]} ${Classes[align]}`}>
       {children}
     </span>
   )
@@ -34,7 +40,8 @@ const Text = ({
 
 Text.defaultProps = {
   style: 'body',
-  on: 'light'
+  on: 'light',
+  align: 'left',
 }
 
 export default Text

@@ -1,15 +1,12 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import Link from '../components/Link'
-import YouTube from 'react-youtube'
 import { Switch, Case, Default } from '../components/Switch'
 import ActionNetwork from '../components/ActionNetwork'
 import Layout from '../components/Layout'
 import Styles from './index-page.module.css'
-import { Timeline } from 'react-twitter-widgets'
 import PreviewCompatibleImage, { ImageResult } from '../components/PreviewCompatibleImage'
 import styles from './index-page.module.css';
-import Instagram from '../components/Instagram'
 import Text from '../components/Text'
 
 type Partner = {
@@ -25,11 +22,7 @@ type PartnerGroup = {
 
 type DetailCard = {
   image: ImageResult | string,
-  text: string,
-  link: {
-    url: string,
-    label: string
-  }
+  text: string
 }
 
 export type TemplateProps = {
@@ -46,10 +39,8 @@ type PartnerListProps = {
 }
 
 const PartnerList = ({ partners, title }: PartnerListProps) => (
-  <div>
-    <h3>
-      <Text style="h3">{title}</Text>
-    </h3>
+  <div className={Styles.partnerList}>
+    <h3 className={Styles.partnerListTitle}>{title}</h3>
     <div className={Styles.partnerEntries}>
       {partners.map(p => (
         <a
@@ -57,9 +48,7 @@ const PartnerList = ({ partners, title }: PartnerListProps) => (
           href={p.homepage}
           key={p.name}>
           <PreviewCompatibleImage image={p.logo} />
-          <div>
-            <Text style="body">{p.name}</Text>
-          </div>
+          <p className={Styles.partnerName}>{p.name}</p>
         </a>
       ))}
     </div>
@@ -69,27 +58,18 @@ const PartnerList = ({ partners, title }: PartnerListProps) => (
 const DetailCard = ({ card }: { card: DetailCard }) => {
   return (
     <div className={Styles.detailsCard}>
-      <PreviewCompatibleImage
-        image={card.image} />
-      <p className={Styles.detailsCardText}>
-        <Text style="body" on="dark">{card.text}</Text>
-      </p>
-      <div className={Styles.detailsCardActions}>
-        <Link
-          className={Styles.detailsCardLink}
-          to={card.link.url}>
-          <Text style="button" on="dark">
-            {card.link.label}
-          </Text>
-        </Link>
+      <div className={Styles.detailsCardImage}>
+        <PreviewCompatibleImage image={card.image} />
+      </div>
+      <div className={Styles.detailsCardOverlay}></div>
+      <div className={Styles.detailsCardText}>
+        <p>{card.text}</p>
       </div>
     </div>
   )
 }
 
 const IndexPageTemplate = ({
-  intro,
-  youtubeVideoId,
   actionNetworkId,
   detailCards = [],
   partnerGroups = [],
@@ -98,61 +78,22 @@ const IndexPageTemplate = ({
     <>
       <section className={Styles.leadIn}>
         <div className={Styles.leadInInner}>
-          <Text style="h1" on="dark">It's time to #ChangeTheDebate</Text>
+          <h1 className={Styles.leadInTitle}>Make Detroit the engine of the Green New Deal</h1>
+          <p className={Styles.leadInSubtitle}>
+            Candidates are coming to debate in Detroit on July 30-31. We are uniting to tell the story of Detroit and demand a new kind of leadership.
+          </p>
         </div>
       </section>
-      <section id="video" className={Styles.video}>
-        <div className={Styles.videoInner}>
-          <YouTube className={Styles.youtube} videoId={youtubeVideoId} />
+      <section className={Styles.signup}>
+        <ActionNetwork actionId={actionNetworkId} />
+      </section>
+      <section className={Styles.details} id="more-info">
+        <div className={Styles.detailsLayout}>
+          {detailCards.map((c, i) => <DetailCard card={c} key={i} />)}
         </div>
       </section>
-      <div className={Styles.gridContainer}>
-        <section id="intro" className={Styles.intro}>
-          <div className={Styles.introInner}>
-            <div className={Styles.gridInner}>
-              <Text style="body">
-                {intro}
-              </Text>
-            </div>
-          </div>
-        </section>
-        <section id="signup" className={Styles.signup}>
-          <div className={Styles.signupInner}>
-            <ActionNetwork actionId={actionNetworkId} />
-          </div>
-        </section>
-        <section className={Styles.details} id="more-info">
-          <div className={Styles.detailsInner}>
-            <div className={Styles.detailsLayout}>
-              {detailCards.filter(c => c.link).map((c, i) => <DetailCard card={c} key={i} />)}
-            </div>
-          </div>
-        </section>
-        <section className={Styles.partners} id="partners">
-          <div className={Styles.partnersInner}>
-            <div className={Styles.gridInner}>
-              {partnerGroups.map(p => <PartnerList key={p.title} {...p} />)}
-            </div>
-          </div>
-        </section>
-      </div>
-      <section className={Styles.social} id="social">
-        <div className={Styles.socialInner}>
-          {/* <div className={Styles.twitterEmbed}>
-            <Timeline
-              dataSource={{
-                sourceType: 'profile',
-                screenName: 'sunrisemvmt'      
-              }}
-              options={{
-                username: 'sunrisemvmt',
-                height: '598'
-              }} /> 
-          </div>
-          <div className={Styles.instagramEmbed}>
-            <Instagram hashtag="ChangeTheDebate" />
-          </div> */}
-        </div>
+      <section className={Styles.partners} id="partners">
+        {partnerGroups.map(p => <PartnerList key={p.title} {...p} />)}
       </section>
     </>
   )
@@ -169,7 +110,7 @@ export type PageProps = {
 const IndexPage = ({ data }: PageProps) => {
   const { frontmatter } = data.markdownRemark
   return (
-    <Layout>
+    <Layout headerBackgroundColor="var(--color-dark-blue)" headerTextColor="#fff">
       <IndexPageTemplate
         {...frontmatter}
       />
@@ -188,17 +129,12 @@ export const pageQuery = graphql`
     }
   }
 
-  query IndexPageTemplate($page: String!) {
-    markdownRemark(fields: { path: { eq: $page } }) {
+  query IndexPageTemplate($slug: String!) {
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       frontmatter {
         intro
-        youtubeVideoId
         actionNetworkId
         detailCards {
-          link {
-            url
-            label
-          }
           text
           image {
             childImageSharp {

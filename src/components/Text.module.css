@@ -55,6 +55,7 @@
   font-size: var(--font-size-h1);
   letter-spacing: var(--font-tracking-h1);
   text-transform: uppercase;
+  line-height: var(--font-leading-h1);
 }
   .h1.ondark {
     background-image: var(--color-gradient-3-right);
@@ -64,6 +65,15 @@
     -webkit-text-fill-color: transparent;
     display: inline-block;
   }
+
+.left {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+  display: inline-block;
+}
 
 @media (max-width: 768px) {
   .h1 {

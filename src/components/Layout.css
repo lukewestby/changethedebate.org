@@ -18,7 +18,7 @@
     var(--color-light-blue) 100%
   );
   --font-family-copy: Roboto;
-  --font-family-display: Roboto Condensed;
+  --font-family-display: Teko;
   --font-color-on-dark: var(--color-white);
   --font-color-on-light: var(--color-dark-blue);
   --font-size-caption: 14px;
@@ -28,21 +28,29 @@
   --font-weight-button: 700;
   --font-size-body: 17px;
   --font-leading-body: 31px;
+  --font-family-body: var(--font-family-copy);
   --font-size-h3: 24px;
   --font-weight-h3: 900;
   --font-tracking-h3: 0.05em;
+  --font-family-h3: var(--font-family-copy);
   --font-size-h2: 36px;
   --font-weight-h2: 700;
   --font-tracking-h2: 0.075em;
+  --font-family-h2: var(--font-family-copy);
   --font-size-h1: 94px;
   --font-weight-h1: 700;
-  --font-tracking-h1: 0.075em;
+  --font-tracking-h1: 0.050em;
+  --font-leading-h1: 118px;
+  --font-family-h1: var(--font-family-display);
   --easing-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --easing-curve-standard: var(--easing-standard);
+  --easing-duration-short: 200ms;
+  --easing-duration-medium: 400ms;
 }
 
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family: var(--font-family-body);
   box-sizing: border-box;
   width: 100%;
 }

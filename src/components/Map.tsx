@@ -1,5 +1,6 @@
 import * as React from 'react'
 import Styles from './Map.module.css'
+import Link from './Link'
 
 class Range implements Iterable<number> {
   constructor(
@@ -93,6 +94,7 @@ type Props = {
   className?: string,
   latitude: number,
   longitude: number,
+  link: string,
 }
 
 const MapComponent = (props: Props) => {
@@ -105,10 +107,15 @@ const MapComponent = (props: Props) => {
 
   return (
     <div className={props.className + ' ' + Styles.container}>
-      <canvas ref={ref} className={Styles.canvas} />
-      <svg className={Styles.icon} viewBox="0 0 24 24">
-        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-      </svg>
+      <Link
+        to={props.link}
+        target="_blank"
+        className={Styles.container}>
+        <canvas ref={ref} className={Styles.canvas} />
+        <svg className={Styles.icon} viewBox="0 0 24 24">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+        </svg>
+      </Link>
       <div className={Styles.attribution}>
         <a target="_blank" href="https://foundation.wikimedia.org/w/index.php?title=Maps_Terms_of_Use#Where_does_the_map_data_come_from.3F">Wikimedia maps</a> | Map data &copy; <a target="_blank" href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>
       </div>

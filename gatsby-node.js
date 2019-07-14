@@ -64,18 +64,29 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       value: slug
     })
 
-    if (node.frontmatter && node.frontmatter && node.frontmatter.templateKey === 'schedule-page') {
-      node.frontmatter.actions.forEach(a => {
-        a.info = remark()
+    if (node.frontmatter && node.frontmatter.templateKey === 'faq-page') {
+      node.frontmatter.mainEntries.forEach(a => {
+        a.answer = remark()
           .use(remarkHTML)
-          .processSync(a.info)
+          .processSync(a.answer)
           .toString()
-        a.events.forEach(e => {
-          e.details = remark()
+      })
+      node.frontmatter.categorizedEntries.forEach(a => {
+        a.entries.forEach(b => {
+          b.answer = remark()
             .use(remarkHTML)
-            .processSync(e.details)
+            .processSync(b.answer)
             .toString()
         })
+      })
+    }
+
+    if (node.frontmatter && node.frontmatter.templateKey === 'schedule-page') {
+      node.frontmatter.events.forEach(a => {
+        a.details = remark()
+          .use(remarkHTML)
+          .processSync(a.details)
+          .toString()
       })
     }
   }

@@ -89,51 +89,51 @@ collections:
         name: "faq"
         fields:
           - label: "Template Key"
-              name: "templateKey"
-              widget: "hidden"
-              default: "faq-page"
-            - label: Intro
-              name: intro
-              widget: string
-            - label: "Main Questions"
-              name: "mainEntries"
-              widget: "list"
-              fields:
-                - label: "Slug"
-                  name: "slug"
-                  widget: "string"
-                  required: true
-                  hint: >-
-                    A unique identifier for the question that is composed of letters, numbers, and hyphens that will allow visitors and hyperlinks to point to a specific question on the page. For example, if you fill this in as my-question-and-answer then you'll be able construct the URL https://changethedebate.org/faq#my-question-and-answer, and visitors to that URL will be immediately scrolled to this question.
-                - label: Question
-                  name: question
-                  widget: string
-                - label: Answer
-                  name: answer
-                  widget: string
-            - label: "Categorized Entries"
-              name: "categorizedEntries"
-              widget: "list"
-              fields:
-                - label: "Category Name"
-                  name: "name"
-                  widget: "string"
-                - label: "Entries"
-                  name: "entries"
-                  widget: "list"
-                  fields:
-                    - label: "Slug"
-                      name: "slug"
-                      widget: "string"
-                      required: true
-                      hint: >-
-                        A unique identifier for the question that is composed of letters, numbers, and hyphens that will allow visitors and hyperlinks to point to a specific question on the page. For example, if you fill this in as my-question-and-answer then you'll be able construct the URL https://changethedebate.org/faq#my-question-and-answer, and visitors to that URL will be immediately scrolled to this question.
-                    - label: Question
-                      name: question
-                      widget: string
-                    - label: Answer
-                      name: answer
-                      widget: string
+            name: "templateKey"
+            widget: "hidden"
+            default: "faq-page"
+          - label: Intro
+            name: intro
+            widget: text
+          - label: "Main Questions"
+            name: "mainEntries"
+            widget: "list"
+            fields:
+              - label: "Slug"
+                name: "slug"
+                widget: "string"
+                required: true
+                hint: >-
+                  A unique identifier for the question that is composed of letters, numbers, and hyphens that will allow visitors and hyperlinks to point to a specific question on the page. For example, if you fill this in as my-question-and-answer then you'll be able construct the URL https://changethedebate.org/faq#my-question-and-answer, and visitors to that URL will be immediately scrolled to this question.
+              - label: Question
+                name: question
+                widget: string
+              - label: Answer
+                name: answer
+                widget: markdown
+          - label: "Categorized Entries"
+            name: "categorizedEntries"
+            widget: "list"
+            fields:
+              - label: "Category Name"
+                name: "name"
+                widget: "string"
+              - label: "Entries"
+                name: "entries"
+                widget: "list"
+                fields:
+                  - label: "Slug"
+                    name: "slug"
+                    widget: "string"
+                    required: true
+                    hint: >-
+                      A unique identifier for the question that is composed of letters, numbers, and hyphens that will allow visitors and hyperlinks to point to a specific question on the page. For example, if you fill this in as my-question-and-answer then you'll be able construct the URL https://changethedebate.org/faq#my-question-and-answer, and visitors to that URL will be immediately scrolled to this question.
+                  - label: Question
+                    name: question
+                    widget: text
+                  - label: Answer
+                    name: answer
+                    widget: markdown
       - file: "src/pages/schedule.md"
         label: "Schedule"
         name: "schedule"
@@ -142,107 +142,82 @@ collections:
             name: "templateKey"
             widget: "hidden"
             default: "schedule-page"
-          - label: "Actions"
-            name: "actions"
+          - label: "Intro"
+            name: "intro"
+            widget: "text"
+          - label: "Events"
+            name: "events"
+            hint: "What events will take place as a part of this action?"
             widget: "list"
+            allow_add: true
             fields:
               - label: "Name"
                 name: "name"
+                required: true
+                hint: "What is the name of this event?"
                 widget: "string"
-                hint: "What is the name of the action? E.g. \"Summit\" or \"Debate Action\"."
-              - label: "Start Date"
-                name: "startDate"
-                widget: "date"
+              - label: "Start Time"
+                name: "startTime"
                 required: true
-                hint: "What day does the action start on?"
-              - label: "End Date"
-                name: "endDate"
-                widget: "date"
+                hint: "What day and time will this event start?"
+                widget: "datetime"
+              - label: "End Time"
+                name: "endTime"
                 required: true
-                hint: "What day does the action end on?"
-              - label: "Info"
-                name: "info"
+                hint: "What day and time will this event end?"
+                widget: "datetime"
+              - label: "Details"
+                name: "details"
+                required: true
+                hint: "What should people know about this event?"
                 widget: "markdown"
+              - label: "Location"
+                name: "location"
                 required: true
-                hint: "Write a paragraph or two about this event."
-              - label: "Image"
-                name: "image"
-                required: true
-                widget: "image"
-                hint: "Choose an image to represent this event."
-              - label: "Events"
-                name: "events"
-                hint: "What events will take place as a part of this action?"
-                widget: "list"
-                allow_add: true
+                hint: "Where should people go to attend this event?"
+                widget: "object"
                 fields:
                   - label: "Name"
                     name: "name"
                     required: true
-                    hint: "What is the name of this event?"
+                    hint: "What is the name of the place?"
                     widget: "string"
-                  - label: "Start Time"
-                    name: "startTime"
+                  - label: "Address"
+                    name: "address"
                     required: true
-                    hint: "What day and time will this event start?"
-                    widget: "datetime"
-                  - label: "End Time"
-                    name: "endTime"
+                    hint: "Write out the address or description of the place."
+                    widget: "string"
+                  - label: "Latitude"
+                    name: "latitude"
                     required: true
-                    hint: "What day and time will this event end?"
-                    widget: "datetime"
-                  - label: "Details"
-                    name: "details"
+                    widget: "number"
+                    valueType: "float"
+                  - label: "Longitude"
+                    name: "longitude"
                     required: true
-                    hint: "What should people know about this event?"
-                    widget: "markdown"
-                  - label: "Location"
-                    name: "location"
+                    widget: "number"
+                    valueType: "float"
+              - label: "Contact"
+                name: "contact"
+                required: true
+                hint: "Who can people contact to get help with this event?"
+                widget: "object"
+                fields:
+                  - label: "Name"
+                    name: "name"
                     required: true
-                    hint: "Where should people go to attend this event?"
-                    widget: "object"
-                    fields:
-                      - label: "Name"
-                        name: "name"
-                        required: true
-                        hint: "What is the name of the place?"
-                        widget: "string"
-                      - label: "Address"
-                        name: "address"
-                        required: true
-                        hint: "Write out the address or description of the place."
-                        widget: "string"
-                      - label: "Latitude"
-                        name: "latitude"
-                        required: true
-                        widget: "number"
-                        valueType: "float"
-                      - label: "Longitude"
-                        name: "longitude"
-                        required: true
-                        widget: "number"
-                        valueType: "float"
-                  - label: "Contact"
-                    name: "contact"
+                    hint: "What is the name of the person or team people should talk to for help?"
+                    widget: "string"
+                  - label: "Phone"
+                    name: "phone"
                     required: true
-                    hint: "Who can people contact to get help with this event?"
-                    widget: "object"
-                    fields:
-                      - label: "Name"
-                        name: "name"
-                        required: true
-                        hint: "What is the name of the person or team people should talk to for help?"
-                        widget: "string"
-                      - label: "Phone"
-                        name: "phone"
-                        required: true
-                        hint: "What phone number should people call?"
-                        widget: "string"
-                      - label: "Email"
-                        name: "email"
-                        required: true
-                        hint: "What email address should people contact?"
-                        widget: "string"
+                    hint: "What phone number should people call?"
+                    widget: "string"
+                  - label: "Email"
+                    name: "email"
+                    required: true
+                    hint: "What email address should people contact?"
+                    widget: "string"
           - label: "Translations"
             name: "translations"
             required: true
@@ -266,6 +241,9 @@ collections:
             name: "templateKey"
             widget: "hidden"
             default: "volunteer-page"
+          - label: "Intro"
+            name: "intro"
+            widget: "text"
           - label: "Googe Form ID"
             name: "googleFormId"
             widget: "string"

@@ -1,38 +1,66 @@
-.action {
-  border-bottom: 1px solid #000;
-}
-
-.actionEvents {
-  padding-left: 40px;
-}
-
-.actionDetails {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-column-gap: 16px;
+.events {
+  max-width: calc(var(--layout-max-width) * 0.75);
+  margin: 0 auto;
+  padding: 80px 32px;
 }
 
 .event {
-  border-bottom: 1px solid #000;
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: 3fr 2fr;
+  padding-bottom: 64px;
+  grid-column-gap: 16px;
+  grid-row-gap: 24px;
 }
 
-.eventLocation {
-  
+.eventInfoTop {
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+
+.eventHeader {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-h3);
+  letter-spacing: var(--font-tracking-h3);
+  font-family: var(--font-family-h3);
+  text-transform: uppercase;
+  color: var(--color-light-blue);
+}
+
+.eventTime {
+  padding-top: 8px;
 }
 
 .eventMapLink {
-  width: 400px;
-  height: 400px;
+  width: 100%;
+  height: 240px;
   display: block;
   position: relative;
+  margin-bottom: 8px;
 }
 
-.pageHeader {
-  text-align: center;
+.contact {
+  padding-top: 16px;
 }
 
-.page {
-  max-width: calc(var(--layout-max-width) + 64px);
-  padding: 32px;
-  margin: 0 auto;
+.contactHeader {
+  text-transform: uppercase;
+}
+
+.contactInfo {
+  margin: 8px 0;
+  display: block;
+}
+
+.locationAddress {
+  font-size: var(--font-size-caption);
+  letter-spacing: var(--font-tracking-caption);
+}
+
+@media(max-width: 768px) {
+  .event {
+    grid-template-rows: auto auto auto;
+    grid-template-columns: auto;
+    grid-auto-flow: row;
+  }
 }

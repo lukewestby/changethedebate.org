@@ -6,8 +6,7 @@ import ActionNetwork from '../components/ActionNetwork'
 import Layout from '../components/Layout'
 import Styles from './index-page.module.css'
 import PreviewCompatibleImage, { ImageResult } from '../components/PreviewCompatibleImage'
-import styles from './index-page.module.css';
-import Text from '../components/Text'
+import Hero from '../components/Hero'
 
 type Partner = {
   name: string,
@@ -59,7 +58,7 @@ const DetailCard = ({ card }: { card: DetailCard }) => {
   return (
     <div className={Styles.detailsCard}>
       <div className={Styles.detailsCardImage}>
-        <PreviewCompatibleImage image={card.image} />
+        <PreviewCompatibleImage image={card.image} style={{ objectFit: 'cover', objectPosition: 'center', height: '100%' }} />
       </div>
       <div className={Styles.detailsCardOverlay}></div>
       <div className={Styles.detailsCardText}>
@@ -76,13 +75,11 @@ const IndexPageTemplate = ({
 }: TemplateProps) => {
   return (
     <>
-      <section className={Styles.leadIn}>
-        <div className={Styles.leadInInner}>
-          <h1 className={Styles.leadInTitle}>Make Detroit the engine of the Green New Deal</h1>
-          <p className={Styles.leadInSubtitle}>
-            Candidates are coming to debate in Detroit on July 30-31. We are uniting to tell the story of Detroit and demand a new kind of leadership.
-          </p>
-        </div>
+      <section>
+        <Hero
+          title="Make Detroit the engine of the Green New Deal"
+          subtitle="Candidates are coming to debate in Detroit on July 30-31. We are uniting to tell the story of Detroit and demand a new kind of leadership."
+          />
       </section>
       <section className={Styles.signup}>
         <ActionNetwork actionId={actionNetworkId} />
@@ -110,7 +107,9 @@ export type PageProps = {
 const IndexPage = ({ data }: PageProps) => {
   const { frontmatter } = data.markdownRemark
   return (
-    <Layout headerBackgroundColor="var(--color-dark-blue)" headerTextColor="#fff">
+    <Layout
+      headerBackgroundColor="var(--color-dark-blue)"
+      headerTextColor="#fff">
       <IndexPageTemplate
         {...frontmatter}
       />

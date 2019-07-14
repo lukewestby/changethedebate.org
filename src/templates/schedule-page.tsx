@@ -9,6 +9,7 @@ import Styles from './schedule-page.module.css'
 import * as Timezone from '../contexts/TimezoneService'
 import Markdown from '../components/Markdown'
 import Text from '../components/Text'
+import Hero from '../components/Hero'
 
 type Contact = {
   name: string,
@@ -32,28 +33,51 @@ type Event = {
   contact: Contact,
 }
 
-type Action = {
-  name: string,
-  info: string,
-  image: ImageResult
-  start: DateTime,
-  end: DateTime,
-  events: Array<Event>
-}
-
 type Translations = {
   locationHeader: string,
   contactHeader: string
 }
 
 export type TemplateProps = {
-  actions: Array<Action>,
+  events: Array<Event>,
   translations: Translations,
+  intro: string,
 }
 
 type EventSectionProps = {
   event: Event,
   translations: Translations,
+}
+
+type PageQuery = {
+  data: {
+    markdownRemark: {
+      frontmatter: {
+        intro: string,
+        translations: {
+          locationHeader: string,
+          contactHeader: string,
+        },
+        events: Array<{
+          name: string,
+          startTime: string,
+          endTime: string,
+          details: string,
+          location: {
+            name: string,
+            address: string,
+            latitude: number,
+            longitude: number,
+          },
+          contact: {
+            name: string,
+            phone: string,
+            email: string,
+          }
+        }>
+      }
+    }
+  }
 }
 
 const timeFormat = (zone: Timezone.Zone, date: DateTime) => {
@@ -65,31 +89,43 @@ const EventSection = ({ translations, event }: EventSectionProps) => {
   return (
     <article
       className={Styles.event}>
-      <h3>{event.name}</h3>
-      <Markdown input={event.details} />
-      <div className={Styles.eventLocation}>
-        <h4><Text style="subtitle">{translations.locationHeader}</Text></h4>
-        <p><Text style="body">{event.location.name}</Text></p>
-        <p><Text>{event.location.address}</Text></p>
-        <p><Text>{timeFormat(zone, event.start)} - {timeFormat(zone, event.end)}</Text></p>
-        <div>
-          <Link
-            to={`https://www.google.com/maps/place/${encodeURIComponent(event.location.address)}`}
-            target="_blank"
-            className={Styles.eventMapLink}>
-            <Map
-              latitude={event.location.latitude}
-              longitude={event.location.longitude} />
-          </Link>
-        </div>
+      <div className={Styles.eventInfoTop}>
+        <h3 className={Styles.eventHeader}>{event.name}</h3>
+        <p className={Styles.eventTime}>{event.start.toFormat('DD')} • {timeFormat(zone, event.start)} - {timeFormat(zone, event.end)}</p>
       </div>
       <div>
         <div>
-          <h4>{translations.contactHeader}</h4>
-          <p>{event.contact.name}</p>
-          <p>{event.contact.phone}</p>
-          <p>{event.contact.email}</p>
+          <Markdown input={event.details} />
         </div>
+        <div className={Styles.contact}>
+          <h4 className={Styles.contactHeader}>{translations.contactHeader}</h4>
+          <p className={Styles.contactInfo}>{event.contact.name}</p>
+          {event.contact.phone ?
+            <a
+              className={Styles.contactInfo}
+              href={`tel:${event.contact.phone}`}>
+              {event.contact.phone}
+            </a> :
+            null
+          }
+          {event.contact.email ?
+            <a
+              className={Styles.contactInfo}
+              href={`mailto:${event.contact.email}`}>
+              {event.contact.email}
+            </a> :
+            null
+          }
+        </div>
+      </div>
+      <div className={Styles.eventLocation}>
+        <Map
+          className={Styles.eventMapLink}
+          link={`https://www.google.com/maps/place/${encodeURIComponent(event.location.address)}`}
+          latitude={event.location.latitude}
+          longitude={event.location.longitude} />
+        <p className={Styles.locationAddress}>{event.location.name}</p>
+        <p className={Styles.locationAddress}>{event.location.address}</p>
       </div>
     </article>
   )
@@ -97,137 +133,72 @@ const EventSection = ({ translations, event }: EventSectionProps) => {
 
 export const SchedulePageTemplate = ({
   translations,
-  actions
+  intro,
+  events,
 }: TemplateProps) => {
   return(
-    <div className={Styles.page}>
-      <div className={Styles.pageHeader}>
-        <Text style="h1" on="dark">Schedule</Text>
-      </div>
-      {actions.map(a => (
-        <section
-          key={a.name}
-          className={Styles.action}>
-          <h2><Text style="h2">{a.name}</Text></h2>
-          <p>
-            <Text style="caption">
-              {a.start.hasSame(a.end, 'day') ?
-                a.start.toFormat('DDD') :
-                a.start.toFormat('LLLL d') + ' - ' + a.end.toFormat('DDD')
-              }
-            </Text>
-          </p>
-          <div className={Styles.actionDetails}>
-            <Markdown input={a.info} />
-            <PreviewCompatibileImage
-              image={a.image}
-              style={{
-                maxHeight: 400
-              }} />
-          </div>
-          <div className={Styles.actionEvents}>
-            {a.events.map(e =>
-              <EventSection
-                key={e.name}
-                event={e}
-                translations={translations}
-                />
-            )}
-          </div>
-        </section>
-      ))}
-    </div>
+    <>
+      <section>
+        <Hero
+          title="Events"
+          subtitle={intro} />
+      </section>
+      <section className={Styles.events}>
+        <div className={Styles.actionEvents}>
+          {events.map(e =>
+            <EventSection
+              key={e.name}
+              event={e}
+              translations={translations}
+              />
+          )}
+        </div>
+      </section>
+    </>
   )
 }
 
-export type PageProps = {
-  data: {
-    markdownRemark: {
-      frontmatter: TemplateProps
-    }
-  }
-}
-
-type PageQuery = {
-  data: {
-    markdownRemark: {
-      frontmatter: {
-        translations: {
-          locationHeader: string,
-          contactHeader: string,
-        },
-        actions: Array<{
-          name: string,
-          info: string,
-          startDate: string,
-          endDate: string,
-          image: ImageResult
-          events: Array<{
-            name: string,
-            startTime: string,
-            endTime: string,
-            details: string,
-            location: {
-              name: string,
-              address: string,
-              latitude: number,
-              longitude: number,
-            },
-            contact: {
-              name: string,
-              phone: string,
-              email: string,
-            }
-          }>
-        }>
-      }
-    }
-  }
-}
-
 const transformQuery = (data: PageQuery): TemplateProps => ({
+  intro: data
+    .data
+    .markdownRemark
+    .frontmatter
+    .intro,
   translations: data
     .data
     .markdownRemark
     .frontmatter
     .translations,
-  actions: data
+  events: data
     .data
     .markdownRemark
     .frontmatter
-    .actions
-    .map(a => ({
-      start: DateTime.fromISO(a.startDate, { zone: 'UTC' }),
-      end: DateTime.fromISO(a.endDate, { zone: 'UTC' }),
-      info: a.info,
-      name: a.name,
-      image: a.image,
-      events: a
-        .events
-        .map(e => ({
-          start: DateTime.fromISO(e.startTime, { zone: 'UTC' }),
-          end: DateTime.fromISO(e.endTime, { zone: 'UTC' }),
-          name: e.name,
-          details: e.details,
-          location: {
-            name: e.location.name,
-            address: e.location.address,
-            latitude: e.location.latitude,
-            longitude: e.location.longitude
-          },
-          contact: {
-            name: e.contact.name,
-            phone: e.contact.phone,
-            email: e.contact.email,
-          }
-        }))
+    .events
+    .map(e => ({
+      start: DateTime.fromISO(e.startTime, { zone: 'UTC' }),
+      end: DateTime.fromISO(e.endTime, { zone: 'UTC' }),
+      name: e.name,
+      details: e.details,
+      location: {
+        name: e.location.name,
+        address: e.location.address,
+        latitude: e.location.latitude,
+        longitude: e.location.longitude
+      },
+      contact: {
+        name: e.contact.name,
+        phone: e.contact.phone,
+        email: e.contact.email,
+      }
     }))
 })
 
 const SchedulePage = (query: PageQuery) => {
   const props = transformQuery(query)
   return (
-    <Layout>
+    <Layout
+      headerBackgroundColor="var(--color-dark-blue)"
+      headerTextColor="#fff">
       <SchedulePageTemplate {...props} />
     </Layout>
   )
@@ -239,38 +210,26 @@ export const pageQuery = graphql`
   query SchedulePageTemplate($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       frontmatter {
+        intro
         translations {
           locationHeader
           contactHeader
         }
-        actions {
-          endDate(locale: "UTC")
-          info
+        events {
+          startTime(locale: "UTC")
           name
-          startDate(locale: "UTC")
-          image {
-            childImageSharp {
-              fluid(maxWidth: 400) {
-                ...GatsbyImageSharpFluid
-              }
-            }
-          }
-          events {
-            startTime(locale: "UTC")
+          endTime(locale: "UTC")
+          details
+          location {
+            address
             name
-            endTime(locale: "UTC")
-            details
-            location {
-              address
-              name
-              latitude
-              longitude
-            }
-            contact {
-              email
-              name
-              phone
-            }
+            latitude
+            longitude
+          }
+          contact {
+            email
+            name
+            phone
           }
         }
       }

@@ -53,6 +53,8 @@ body {
   font-family: var(--font-family-body);
   box-sizing: border-box;
   width: 100%;
+  color: var(--color-dark-blue);
+  font-size: var(--font-size-body);
 }
 
 * {
@@ -61,4 +63,8 @@ body {
 
 h1, h2, h3, h4, h5, h6, p {
   margin: 0;
+}
+
+a {
+  color: var(--color-green);
 }

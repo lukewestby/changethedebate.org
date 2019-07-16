@@ -19,10 +19,10 @@ const ActionNetwork = (props: Props) => {
     } else {
       inner = document.createElement('div')
       inner.innerHTML = `
-        <div id="can-form-area-${props.actionId}" style="width: 100%;"></div>
+        <div id="can-event-area-${props.actionId}" style="width: 100%;"></div>
       `
       const script = document.createElement('script')
-      script.src = `https://actionnetwork.org/widgets/v3/form/${props.actionId}?format=js&source=widget`
+      script.src = `https://actionnetwork.org/widgets/v3/event/${props.actionId}?format=js&source=widget`
       inner.appendChild(script)
 
       const styles = document.createElement('link')

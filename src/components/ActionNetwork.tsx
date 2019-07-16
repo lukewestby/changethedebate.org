@@ -3,6 +3,7 @@ import Styles from './ActionNetwork.module.css'
 
 export type Props = {
   actionId: string,
+  type: 'event' | 'form'
 }
 
 const cache: { [key: string]: HTMLDivElement } = Object.create(null)
@@ -11,18 +12,19 @@ const ActionNetwork = (props: Props) => {
   const container: React.MutableRefObject<null | HTMLDivElement> = React.useRef(null)
   
   React.useEffect(() => {
+    const cacheId = props.type + '|' + props.actionId
     if (!container.current) return
     let inner: HTMLDivElement
-    if (cache[props.actionId]) {
-      inner = cache[props.actionId]
+    if (cache[cacheId]) {
+      inner = cache[cacheId]
       container.current.appendChild(inner)
     } else {
       inner = document.createElement('div')
       inner.innerHTML = `
-        <div id="can-event-area-${props.actionId}" style="width: 100%;"></div>
+        <div id="can-${props.type}-area-${props.actionId}" style="width: 100%;"></div>
       `
       const script = document.createElement('script')
-      script.src = `https://actionnetwork.org/widgets/v3/event/${props.actionId}?format=js&source=widget`
+      script.src = `https://actionnetwork.org/widgets/v3/${props.type}/${props.actionId}?format=js&source=widget`
       inner.appendChild(script)
 
       const styles = document.createElement('link')
@@ -56,10 +58,10 @@ const ActionNetwork = (props: Props) => {
     return () => {
       inner.removeEventListener('input', onInput)
       inner.removeEventListener('focusout', onBlur)
-      cache[props.actionId] = inner
+      cache[cacheId] = inner
       container.current && container.current.removeChild(inner)
     }
-  }, [props.actionId])
+  }, [props.actionId, props.type])
 
   return (
     <div className={Styles.container} ref={container}>

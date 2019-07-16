@@ -26,15 +26,43 @@ type DetailCard = {
 
 export type TemplateProps = {
   intro: string,
-  youtubeVideoId: string,
-  actionNetworkId: string,
   partnerGroups: Array<PartnerGroup>,
-  detailCards: Array<DetailCard>
+  detailCards: Array<DetailCard>,
+  actionNetwork: {
+    id: string,
+    type: 'event' | 'form',
+  },
 }
 
 type PartnerListProps = {
   partners: Array<Partner>,
   title: string
+}
+
+type PageQuery = {
+  data: {
+    markdownRemark: {
+      frontmatter: {
+        intro: string,
+        detailCards: Array<{
+          image: ImageResult,
+          text: string,
+        }>,
+        actionNetwork: {
+          id: string,
+          type: 'event' | 'form',
+        },
+        partnerGroups: Array<{
+          title: string,
+          partners: Array<{
+            name: string,
+            homepage: string,
+            logo: ImageResult,
+          }>,
+        }>,
+      },
+    },
+  },
 }
 
 const PartnerList = ({ partners, title }: PartnerListProps) => (
@@ -69,7 +97,7 @@ const DetailCard = ({ card }: { card: DetailCard }) => {
 }
 
 const IndexPageTemplate = ({
-  actionNetworkId,
+  actionNetwork,
   detailCards = [],
   partnerGroups = [],
 }: TemplateProps) => {
@@ -82,7 +110,7 @@ const IndexPageTemplate = ({
           />
       </section>
       <section className={Styles.signup}>
-        <ActionNetwork actionId={actionNetworkId} />
+        <ActionNetwork actionId={actionNetwork.id} type={actionNetwork.type} />
       </section>
       <section className={Styles.details} id="more-info">
         <div className={Styles.detailsLayout}>
@@ -96,23 +124,20 @@ const IndexPageTemplate = ({
   )
 }
 
-export type PageProps = {
-  data: {
-    markdownRemark: {
-      frontmatter: TemplateProps
-    }
-  }
-}
+const transformQuery = ({ data: { markdownRemark: { frontmatter } } }: PageQuery): TemplateProps => ({
+  intro: frontmatter.intro,
+  detailCards: frontmatter.detailCards,
+  actionNetwork: frontmatter.actionNetwork,
+  partnerGroups: frontmatter.partnerGroups,
+})
 
-const IndexPage = ({ data }: PageProps) => {
-  const { frontmatter } = data.markdownRemark
+const IndexPage = (query: PageQuery) => {
+  const props = transformQuery(query)
   return (
     <Layout
       headerBackgroundColor="var(--color-dark-blue)"
       headerTextColor="#fff">
-      <IndexPageTemplate
-        {...frontmatter}
-      />
+      <IndexPageTemplate {...props} />
     </Layout>
   )
 }
@@ -132,7 +157,10 @@ export const pageQuery = graphql`
     markdownRemark(fields: { slug: { eq: $slug } }) {
       frontmatter {
         intro
-        actionNetworkId
+        actionNetwork {
+          id
+          type
+        }
         detailCards {
           text
           image {

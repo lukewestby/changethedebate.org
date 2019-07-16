@@ -51,9 +51,19 @@ collections:
           - label: Intro
             name: intro
             widget: string
-          - label: Action Network ID
-            name: "actionNetworkId"
-            widget: string
+          - label: Action Network Form
+            name: "actionNetwork"
+            widget: "object"
+            fields:
+              - label: "ID"
+                name: "id"
+                widget: "string"
+              - label: "Type"
+                name: "type"
+                widget: "select"
+                options:
+                  - "form"
+                  - "event"
           - label: Detail Cards
             name: detailCards
             widget: list

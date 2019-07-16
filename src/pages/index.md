@@ -6,7 +6,9 @@ intro: >-
   voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
   occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
   anim id est laborum.
-actionNetworkId: make-detroit-the-engine-of-the-green-new-deal
+actionNetwork:
+  id: make-detroit-the-engine-of-the-green-new-deal
+  type: event
 detailCards:
   - image: /images/placeholder_300_300.png
     text: 'Walk in the shoes of workers striking against corporate bosses '

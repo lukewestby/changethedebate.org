@@ -72,12 +72,10 @@ module.exports = {
       resolve: 'gatsby-plugin-google-fonts',
       options: {
         fonts: [
-          'Material Icons',
           'Teko:700',
           'Roboto\:400,400i,700,900',
-          'Roboto Condensed\:700'
         ],
-        display: 'swap'
+        display: 'block'
       }
     },
     {

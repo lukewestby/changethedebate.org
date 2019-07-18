@@ -41,7 +41,7 @@ mainEntries:
     slug: can-you-help-me-get-to-cass-park
   - answer: >-
       Sure do! [Click this link to access
-      them](https://www.facebook.com/events/459306721523008/permalink/465813954205618/),
+      them](/documents/flyer.pdf),
       and print to your heart's delight.
     question: >-
       I'd like to post some flyers to let people in my

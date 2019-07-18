@@ -37,10 +37,10 @@
   --font-weight-h2: 700;
   --font-tracking-h2: 0.075em;
   --font-family-h2: var(--font-family-copy);
-  --font-size-h1: 94px;
+  --font-size-h1: 72px;
   --font-weight-h1: 700;
   --font-tracking-h1: 0.050em;
-  --font-leading-h1: 118px;
+  --font-leading-h1: 1.4;
   --font-family-h1: var(--font-family-display);
   --easing-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
   --easing-curve-standard: var(--easing-standard);

@@ -72,9 +72,9 @@ const PartnerList = ({ partners, title }: PartnerListProps) => (
       {partners.map(p => (
         <a
           className={Styles.partner}
-          href={p.homepage}
+          href={p.homepage ? p.homepage : undefined}
           key={p.name}>
-          <PreviewCompatibleImage image={p.logo} />
+          <PreviewCompatibleImage style={{ maxWidth: '100%', display: 'block', objectFit: 'contain' }} image={p.logo} />
           <p className={Styles.partnerName}>{p.name}</p>
         </a>
       ))}
@@ -113,6 +113,7 @@ const IndexPageTemplate = ({
         <ActionNetwork actionId={actionNetwork.id} type={actionNetwork.type} />
       </section>
       <section className={Styles.details} id="more-info">
+        <h3 className={Styles.detailsChallenge}>We challenge candidates to</h3>
         <div className={Styles.detailsLayout}>
           {detailCards.map((c, i) => <DetailCard card={c} key={i} />)}
         </div>

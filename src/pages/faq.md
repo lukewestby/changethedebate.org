@@ -1,107 +1,59 @@
 ---
 templateKey: faq-page
-intro: >-
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-  incididunt ut labore et dolore magna aliqua.
+intro: ''
 mainEntries:
   - answer: >-
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-      aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-      voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      Many of the Democratic candidates are supporting a major program called
+      the Green New Deal, which is designed to stop climate change while
+      creating millions of jobs. This could be a great thing, but only if it
+      prioritizes the leadership, issues and needs of Detroiters. That’s why our
+      message is **MAKE DETROIT THE ENGINE OF THE GREEN NEW DEAL**.
 
 
-      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-      deserunt mollit anim id est laborum.
-    question: >-
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua.
-    slug: question-1
+      We’ll be raising up issues including water shutoffs, air pollution,
+      environmental racism, emergency management and tax giveaways to
+      corporations and billionaires, the need for good union jobs and worker
+      power for Detroiters, and the work that’s beginning to establish a healthy
+      and regenerative economy here in Detroit.
+    question: What's all this about the Green New Deal?
+    slug: whats-all-this-about-the-green-new-deal
   - answer: >-
-      Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-      fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
-      sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit
-      amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
-      incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad
-      minima veniam, quis nostrum exercitationem ullam corporis suscipit
-      laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum
-      iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae
-      consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-    question: >-
-      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-      doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
-      inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-    slug: question-2
+      Yes, no problem. We will be at Cass Park until at least 5:30p.m. We will
+      begin marching towards the Fox Theater at 5:30pm or shortly after.
+    question: I can't make it right at 4p.m. Can I arrive late?
+    slug: i-cant-make-it-right-at-4pm-can-i-arrive-late
   - answer: >-
-      No one rejects, dislikes, or avoids pleasure itself, because it is
-      pleasure, but because those who do not know how to pursue pleasure
-      rationally encounter consequences that are extremely painful. Nor again is
-      there anyone who loves or pursues or desires to obtain pain of itself,
-      because it is pain, but because occasionally circumstances occur in which
-      toil and pain can procure him some great pleasure. To take a trivial
-      example, which of us ever undertakes laborious physical exercise, except
-      to obtain some advantage from it? But who has any right to find fault with
-      a man who chooses to enjoy a pleasure that has no annoying consequences,
-      or one who avoids a pain that produces no resultant pleasure?
-    question: >-
-      But I must explain to you how all this mistaken idea of denouncing
-      pleasure and praising pain was born and I will give you a complete account
-      of the system, and expound the actual teachings of the great explorer of
-      the truth, the master-builder of human happiness.
-    slug: question-3
+      Yes! There will be a food truck and free snacks on-site for the rally.
+      Free water will also be available for the rally and the march.
+    question: Will there be food and water at the event?
+    slug: will-there-be-food-and-water-at-the-event
   - answer: >-
-      Et harum quidem rerum facilis est et expedita distinctio. Nam libero
-      tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo
-      minus id quod maxime placeat facere possimus, omnis voluptas assumenda
-      est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis
-      debitis aut rerum necessitatibus saepe eveniet ut et voluptates
-      repudiandae sint et molestiae non recusandae. Itaque earum rerum hic
-      tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-      consequatur aut perferendis doloribus asperiores repellat.
-    question: >-
-      At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-      praesentium voluptatum deleniti atque corrupti quos dolores et quas
-      molestias excepturi sint occaecati cupiditate non provident, similique
-      sunt in culpa qui officia deserunt mollitia animi, id est laborum et
-      dolorum fuga.
-    slug: question-4
+      Disability justice advocates are involved with the planning and we are
+      working to make accommodations. Your needs are being planned for! More
+      details about specific accommodations will be posted here as they are
+      confirmed.
+    question: I have a disability. Will there be accommodations for me?
+    slug: i-have-a-disability-will-there-be-accommodations-for-me
   - answer: >-
-      These cases are perfectly simple and easy to distinguish. In a free hour,
-      when our power of choice is untrammelled and when nothing prevents our
-      being able to do what we like best, every pleasure is to be welcomed and
-      every pain avoided. But in certain circumstances and owing to the claims
-      of duty or the obligations of business it will frequently occur that
-      pleasures have to be repudiated and annoyances accepted. The wise man
-      therefore always holds in these matters to this principle of selection: he
-      rejects pleasures to secure other greater pleasures, or else he endures
-      pains to avoid worse pains.
+      Private buses will be coming to the Park from several locations around
+      Detroit. Details will be posted here as soon as they are confirmed.
+    question: Can you help me get to Cass Park?
+    slug: can-you-help-me-get-to-cass-park
+  - answer: >-
+      Sure do! [Click this link to access
+      them](https://www.facebook.com/events/459306721523008/permalink/465813954205618/),
+      and print to your heart's delight.
     question: >-
-      On the other hand, we denounce with righteous indignation and dislike men
-      who are so beguiled and demoralized by the charms of pleasure of the
-      moment, so blinded by desire, that they cannot foresee the pain and
-      trouble that are bound to ensue; and equal blame belongs to those who fail
-      in their duty through weakness of will, which is the same as saying
-      through shrinking from toil and pain.
-    slug: question-5
-categorizedEntries:
-  - entries:
-      - answer: >-
-          These cases are perfectly simple and easy to distinguish. In a free
-          hour, when our power of choice is untrammelled and when nothing
-          prevents our being able to do what we like best, every pleasure is to
-          be welcomed and every pain avoided. But in certain circumstances and
-          owing to the claims of duty or the obligations of business it will
-          frequently occur that pleasures have to be repudiated and annoyances
-          accepted. The wise man therefore always holds in these matters to this
-          principle of selection: he rejects pleasures to secure other greater
-          pleasures, or else he endures pains to avoid worse pains.
-        question: >-
-          On the other hand, we denounce with righteous indignation and dislike
-          men who are so beguiled and demoralized by the charms of pleasure of
-          the moment, so blinded by desire, that they cannot foresee the pain
-          and trouble that are bound to ensue; and equal blame belongs to those
-          who fail in their duty through weakness of will, which is the same as
-          saying through shrinking from toil and pain.
-        slug: question-6
-    name: Lorem Ipsum Dolor
+      I'd like to post some flyers to let people in my
+      school/office/neighborhood know about this. Do you have any?
+    slug: id-like-to-post-some-flyers-to-let-people-know-about-this
+  - answer: >-
+      Yes! Young people are invited to Sunrise's Midwest Summer Summit on July
+      28-29. Check it out here: https://www.sunrisemovement.org/midwest-summit
+    question: >-
+      I'm coming with Sunrise Movement, and I heard something about a training
+      summit in advance. What's the deal with that?
+    slug: sunrise-movement-training-summit
+categorizedEntries: []
 ---
 

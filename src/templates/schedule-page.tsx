@@ -11,12 +11,6 @@ import Markdown from '../components/Markdown'
 import Text from '../components/Text'
 import Hero from '../components/Hero'
 
-type Contact = {
-  name: string,
-  phone: string,
-  email: string,
-}
-
 type Location = {
   name: string,
   address: string,
@@ -27,10 +21,8 @@ type Location = {
 type Event = {
   name: string,
   start: DateTime,
-  end: DateTime,
   details: string,
   location: Location,
-  contact: Contact,
 }
 
 type Translations = {
@@ -61,7 +53,6 @@ type PageQuery = {
         events: Array<{
           name: string,
           startTime: string,
-          endTime: string,
           details: string,
           location: {
             name: string,
@@ -69,19 +60,10 @@ type PageQuery = {
             latitude: number,
             longitude: number,
           },
-          contact: {
-            name: string,
-            phone: string,
-            email: string,
-          }
         }>
       }
     }
   }
-}
-
-const timeFormat = (zone: Timezone.Zone, date: DateTime) => {
-  return date.toFormat('t')
 }
 
 const EventSection = ({ translations, event }: EventSectionProps) => {
@@ -91,42 +73,24 @@ const EventSection = ({ translations, event }: EventSectionProps) => {
       className={Styles.event}>
       <div className={Styles.eventInfoTop}>
         <h3 className={Styles.eventHeader}>{event.name}</h3>
-        <p className={Styles.eventTime}>{event.start.toFormat('DD')} • {timeFormat(zone, event.start)} - {timeFormat(zone, event.end)}</p>
+        <p className={Styles.eventTime}>{event.start.setZone(zone).toFormat('DDD')} • {event.start.get('hour') === 0 ? 'TBA' : event.start.setZone(zone).toFormat('t')}</p>
       </div>
       <div>
         <div>
           <Markdown input={event.details} />
         </div>
-        <div className={Styles.contact}>
-          <h4 className={Styles.contactHeader}>{translations.contactHeader}</h4>
-          <p className={Styles.contactInfo}>{event.contact.name}</p>
-          {event.contact.phone ?
-            <a
-              className={Styles.contactInfo}
-              href={`tel:${event.contact.phone}`}>
-              {event.contact.phone}
-            </a> :
-            null
-          }
-          {event.contact.email ?
-            <a
-              className={Styles.contactInfo}
-              href={`mailto:${event.contact.email}`}>
-              {event.contact.email}
-            </a> :
-            null
-          }
+      </div>
+      {event.location.name === 'TBA' ? null :
+        <div className={Styles.eventLocation}>
+          <Map
+            className={Styles.eventMapLink}
+            link={`https://www.google.com/maps/place/${encodeURIComponent(event.location.address)}`}
+            latitude={event.location.latitude}
+            longitude={event.location.longitude} />
+          <p className={Styles.locationAddress}>{event.location.name}</p>
+          <p className={Styles.locationAddress}>{event.location.address}</p>
         </div>
-      </div>
-      <div className={Styles.eventLocation}>
-        <Map
-          className={Styles.eventMapLink}
-          link={`https://www.google.com/maps/place/${encodeURIComponent(event.location.address)}`}
-          latitude={event.location.latitude}
-          longitude={event.location.longitude} />
-        <p className={Styles.locationAddress}>{event.location.name}</p>
-        <p className={Styles.locationAddress}>{event.location.address}</p>
-      </div>
+      }
     </article>
   )
 }
@@ -140,7 +104,7 @@ export const SchedulePageTemplate = ({
     <>
       <section>
         <Hero
-          title="Events"
+          title="Schedule"
           subtitle={intro} />
       </section>
       <section className={Styles.events}>
@@ -176,7 +140,6 @@ const transformQuery = (data: PageQuery): TemplateProps => ({
     .events
     .map(e => ({
       start: DateTime.fromISO(e.startTime, { zone: 'UTC' }),
-      end: DateTime.fromISO(e.endTime, { zone: 'UTC' }),
       name: e.name,
       details: e.details,
       location: {
@@ -185,11 +148,6 @@ const transformQuery = (data: PageQuery): TemplateProps => ({
         latitude: e.location.latitude,
         longitude: e.location.longitude
       },
-      contact: {
-        name: e.contact.name,
-        phone: e.contact.phone,
-        email: e.contact.email,
-      }
     }))
 })
 
@@ -218,18 +176,12 @@ export const pageQuery = graphql`
         events {
           startTime(locale: "UTC")
           name
-          endTime(locale: "UTC")
           details
           location {
             address
             name
             latitude
             longitude
-          }
-          contact {
-            email
-            name
-            phone
           }
         }
       }

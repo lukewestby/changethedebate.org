@@ -88,12 +88,15 @@ collections:
                   - label: Name
                     name: name
                     widget: string
+                    required: true
                   - label: Logo
                     name: logo
                     widget: image
+                    required: false
                   - label: Homepage
                     name: homepage
                     widget: string
+                    required: false
       - file: "src/pages/faq.md"
         label: "FAQ"
         name: "faq"
@@ -105,6 +108,7 @@ collections:
           - label: Intro
             name: intro
             widget: text
+            required: false
           - label: "Main Questions"
             name: "mainEntries"
             widget: "list"
@@ -155,6 +159,7 @@ collections:
           - label: "Intro"
             name: "intro"
             widget: "text"
+            required: false
           - label: "Events"
             name: "events"
             hint: "What events will take place as a part of this action?"
@@ -170,11 +175,6 @@ collections:
                 name: "startTime"
                 required: true
                 hint: "What day and time will this event start?"
-                widget: "datetime"
-              - label: "End Time"
-                name: "endTime"
-                required: true
-                hint: "What day and time will this event end?"
                 widget: "datetime"
               - label: "Details"
                 name: "details"
@@ -207,27 +207,6 @@ collections:
                     required: true
                     widget: "number"
                     valueType: "float"
-              - label: "Contact"
-                name: "contact"
-                required: true
-                hint: "Who can people contact to get help with this event?"
-                widget: "object"
-                fields:
-                  - label: "Name"
-                    name: "name"
-                    required: true
-                    hint: "What is the name of the person or team people should talk to for help?"
-                    widget: "string"
-                  - label: "Phone"
-                    name: "phone"
-                    required: true
-                    hint: "What phone number should people call?"
-                    widget: "string"
-                  - label: "Email"
-                    name: "email"
-                    required: true
-                    hint: "What email address should people contact?"
-                    widget: "string"
           - label: "Translations"
             name: "translations"
             required: true

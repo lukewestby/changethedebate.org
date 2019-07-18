@@ -12,20 +12,13 @@ type Entry = {
   slug: string,
 }
 
-type Category = {
-  name: string,
-  entries: Array<Entry>,
-}
-
 export type TemplateProps = {
   mainEntries: Array<Entry>,
-  categorizedEntries: Array<Category>,
   intro: string,
 }
 
 const FaqPageTemplate = ({
   mainEntries,
-  categorizedEntries,
   intro,
 }: TemplateProps) => (
   <>
@@ -46,21 +39,6 @@ const FaqPageTemplate = ({
             </React.Fragment>
           ))}
         </dl>
-        {categorizedEntries.map((c: Category) => (
-          <div key={c.name}>
-            <h3 className={Styles.categoryName}>{c.name}</h3>
-            <dl className={Styles.faqList}>
-              {c.entries.map((e: Entry) => (
-                <React.Fragment key={e.question}>
-                  <dt className={Styles.faqQuestion} id={e.slug}>{e.question}</dt>
-                  <dd className={Styles.faqAnswer}>
-                    <Markdown input={e.answer} />
-                  </dd>
-                </React.Fragment>
-              ))}
-            </dl>
-          </div>
-        ))}
       </div>
     </section>
   </>
@@ -82,7 +60,6 @@ const FaqPage = ({ data }: PageProps) => {
       headerTextColor="#fff">
       <FaqPageTemplate
         mainEntries={frontmatter.mainEntries}
-        categorizedEntries={frontmatter.categorizedEntries}
         intro={frontmatter.intro}
       />
     </Layout>
@@ -100,14 +77,6 @@ export const pageQuery = graphql`
           question
           answer
           slug
-        }
-        categorizedEntries {
-          name
-          entries {
-            question
-            answer
-            slug
-          }
         }
       }
     }

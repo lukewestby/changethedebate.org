@@ -71,14 +71,6 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
           .processSync(a.answer)
           .toString()
       })
-      node.frontmatter.categorizedEntries.forEach(a => {
-        a.entries.forEach(b => {
-          b.answer = remark()
-            .use(remarkHTML)
-            .processSync(b.answer)
-            .toString()
-        })
-      })
     }
 
     if (node.frontmatter && node.frontmatter.templateKey === 'schedule-page') {

@@ -54,6 +54,5 @@ mainEntries:
       I'm coming with Sunrise Movement, and I heard something about a training
       summit in advance. What's the deal with that?
     slug: sunrise-movement-training-summit
-categorizedEntries: []
 ---
 

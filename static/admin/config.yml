@@ -125,29 +125,6 @@ collections:
               - label: Answer
                 name: answer
                 widget: markdown
-          - label: "Categorized Entries"
-            name: "categorizedEntries"
-            widget: "list"
-            fields:
-              - label: "Category Name"
-                name: "name"
-                widget: "string"
-              - label: "Entries"
-                name: "entries"
-                widget: "list"
-                fields:
-                  - label: "Slug"
-                    name: "slug"
-                    widget: "string"
-                    required: true
-                    hint: >-
-                      A unique identifier for the question that is composed of letters, numbers, and hyphens that will allow visitors and hyperlinks to point to a specific question on the page. For example, if you fill this in as my-question-and-answer then you'll be able construct the URL https://changethedebate.org/faq#my-question-and-answer, and visitors to that URL will be immediately scrolled to this question.
-                  - label: Question
-                    name: question
-                    widget: text
-                  - label: Answer
-                    name: answer
-                    widget: markdown
       - file: "src/pages/schedule.md"
         label: "Schedule"
         name: "schedule"

@@ -69,14 +69,19 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-google-fonts',
+      resolve: 'gatsby-plugin-prefetch-google-fonts',
       options: {
         fonts: [
-          'Teko:700',
-          'Roboto\:400,400i,700,900',
+          {
+            family: 'Teko',
+            variants: ['700']
+          },
+          {
+            family: 'Roboto',
+            variants: ['400', '400i', '700', '900']
+          },
         ],
-        display: 'block'
-      }
+      },
     },
     {
       resolve: 'gatsby-plugin-netlify-cms',

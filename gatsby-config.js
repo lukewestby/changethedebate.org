@@ -3,8 +3,7 @@ const fsApi = require('netlify-cms-backend-fs/dist/fs/fs-express-api')
 module.exports = {
   siteMetadata: {
     title: 'Rally for Detroit\'s GND',
-    description:
-      'This repo contains an example business website that is built with Gatsby, and Netlify CMS.It follows the JAMstack architecture by using Git as a single source of truth, and Netlify for continuous deployment, and CDN distribution.',
+    description: 'Candidates are coming to debate in Detroit on July 30-31. We are uniting to tell the story of Detroit and demand a new kind of leadership.',
   },
   plugins: [
     'gatsby-plugin-react-helmet',

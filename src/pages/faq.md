@@ -40,7 +40,7 @@ mainEntries:
     slug: can-you-help-me-get-to-cass-park
   - answer: >-
       Sure do! [Click this link to access
-      them](/documents/flyer.pdf),
+      them](/documents/detroit-flyers.pdf),
       and print to your heart's delight.
     question: >-
       I'd like to post some flyers to let people in my

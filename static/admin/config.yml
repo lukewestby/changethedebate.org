@@ -213,3 +213,63 @@ collections:
           - label: "Googe Form ID"
             name: "googleFormId"
             widget: "string"
+      - file: "src/pages/buses.md"
+        label: "Buses"
+        name: "buses"
+        fields:
+          - label: "Template Key"
+            name: "templateKey"
+            widget: "hidden"
+            default: "buses-page"
+          - label: "Intro"
+            name: "intro"
+            widget: "text"
+            required: false
+          - label: "Trips"
+            name: "trips"
+            hint: "What events will take place as a part of this action?"
+            widget: "list"
+            allow_add: true
+            fields:
+              - label: "Name"
+                name: "name"
+                required: true
+                widget: "string"
+              - label: "Departure"
+                name: "departure"
+                required: true
+                widget: "datetime"
+              - label: "Departure"
+                name: "departure"
+                required: true
+                widget: "datetime"
+              - label: "Return"
+                name: "return"
+                required: true
+                widget: "datetime"
+              - label: "RSVP"
+                name: "rsvp"
+                required: false
+                widget: "string"
+              - label: "Map Link"
+                name: "mapLink"
+                required: false
+                widget: "string"
+              - label: "Address"
+                name: "address"
+                required: false
+                widget: "string"
+              - label: "Short Address"
+                name: "shortAddress"
+                required: true
+                widget: "string"
+              - label: "Latitude"
+                name: "latitude"
+                required: false
+                widget: "number"
+                valueType: "float"
+              - label: "Longitude"
+                name: "longitude"
+                required: false
+                widget: "number"
+                valueType: "float"

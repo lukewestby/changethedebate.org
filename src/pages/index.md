@@ -56,6 +56,9 @@ partnerGroups:
       - homepage: 'https://climatejusticealliance.org/'
         logo: /images/cjalogo.png
         name: Climate Justice Alliance
+      - homepage: ''
+        logo: /images/NGMI_Logo.png
+        name: NextGen MI
     title: Hosted by the Frontline Detroit Organizing Committee
 ---
 

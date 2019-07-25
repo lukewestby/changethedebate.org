@@ -12,6 +12,13 @@
   padding-bottom: 16px;
 }
 
+.disclaimer {
+  padding-bottom: 16px;
+  font-size: 14px;
+  max-width: 640px;
+  text-align: center;
+}
+
 .footerLink {
   margin-right: 16px;
   color: inherit;

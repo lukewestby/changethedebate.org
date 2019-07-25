@@ -26,17 +26,23 @@ events:
     name: Rally and March for Detroit's Green New Deal
     startTime: 2019-07-30T20:00:00.000Z
   - details: >-
-      Residents living in the shadow of the Marathon Oil refinery will welcome
-      presidential contenders to their neighborhood to see the impacts of
-      unchecked corporate pollution and hear residents' plans for a better
-      future. This event will be invitation-only.
+      48217 is the most contaminated zip code in Michigan. Marathon Oil and
+      other corporate polluters are violating residents' human right to clean
+      air and water, while politicians look the other way. __Residents invite
+      all presidential candidates to visit 48217__ to breathe our air and see
+      the real impacts of environmental racism. We need a Green New Deal for
+      48217, and we need the candidates to follow the leadership of all
+      frontline communities!
+
+
+      See general location [here](https://www.google.com/maps/place/Detroit,+MI+48217/@42.2726676,-83.1974689,13z/data=!4m5!3m4!1s0x883b33e51c2c8907:0x8390a4c1206bc8c8!8m2!3d42.2827426!4d-83.1488186).
     location:
       address: TBA
       latitude: 0
       longitude: 0
       name: TBA
-    name: Breathe Our Air
-    startTime: 2019-08-01T00:00:00.000Z
+    name: 'Dems: Visit 48217'
+    startTime: 2019-07-31T12:30:00.000Z
   - details: >-
       Downtown Detroit security officers are leading the fight for One Detroit
       where all hardworking families can thrive in the city's booming economy
@@ -45,12 +51,12 @@ events:
       training and voice on the job that they need to protect downtown and
       create a better life for their families.
     location:
-      address: '2 Woodward Ave, Detroit, MI 48226'
-      latitude: 42.330104
-      longitude: -83.044446
-      name: Spirit of Detroit
+      address: 'TBA'
+      latitude: 0
+      longitude: 0
+      name: TBA
     name: One Detroit Stand for Security Action
-    startTime: 2019-07-31T16:00:00.000Z
+    startTime: 2019-07-31T14:00:00.000Z
 translations:
   contactHeader: 'For help or questions, contact'
   locationHeader: Location

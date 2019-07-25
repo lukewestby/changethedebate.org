@@ -28,15 +28,14 @@ mainEntries:
     question: Will there be food and water at the event?
     slug: will-there-be-food-and-water-at-the-event
   - answer: >-
-      Disability justice advocates are involved with the planning and we are
-      working to make accommodations. Your needs are being planned for! More
-      details about specific accommodations will be posted here as they are
-      confirmed.
+      Yes! Accessibility is being supported by Detroit Disability Power and
+      other disability justice advocates. There will be ASL translation and
+      an accessible space reserved near the front of the rally. Additional
+      accommodations are being confirmed and will be posted soon.
     question: I have a disability. Will there be accommodations for me?
     slug: i-have-a-disability-will-there-be-accommodations-for-me
   - answer: >-
-      Private buses will be coming to the Park from several locations around
-      Detroit. Details will be posted here as soon as they are confirmed.
+      Yes, please visit the [buses page](/buses) for information
     question: Can you help me get to Cass Park?
     slug: can-you-help-me-get-to-cass-park
   - answer: >-

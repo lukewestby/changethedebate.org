@@ -69,7 +69,7 @@ const TripSection = ({ trip }: TripSectionProps) => {
           <h4 className={Styles.infoHeader}>RSVP</h4>
           {trip.rsvp ?
             <p>RSVP <a target="_blank" href={trip.rsvp}>here</a>. Location will be sent upon RSVP.</p> :
-            <p>No RSVP required. Show up at {trip.departure.minus({ minutes: 10 }).toFormat('t')} and get on the bus!</p>
+            <p>No RSVP required. Show up at {trip.departure.setZone(zone).minus({ minutes: 10 }).toFormat('t')} and get on the bus!</p>
           }
         </div>
       </div>

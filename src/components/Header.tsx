@@ -20,6 +20,7 @@ const Header = (props: Props) => {
         <Link className={Styles.navLink} to="/faq">FAQ</Link>
         <Link className={Styles.navLink} to="/schedule">Schedule</Link>
         <Link className={Styles.navLink} to="/buses">Buses</Link>
+        <Link className={Styles.navLink} to="/demands">Demands</Link>
       </nav>
     </header>
   )

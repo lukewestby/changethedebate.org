@@ -1,0 +1,49 @@
+.intro {
+  position: relative;
+  padding-bottom: 64px;
+  font-size: var(--font-size-h3);
+  color: var(--color-light-blue);
+}
+
+.inner {
+  max-width: calc(var(--layout-max-width) * 0.75); 
+  width: 100%;
+  margin: 0 auto;
+  padding: 64px 32px;
+}
+
+.demandsList {
+}
+
+.demandsQuestion {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-h3);
+  letter-spacing: var(--font-tracking-h3);
+  font-family: var(--font-family-h3);
+  color: var(--color-light-blue);
+  padding: 16px 0;
+  text-transform: uppercase;
+}
+
+.demandsAnswer {
+  margin: 0;
+  font-size: var(--font-size-body);
+  font-family: var(--font-family-body);
+  line-height: var(--font-leading-body);
+  padding-bottom: 32px;
+}
+
+.categoryNameTop {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-h2);
+  letter-spacing: var(--font-tracking-h2);
+  font-family: var(--font-family-h2);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.categoryNameBottom {
+  margin: 0;
+  font-size: var(--font-size-h3);
+  text-align: center;
+}

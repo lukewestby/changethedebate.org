@@ -7,6 +7,7 @@ import FaqPagePreview from './preview-templates/FaqPagePreview'
 import SchedulePagePreview from './preview-templates/SchedulePagePreview'
 import VolunteerPagePreview from './preview-templates/VolunteerPagePreview'
 import BusesPagePreview from './preview-templates/BusesPagePreview'
+import DemandsPagePreview from './preview-templates/DemandsPagePreview'
 import * as Preview from '../contexts/PreviewService'
 
 CMS.registerMediaLibrary(uploadcare);
@@ -17,6 +18,7 @@ CMS.registerPreviewTemplate('faq', FaqPagePreview)
 CMS.registerPreviewTemplate('schedule', SchedulePagePreview)
 CMS.registerPreviewTemplate('volunteer', VolunteerPagePreview)
 CMS.registerPreviewTemplate('buses', BusesPagePreview)
+CMS.registerPreviewTemplate('demands', DemandsPagePreview)
 
 if (process.env.NODE_ENV === 'development') {
   window.CMS_ENV = 'development_overrides'

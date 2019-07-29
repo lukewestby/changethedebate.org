@@ -273,3 +273,32 @@ collections:
                 required: false
                 widget: "number"
                 valueType: "float"
+      - file: "src/pages/demands.md"
+        label: "Demands"
+        name: "demands"
+        fields:
+          - label: "Template Key"
+            name: "templateKey"
+            widget: "hidden"
+            default: "demands-page"
+          - label: Intro
+            name: intro
+            widget: text
+            required: false
+          - label: "Themes"
+            name: "themes"
+            widget: "list"
+            fields:
+              - label: "Summary"
+                name: "summary"
+                widget: "text"
+              - label: "Demands"
+                name: "demands"
+                widget: "list"
+                fields:
+                  - label: "Title"
+                    name: "title"
+                    widget: "text"
+                  - label: "Details"
+                    name: "details"
+                    widget: "markdown"

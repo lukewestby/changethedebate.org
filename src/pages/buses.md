@@ -29,6 +29,15 @@ trips:
     latitude: 42.353255
     longitude: -83.0676461
     rsvp: ''
+  - name: 'UAW Solidarity House'
+    departure: 2019-07-30T19:30:00.000Z
+    return: 2019-07-31T00:30:00.000Z
+    address: '8000 E Jefferson Ave Detroit MI 48214'
+    mapLink: 'https://www.google.com/maps/place/UAW+Solidarity+House/@42.3511644,-82.9969513,17z/data=!3m1!4b1!4m5!3m4!1s0x8824d358a00d89a1:0xfbfda04be100afc0!8m2!3d42.3511644!4d-82.9947573'
+    shortAddress: 'UAW'
+    latitude: 42.3503361
+    longitude: -82.9959371
+    rsvp: ''
   - name: 'Ann Arbor'
     departure: 2019-07-30T18:00:00.000Z
     return: 2019-07-31T03:00:00.000Z

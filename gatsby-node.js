@@ -81,5 +81,16 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
           .toString()
       })
     }
+
+    if (node.frontmatter && node.frontmatter.templateKey === 'demands-page') {
+      node.frontmatter.themes.forEach(t => {
+        t.demands.forEach(d => {
+          d.details = remark()
+            .use(remarkHTML)
+            .processSync(d.details)
+            .toString()
+        })
+      })
+    }
   }
 }

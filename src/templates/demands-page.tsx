@@ -47,7 +47,7 @@ const transformQuery = (query: PageQuery) => {
 
 const titleToSlug = (title: string) =>
   title
-    .replace(/[^A-Za-z0-9]/g, '')
+    .replace(/[^A-Za-z0-9 ]/g, '')
     .replace(/\s+/g, '-')
     .toLowerCase()
 
